@@ -17,7 +17,7 @@ public class VEditorConfiguration {
     @Bean
     RouterFunction<ServerResponse> editorOptionsRouter() {
         return RouterFunctions.route()
-            .GET("/apis/api.willow.guqing.github.io/editor-options",
+            .GET("/apis/api.vditor.justice2001.github.io/editor-options",
                 request -> settingFetcher.getValues()
                     .flatMap(result -> ServerResponse.ok()
                         .contentType(MediaType.APPLICATION_JSON)

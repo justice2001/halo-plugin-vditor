@@ -1,6 +1,6 @@
 {
-  "name": "@halo-dev/plugin-starter",
-  "version": "1.0.0",
+  "name": "@zhengyi59/vditor-mde",
+  "version": "1.0.0-SNAPSHOT",
   "private": true,
   "scripts": {
     "dev": "vite build --watch --mode=development",

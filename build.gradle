@@ -5,7 +5,7 @@ plugins {
     id "run.halo.plugin.devtools" version "0.0.7"
 }
 
-group 'run.halo.starter'
+group 'top.mczhengyi'
 sourceCompatibility = JavaVersion.VERSION_17
 
 repositories {
