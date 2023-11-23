@@ -1,6 +1,6 @@
 # Vditor-mde 编辑器
 
-本插件将Vditor整合进Halo，该编辑器支持所见即所得编辑模式，且支持大纲、数学公式、脑图、图表、流程图、甘特图、时序图、五线谱、多媒体、语音阅读、标题锚点、代码高亮及复制、graphviz 渲染、plantumlUML图等内容。
+本插件将Vditor整合进Halo，该编辑器支持所见即所得编辑模式。
 
 > Vditor 是一款浏览器端的 Markdown 编辑器，支持所见即所得、即时渲染（类似 Typora）和分屏预览模式。它使用 TypeScript 实现，支持原生 JavaScript 以及 Vue、React、Angular 和 Svelte 等框架。
 
@@ -20,6 +20,7 @@ Vditor-mde插件当前仍然还在开发的早期阶段，作者也是第一次�
 - [x] 能够在Halo中运行Vditor编辑器
 - [ ] 支持图片上传
 - [ ] 支持高级表格
+- [ ] 支持大纲、数学公式、脑图、图表、流程图、甘特图、时序图、五线谱、多媒体、语音阅读、标题锚点、代码高亮及复制、graphviz 渲染、plantumlUML图
 
 ## 开发环境
 
