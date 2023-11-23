@@ -16,8 +16,6 @@ const props = withDefaults(
 
 const content = ref()
 const vditor = ref()
-const markdown = ref()
-const html = ref()
 
 const emit = defineEmits<{
   (event: "update:raw", value: string): void;
@@ -34,7 +32,7 @@ const debounceOnUpdate = () => {
 onMounted(() => {
   console.log(vditor)
   content.value = new Vditor(vditor.value, {
-    height: 360,
+    height: "calc(100vh - 56px)",
     toolbarConfig: {
       pin: true,
     },
@@ -60,7 +58,6 @@ onMounted(() => {
 
 <style lang="scss" scoped>
 #plugin-starter {
-  height: 100vh;
   background-color: #f8fafc;
   font-size: 20px;
 }
