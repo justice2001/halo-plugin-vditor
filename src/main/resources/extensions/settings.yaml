@@ -1,0 +1,13 @@
+apiVersion: v1alpha1
+kind: Setting
+metadata:
+    name: vditor-mde-settings
+spec:
+    forms:
+        - group: basic
+          label: 基本设置
+          formSchema:
+              - $formkit: checkbox
+                name: enable_render
+                label: 内置渲染器
+                value: true

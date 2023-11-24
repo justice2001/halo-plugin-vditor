@@ -13,6 +13,8 @@ spec:
   # 'homepage' usually links to the GitHub repository of the plugin
   homepage: https://github.com/justice2001/veditor-plugin
   # 'displayName' explains what the plugin does in only a few words
+  settingName: vditor-mde-settings
+  configMapName: vditor-mde-configMap
   displayName: "Vditor编辑器"
   description: "适用于Halo的Vditor编辑器"
   license:
