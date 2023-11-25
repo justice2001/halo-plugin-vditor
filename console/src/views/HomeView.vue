@@ -30,7 +30,6 @@ const debounceOnUpdate = () => {
 }
 
 onMounted(() => {
-  console.log(vditor)
   content.value = new Vditor(vditor.value, {
     height: "calc(100vh - 56px)",
     toolbarConfig: {
@@ -44,7 +43,52 @@ onMounted(() => {
     },
     input: (value: string) => {
       debounceOnUpdate()
-    }
+    },
+    toolbar: [
+      "emoji",
+      "headings",
+      "bold",
+      "italic",
+      "strike",
+      "link",
+      "|",
+      "list",
+      "ordered-list",
+      "check",
+      "outdent",
+      "indent",
+      "|",
+      "quote",
+      "line",
+      "code",
+      "inline-code",
+      "insert-before",
+      "insert-after",
+      "|",
+      "table",
+      "|",
+      "undo",
+      "redo",
+      "|",
+      "fullscreen",
+      "edit-mode",
+      {
+        name: "more",
+        toolbar: [
+          "both",
+          "export",
+          "outline",
+          "info",
+          "help",
+        ],
+      },],
+    counter: {
+      enable: true
+    },
+    outline: {
+      enable: true,
+      position: "left"
+    },
   })
 })
 
