@@ -31,10 +31,11 @@
 
 - [x] 能够在Halo中运行Vditor编辑器
 - [x] 支持数学公式、脑图、图表、流程图、甘特图、时序图、五线谱、graphviz 渲染、plantumlUML图
-- [ ] 支持暗色主题渲染
-- [ ] 支持资源选取
+- [ ] 添加编辑器默认展示模式设置
+- [ ] 支持附件选取插入
 - [ ] 支持代码高亮及复制
 - [ ] 支持多媒体渲染
+- [ ] 支持暗色主题渲染
 
 ## 🙏 鸣谢
 
@@ -47,7 +48,7 @@
 * [incubator-echarts](https://github.com/apache/incubator-echarts)：A powerful, interactive charting and visualization library for browser
 * [abcjs](https://github.com/paulrosen/abcjs)：JavaScript library for rendering standard music notation in a browser
 
-## 📃开发日志
+## 🏗开发日志
 
 - [Halo插件开发-Vditor Markdown（一）准备工作](https://halo.mczhengyi.top/archives/1700838373720)
 
