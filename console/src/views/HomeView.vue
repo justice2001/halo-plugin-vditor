@@ -79,11 +79,16 @@ onMounted(() => {
           "export",
           "outline",
           "info",
-          "help",
+          "help"
         ],
       },],
     counter: {
       enable: true
+    },
+    preview: {
+      markdown: {
+        toc: true
+      }
     },
     outline: {
       enable: true,
