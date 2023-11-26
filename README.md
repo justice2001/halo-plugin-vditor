@@ -50,7 +50,10 @@
 
 ## 🏗开发日志
 
-- [Halo插件开发-Vditor Markdown（一）准备工作](https://halo.mczhengyi.top/archives/1700838373720)
+- [Halo插件开发-Vditor Markdown（一）准备工作](https://blog.mczhengyi.top/archives/halo-plugin-dev-vditor-markdown-prepare)
+- [Halo插件开发-Vditor Markdown（二）编辑器](https://blog.mczhengyi.top/archives/halo-plugin-dev-vditor-markdown-editor)
+- Halo插件开发-Vditor Markdown（三）前台渲染注入 `努力赶稿中...`
+- Halo插件开发-Vditor Markdown（四）使用Halo附件管理器插入图片 `努力开发中...`
 
 ## 🧑‍💻开发环境
 
