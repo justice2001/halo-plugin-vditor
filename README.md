@@ -8,6 +8,15 @@
 
 > Vditor 是一款浏览器端的 Markdown 编辑器，支持所见即所得、即时渲染（类似 Typora）和分屏预览模式。它使用 TypeScript 实现，支持原生 JavaScript 以及 Vue、React、Angular 和 Svelte 等框架。
 
+## ✨特性
+
+- 集成强大的Markdown编辑器Vditor进Halo中
+- 提供所见即所得(wysiwyg)、即时渲染(ir)、分屏渲染(sv)三种渲染模式
+- 支持大纲、数学公式、脑图、图表、流程图、甘特图、时序图、五线谱、多媒体、语音阅读、标题锚点、代码高亮及复制、graphviz 渲染、plantumlUML图
+- 支持字符计数
+- 支持在前台注入渲染脚本(需在设置中开启)
+- 更多强大的语法功能请 [->到这<-](https://github.com/Vanessa219/vditor) 查看 (部分功能仍未支持)
+
 ## 💻使用方式
 
 1. 下载，目前提供以下下载方式：
@@ -18,12 +27,25 @@
 
 ## 📒TODO
 
+> 如果可以支持的功能将会加入到这个TODO列表中，列表中没有的功能也未必是不能支持的，可能只是开发者没有想到
+
 - [x] 能够在Halo中运行Vditor编辑器
 - [x] 支持数学公式、脑图、图表、流程图、甘特图、时序图、五线谱、graphviz 渲染、plantumlUML图
 - [ ] 支持暗色主题渲染
 - [ ] 支持资源选取
 - [ ] 支持代码高亮及复制
 - [ ] 支持多媒体渲染
+
+## 🙏 鸣谢
+
+>特别感谢[Vditor](https://github.com/Vanessa219/vditor),本插件大部分内容均为此编辑器提供
+
+* [Vditor](https://github.com/Vanessa219/vditor) 一款浏览器端的 Markdown 编辑器，支持所见即所得、即时渲染（类似 Typora）和分屏预览模式。
+* [Lute](https://github.com/88250/lute)：🎼 一款结构化的 Markdown 引擎，支持 Go 和 JavaScript
+* [highlight.js](https://github.com/highlightjs/highlight.js)：JavaScript syntax highlighter
+* [mermaid](https://github.com/knsv/mermaid)：Generation of diagram and flowchart from text in a similar manner as Markdown
+* [incubator-echarts](https://github.com/apache/incubator-echarts)：A powerful, interactive charting and visualization library for browser
+* [abcjs](https://github.com/paulrosen/abcjs)：JavaScript library for rendering standard music notation in a browser
 
 ## 📃开发日志
 
@@ -34,11 +56,11 @@
 插件开发的详细文档请查阅：<https://docs.halo.run/developer-guide/plugin/hello-world>
 
 ```bash
-git clone git@github.com:halo-sigs/plugin-starter.git
+git clone git@github.com:justice2001/vditor-mde.git
 
 # 或者当你 fork 之后
 
-git clone git@github.com:{your_github_id}/plugin-starter.git
+git clone git@github.com:{your_github_id}/vditor-mde.git
 ```
 
 ```bash
