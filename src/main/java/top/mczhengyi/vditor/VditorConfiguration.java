@@ -1,7 +1,6 @@
-package run.halo.starter;
+package top.mczhengyi.vditor;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
@@ -12,7 +11,7 @@ import run.halo.app.plugin.ReactiveSettingFetcher;
 
 @Component
 @RequiredArgsConstructor
-public class VEditorConfiguration {
+public class VditorConfiguration {
     private final ReactiveSettingFetcher settingFetcher;
 
     @Bean
