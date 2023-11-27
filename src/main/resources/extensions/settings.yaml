@@ -10,11 +10,13 @@ spec:
               - $formkit: checkbox
                 name: enable_render
                 label: 内置渲染器
+                help: 内置渲染器会对前台文章页面的公式、图表进行渲染
                 value: true
               - $formkit: select
                 name: defaultRenderMode
                 label: 默认渲染模式
-                value: ir
+                help: 进入文章编辑页面的默认编辑模式
+                value: wysiwyg
                 options:
                   - label: 所见即所得
                     value: wysiwyg
@@ -22,3 +24,8 @@ spec:
                     value: ir
                   - label: 分屏渲染
                     value: sv
+              - $formkit: checkbox
+                name: typeWriterMode
+                label: 打字机模式
+                help: 启用打字机模式将会始终将光标保持在视野中心位置
+                value: true

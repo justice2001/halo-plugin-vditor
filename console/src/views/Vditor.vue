@@ -33,23 +33,28 @@ type EditorConfig = {
   basic: {
     enable_render: boolean;
     defaultRenderMode: "ir" | "wysiwyg" | "sv" | undefined;
+    typeWriterMode: boolean;
   };
 };
 
 onMounted(async () => {
   let mode: "ir" | "wysiwyg" | "sv" | undefined = "ir"
+  let typeWriterMode: boolean = false
+  
   try {
     const response = await fetch(
       "/apis/api.vditor.mczhengyi.top/editor-options"
     );
     const editorConfig: EditorConfig = await response.json();
     mode = editorConfig.basic.defaultRenderMode
+    typeWriterMode = editorConfig.basic.typeWriterMode
   } catch (e) {
     // ignore this
   }
   vditor.value = new Vditor(vditorRef.value, {
     height: "calc(100vh - 56px)",
     mode: mode,
+    typewriterMode: typeWriterMode,
     toolbarConfig: {
       pin: true,
     },
