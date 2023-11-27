@@ -1,6 +1,7 @@
 package run.halo.starter;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
@@ -17,7 +18,7 @@ public class VEditorConfiguration {
     @Bean
     RouterFunction<ServerResponse> editorOptionsRouter() {
         return RouterFunctions.route()
-            .GET("/apis/api.vditor.justice2001.github.io/editor-options",
+            .GET("/apis/api.vditor.mczhengyi.top/editor-options",
                 request -> settingFetcher.getValues()
                     .flatMap(result -> ServerResponse.ok()
                         .contentType(MediaType.APPLICATION_JSON)

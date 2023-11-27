@@ -11,3 +11,14 @@ spec:
                 name: enable_render
                 label: 内置渲染器
                 value: true
+              - $formkit: select
+                name: defaultRenderMode
+                label: 默认渲染模式
+                value: ir
+                options:
+                  - label: 所见即所得
+                    value: wysiwyg
+                  - label: 即时渲染
+                    value: ir
+                  - label: 分屏渲染
+                    value: sv

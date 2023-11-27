@@ -29,9 +29,27 @@ const debounceOnUpdate = () => {
   emit("update", content.value.getValue());
 }
 
-onMounted(() => {
+type EditorConfig = {
+  basic: {
+    enable_render: boolean;
+    defaultRenderMode: "ir" | "wysiwyg" | "sv" | undefined;
+  };
+};
+
+onMounted(async () => {
+  let mode: "ir" | "wysiwyg" | "sv" | undefined = "ir"
+  try {
+    const response = await fetch(
+      "/apis/api.vditor.mczhengyi.top/editor-options"
+    );
+    const editorConfig: EditorConfig = await response.json();
+    mode = editorConfig.basic.defaultRenderMode
+  } catch (e) {
+    // ignore this
+  }
   content.value = new Vditor(vditor.value, {
     height: "calc(100vh - 56px)",
+    mode: mode,
     toolbarConfig: {
       pin: true,
     },

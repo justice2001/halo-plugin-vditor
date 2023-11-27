@@ -1,0 +1,11 @@
+apiVersion: v1alpha1
+kind: "Role"
+metadata:
+  name: role-template-vditor-mde
+  labels:
+    halo.run/role-template: "true"
+    halo.run/hidden: "true"
+    rbac.authorization.halo.run/aggregate-to-authenticated: "true"
+rules:
+  - nonResourceURLs: [ "/apis/api.vditor.mczhengyi.top/editor-options" ]
+    verbs: [ "get" ]
