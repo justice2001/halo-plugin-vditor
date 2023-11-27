@@ -30,7 +30,7 @@ const debounceOnUpdate = () => {
 }
 
 onMounted(() => {
-  vditor.value = new Vditor(vditor.value, {
+  vditor.value = new Vditor(vditorRef.value, {
     height: "calc(100vh - 56px)",
     toolbarConfig: {
       pin: true,
