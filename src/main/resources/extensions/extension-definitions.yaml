@@ -1,0 +1,10 @@
+apiVersion: plugin.halo.run/v1alpha1
+kind: ExtensionDefinition
+metadata:
+  name: ext-def-vditor-post-content
+spec:
+  className: top.mczhengyi.vditor.VditorPostContentHandler
+  # 文章内容扩展点的名称，固定值
+  extensionPointName: reactive-post-content-handler
+  displayName: "VditorPostContentHandler"
+  description: "Vditor render support for post content"

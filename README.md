@@ -100,6 +100,6 @@ halo:
 
 ## 📄参考文档
 
-- [Hola官方文档](https://docs.halo.run)
+- [Halo官方文档](https://docs.halo.run)
 - [willow-mde](https://github.com/guqing/willow-mde)
 - [plugin-highlightjs](https://github.com/halo-sigs/plugin-highlightjs)
