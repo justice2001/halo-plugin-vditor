@@ -125,3 +125,9 @@ onMounted(async () => {
 <template>
   <div id="vditor" ref="vditorRef"></div>
 </template>
+
+<style>
+.vditor ol {
+  list-style: decimal;
+}
+</style>
