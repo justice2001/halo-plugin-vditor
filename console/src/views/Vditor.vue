@@ -14,8 +14,8 @@ const props = withDefaults(
   }
 );
 
-const content = ref()
 const vditor = ref()
+const vditorRef = ref()
 
 const emit = defineEmits<{
   (event: "update:raw", value: string): void;
@@ -24,13 +24,13 @@ const emit = defineEmits<{
 }>();
 
 const debounceOnUpdate = () => {
-  emit("update:raw", content.value.getValue());
-  emit("update:content", content.value.getHTML() || "");
-  emit("update", content.value.getValue());
+  emit("update:raw", vditor.value.getValue());
+  emit("update:content", vditor.value.getHTML() || "");
+  emit("update", vditor.value.getValue());
 }
 
 onMounted(() => {
-  content.value = new Vditor(vditor.value, {
+  vditor.value = new Vditor(vditor.value, {
     height: "calc(100vh - 56px)",
     toolbarConfig: {
       pin: true,
@@ -39,7 +39,7 @@ onMounted(() => {
       enable: false,
     },
     after: () => {
-      content.value.setValue(props.raw || "# Title Here")
+      vditor.value.setValue(props.raw || "# Title Here")
     },
     input: (value: string) => {
       debounceOnUpdate()
@@ -100,14 +100,5 @@ onMounted(() => {
 </script>
 
 <template>
-  <div id="plugin-starter">
-    <div id="vditor" ref="vditor"></div>
-  </div>
+  <div id="vditor" ref="vditorRef"></div>
 </template>
-
-<style lang="scss" scoped>
-#plugin-starter {
-  background-color: #f8fafc;
-  font-size: 20px;
-}
-</style>

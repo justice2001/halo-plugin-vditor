@@ -1,4 +1,4 @@
-package run.halo.starter;
+package top.mczhengyi.vditor;
 
 import com.google.common.base.Throwables;
 import lombok.AllArgsConstructor;
@@ -47,8 +47,8 @@ public class VditorHeadProcessor implements TemplateHeadProcessor {
 
     private String renderScript() {
         return """
-                <link rel="stylesheet" href="https://unpkg.com/vditor/dist/index.css" />
-                <script src="https://unpkg.com/vditor/dist/method.min.js"></script>
+                <link rel="stylesheet" href="/plugins/vditor-mde/assets/static/index.css" />
+                <script src="/plugins/vditor-mde/assets/static/method.min.js"></script>
                 <script src="/plugins/vditor-mde/assets/static/render.js"></script>
                 """;
     }
