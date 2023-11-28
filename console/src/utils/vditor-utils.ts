@@ -27,6 +27,9 @@ export function getOptions(options: Options): IOptions {
     outline: {
       enable: true,
       position: "left"
+    },
+    fullscreen: {
+      index: 1000
     }
   }
 }
