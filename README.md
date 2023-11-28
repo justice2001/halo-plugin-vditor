@@ -7,7 +7,7 @@
 - ⬆️ 更新 Halo 最低兼容版本至 2.8.0
 - ✨ 添加默认编辑模式设置
 - ✨ 添加打字机模式设置
-- ✨ 添加插入图片功能
+- ✨ 添加插入图片功能(快捷键:⇧⌘P)
 - 🐛 修复了编辑器中有序列表左侧序号消失的问题
 - 🐛 修复全屏编辑器左侧被Halo导航栏遮挡的问题
 
@@ -69,8 +69,9 @@
 
 - [Halo插件开发-Vditor Markdown（一）准备工作](https://blog.mczhengyi.top/archives/halo-plugin-dev-vditor-markdown-prepare)
 - [Halo插件开发-Vditor Markdown（二）编辑器](https://blog.mczhengyi.top/archives/halo-plugin-dev-vditor-markdown-editor)
-- Halo插件开发-Vditor Markdown（三）前台渲染注入 `努力赶稿中...`
-- Halo插件开发-Vditor Markdown（四）使用Halo附件管理器插入图片 `努力开发中...`
+- [Halo插件开发-Vditor Markdown（三）插件设置](https://blog.mczhengyi.top/archives/halo-plugin-dev-vditor-3-settings)
+- Halo插件开发-Vditor Markdown（四）前台渲染注入 `努力赶稿中...`
+- Halo插件开发-Vditor Markdown（五）使用Halo附件管理器插入图片 `努力开发中...`
 
 ## 🧑‍💻开发环境
 

@@ -61,7 +61,7 @@ function getToolbar(showAttachmentCb: () => void): (string | IMenuItem)[] | unde
       icon: mdiImage,
       tip: "插入图片",
       tipPosition: "n",
-      hotkey: "⌥⌘I",
+      hotkey: "⇧⌘P",
       click: showAttachmentCb
     },
     "table",
