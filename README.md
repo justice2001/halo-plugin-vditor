@@ -1,6 +1,8 @@
 # halo-plugin-vditor
 
-### THIS VERSION 1.1.0
+---
+
+### Developing: v1.1.0
 
 - ⬆️ 更新 Halo 最低兼容版本至 2.8.0
 - ✨ 添加默认编辑模式设置
@@ -14,6 +16,8 @@
 本插件将Vditor整合进Halo，支持所见即所得编辑模式。
 
 编辑器支持数学公式、脑图、图表、流程图、甘特图、时序图、五线谱、graphviz 渲染、plantumlUML图
+
+如果您在使用本插件的过程中发现了BUG或新的建议，欢迎您在 [Github ISSUE](https://github.com/justice2001/halo-plugin-vditor/issues/new) 中提出
 
 > Vditor 是一款浏览器端的 Markdown 编辑器，支持所见即所得、即时渲染（类似 Typora）和分屏预览模式。它使用 TypeScript 实现，支持原生 JavaScript 以及 Vue、React、Angular 和 Svelte 等框架。
 
@@ -43,7 +47,7 @@
 - [x] 添加编辑器默认展示模式设置
 - [x] 优化代码命名
 - [x] 添加打字机模式
-- [ ] 支持附件选取插入
+- [x] 支持附件选取插入
 - [ ] 将Vditor前台渲染资源全量引入本地
 - [ ] 添加配置是否使用CDN加载前台资源
 - [ ] 支持代码高亮及复制
