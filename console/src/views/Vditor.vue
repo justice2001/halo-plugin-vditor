@@ -2,6 +2,9 @@
 import Vditor from "vditor";
 import {onMounted, ref} from "vue";
 import "vditor/dist/index.css"
+import type {EditorConfig} from "@/type/editor";
+import {getOptions} from "@/utils/vditor-utils";
+import type {AttachmentLike} from "@halo-dev/console-shared";
 
 const props = withDefaults(
   defineProps<{
@@ -16,6 +19,7 @@ const props = withDefaults(
 
 const vditor = ref()
 const vditorRef = ref()
+const attachmentSelectorModalShow = ref(false)
 
 const emit = defineEmits<{
   (event: "update:raw", value: string): void;
@@ -29,13 +33,21 @@ const debounceOnUpdate = () => {
   emit("update", vditor.value.getValue());
 }
 
-type EditorConfig = {
-  basic: {
-    enable_render: boolean;
-    defaultRenderMode: "ir" | "wysiwyg" | "sv" | undefined;
-    typeWriterMode: boolean;
-  };
-};
+// 选取附件后处理
+const attachmentSelect = (attachments: AttachmentLike[]) => {
+  // Reference https://github.com/guqing/willow-mde/blob/4b8e697132f8a8f4b08dd0f92cf10d070cb26793/console/src/components/toolbar/Toolbar.vue#L104
+  attachments.forEach(attachment => {
+    if (typeof attachment === "string") {
+      vditor.value.insertValue(`![](${attachment})`);
+    } else if ("url" in attachment) {
+      vditor.value.insertValue(`![${attachment.type}](${attachment.url})`);
+    } else if ("spec" in attachment) {
+      const { displayName } = attachment.spec;
+      const { permalink } = attachment.status || {};
+      vditor.value.insertValue(`![${displayName}](${permalink})`);
+    }
+  })
+}
 
 onMounted(async () => {
   let mode: "ir" | "wysiwyg" | "sv" | undefined = "ir"
@@ -51,83 +63,34 @@ onMounted(async () => {
   } catch (e) {
     // ignore this
   }
-  vditor.value = new Vditor(vditorRef.value, {
-    height: "calc(100vh - 56px)",
-    mode: mode,
-    typewriterMode: typeWriterMode,
-    toolbarConfig: {
-      pin: true,
-    },
-    cache: {
-      enable: false,
-    },
+  vditor.value = new Vditor(vditorRef.value, getOptions({
+    defaultRenderMode: mode,
+    typeWriterMode: typeWriterMode,
     after: () => {
       vditor.value.setValue(props.raw || "# Title Here")
     },
-    input: (value: string) => {
-      debounceOnUpdate()
-    },
-    toolbar: [
-      "emoji",
-      "headings",
-      "bold",
-      "italic",
-      "strike",
-      "link",
-      "|",
-      "list",
-      "ordered-list",
-      "check",
-      "outdent",
-      "indent",
-      "|",
-      "quote",
-      "line",
-      "code",
-      "inline-code",
-      "insert-before",
-      "insert-after",
-      "|",
-      "table",
-      "|",
-      "undo",
-      "redo",
-      "|",
-      "fullscreen",
-      "edit-mode",
-      {
-        name: "more",
-        toolbar: [
-          "both",
-          "export",
-          "outline",
-          "info",
-          "help"
-        ],
-      },],
-    counter: {
-      enable: true
-    },
-    preview: {
-      markdown: {
-        toc: true
-      }
-    },
-    outline: {
-      enable: true,
-      position: "left"
-    },
-  })
+    input: debounceOnUpdate,
+    showAttachment: () => attachmentSelectorModalShow.value = true
+  }))
 })
 
 </script>
 
 <template>
-  <div id="vditor" ref="vditorRef"></div>
+  <div id="plugin-vditor-mde">
+    <div id="vditor" ref="vditorRef"></div>
+
+    <AttachmentSelectorModal
+      v-model:visible="attachmentSelectorModalShow"
+      :accepts="['image/*']"
+      :max="1"
+      @select="attachmentSelect"
+    />
+  </div>
 </template>
 
 <style>
-.vditor ol {
+#plugin-vditor-mde ol {
   list-style: decimal;
 }
 </style>

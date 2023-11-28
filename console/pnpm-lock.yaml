@@ -5,8 +5,8 @@ dependencies:
     specifier: ^1.5.0
     version: 1.5.0(vue@3.3.4)
   '@halo-dev/console-shared':
-    specifier: ^2.6.0
-    version: 2.6.0(vue@3.3.4)
+    specifier: ^2.8.0
+    version: 2.10.0(vue@3.3.4)
   canvas-confetti:
     specifier: ^1.6.0
     version: 1.6.0
@@ -543,6 +543,10 @@ packages:
       '@floating-ui/core': 0.3.1
     dev: false
 
+  /@halo-dev/api-client@2.10.0:
+    resolution: {integrity: sha512-c1fgp+xzE1gQ7O36miWU2Oz+Uh1G4Hqs3clxLSxBD7vuvktgndZGZblNDi5morHB9UkiauAIQP0+PH9L9jwBfA==}
+    dev: false
+
   /@halo-dev/components@1.5.0(vue@3.3.4):
     resolution: {integrity: sha512-zVRY2AzeE83fR5omZO8q6R/kAAxZ7iSgVNcLxTjOXSPl0SP3HD4LWXoloO1rWoa/O/JUlFY2WqBAEWnu8miCGA==}
     peerDependencies:
@@ -553,12 +557,13 @@ packages:
       vue: 3.3.4
     dev: false
 
-  /@halo-dev/console-shared@2.6.0(vue@3.3.4):
-    resolution: {integrity: sha512-rAItkzUZ3N/grqbEf+ntoyOFhl3Lp/r3sVR3reL/3fprykfnIuRsYOobcN/reYTFkn9JvZse5jUEkxLKsYotYA==}
+  /@halo-dev/console-shared@2.10.0(vue@3.3.4):
+    resolution: {integrity: sha512-c1Ol/xIU2DZk1MWhxtuk1csD90DPvCLByQyGenLgLPX1kVe6QCodWgPG4Uz0WOE1s+rZ2W6XDV0DBXrIHCYBxg==}
     peerDependencies:
-      vue: ^3.2.37
-      vue-router: ^4.0.16
+      vue: ^3.3.4
+      vue-router: ^4.2.4
     dependencies:
+      '@halo-dev/api-client': 2.10.0
       vue: 3.3.4
     dev: false
 

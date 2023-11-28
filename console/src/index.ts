@@ -11,6 +11,7 @@ export default definePlugin({
         {
           name: "vditor-mde",
           displayName: "Vditor Markdown",
+          // @ts-ignore
           component: markRaw(Vditor),
           rawType: "markdown",
           logo: logo

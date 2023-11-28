@@ -15,7 +15,7 @@ export default ({ mode }: { mode: string }) => {
     : "../build/resources/main/console";
 
   return defineConfig({
-    plugins: [Vue(), VueJsx(), Icons({ compiler: "vue3" })],
+    plugins: [Vue(),VueJsx(), Icons({ compiler: "vue3" })],
     resolve: {
       alias: {
         "@": fileURLToPath(new URL("./src", import.meta.url)),
