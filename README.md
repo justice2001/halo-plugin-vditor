@@ -34,9 +34,15 @@
 
 1. 下载，目前提供以下下载方式：
     - GitHub Releases：访问 [Releases](https://github.com/justice2001/vditor-plugin/releases) 下载 Assets 中的 JAR 文件。
-    - Halo 应用市场：暂无
+    - Halo 应用市场：[https://www.halo.run/store/apps/app-uBcYw](https://www.halo.run/store/apps/app-uBcYw)
 2. 安装，插件安装和更新方式可参考：<https://docs.halo.run/user-guide/plugins>。
 3. 安装完成之后，进入文章新建页面即可在右上角编辑器切换按钮中看到 Vditor 编辑器。
+
+## 🤖兼容性
+
+下面是当前已知的兼容性问题
+
+- 在同时使用ToolBench插件时，数学公式、脑图、图表、流程图、甘特图、时序图、五线谱无法正常渲染。`会尝试修复`
 
 ## 📒TODO
 
@@ -53,6 +59,8 @@
 - [ ] 支持代码高亮及复制
 - [ ] 支持多媒体渲染
 - [ ] 支持暗色主题渲染
+- [ ] 添加多国语言支持
+- [ ] 内置渲染器与ToolBench不兼容
 
 ## 🙏 鸣谢
 
