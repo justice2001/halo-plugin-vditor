@@ -34,8 +34,9 @@ public class VditorPostContentHandler implements ReactivePostContentHandler {
     private String renderScript(BasicConfig basicConfig) {
         return """
                 <script src="/plugins/vditor-mde/assets/static/method.min.js"></script>
-                <script src="/plugins/vditor-mde/assets/static/render.js" id="render-script" data-dark="%s"></script>
-                """.formatted(basicConfig.darkMode);
+                <script src="/plugins/vditor-mde/assets/static/render.js" id="render-script"
+                  data-dark="%s" data-mediaRender="%s"></script>
+                """.formatted(basicConfig.darkMode, basicConfig.mediaRender);
     }
 
     @Data
@@ -44,5 +45,6 @@ public class VditorPostContentHandler implements ReactivePostContentHandler {
         String defaultRenderMode;
         Boolean typeWriterMode;
         String darkMode;
+        Boolean mediaRender;
     }
 }

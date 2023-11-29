@@ -39,3 +39,8 @@ spec:
                     value: disabled
                   - label: 跟随系统
                     value: system
+              - $formkit: checkbox
+                name: mediaRender
+                label: "*实验性 渲染媒体标签"
+                help: 启用该功能会搜索文章内可解析的链接进行解析, 这可能会导致您的渲染出现问题!
+                value: false

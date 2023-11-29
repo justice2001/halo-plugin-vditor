@@ -12,6 +12,12 @@ window.addEventListener("load", () => {
     render("language-abc", Vditor.abcRender)
     render("language-graphviz", Vditor.graphvizRender)
     render("language-flowchart", Vditor.flowchartRender)
+    // Render Media
+    let mediaRenderOption = document.getElementById("render-script").dataset.mediarender
+    if (mediaRenderOption==="true") {
+        let article = document.getElementById("render-script").parentElement;
+        Vditor.mediaRender(article)
+    }
 })
 
 /**
