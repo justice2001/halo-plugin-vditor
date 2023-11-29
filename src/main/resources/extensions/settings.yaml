@@ -29,3 +29,13 @@ spec:
                 label: 打字机模式
                 help: 启用打字机模式将会始终将光标保持在视野中心位置
                 value: true
+              - $formkit: select
+                name: darkMode
+                label: 暗色模式
+                help: 页面进入暗色模式的方式
+                value: disabled
+                options:
+                  - label: 禁用暗色模式
+                    value: disabled
+                  - label: 跟随系统
+                    value: system

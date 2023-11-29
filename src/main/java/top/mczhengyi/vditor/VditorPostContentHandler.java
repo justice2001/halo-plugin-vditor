@@ -21,7 +21,7 @@ public class VditorPostContentHandler implements ReactivePostContentHandler {
         return reactiveSettingFetcher.fetch("basic", BasicConfig.class)
                 .map(basicConfig -> {
                     if (basicConfig.enable_render) {
-                        contentContext.setContent(renderScript() + "\n" + contentContext.getContent());
+                        contentContext.setContent(renderScript(basicConfig) + "\n" + contentContext.getContent());
                     }
                     return contentContext;
                 })
@@ -31,16 +31,18 @@ public class VditorPostContentHandler implements ReactivePostContentHandler {
                 });
     }
 
-    private String renderScript() {
+    private String renderScript(BasicConfig basicConfig) {
         return """
-                <link rel="stylesheet" href="/plugins/vditor-mde/assets/static/index.css" />
                 <script src="/plugins/vditor-mde/assets/static/method.min.js"></script>
-                <script src="/plugins/vditor-mde/assets/static/render.js"></script>
-                """;
+                <script src="/plugins/vditor-mde/assets/static/render.js" id="render-script" data-dark="%s"></script>
+                """.formatted(basicConfig.darkMode);
     }
 
     @Data
     public static class BasicConfig {
         Boolean enable_render;
+        String defaultRenderMode;
+        Boolean typeWriterMode;
+        String darkMode;
     }
 }
