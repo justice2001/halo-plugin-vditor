@@ -32,7 +32,7 @@ spec:
               - $formkit: select
                 name: darkMode
                 label: 暗色模式
-                help: 页面进入暗色模式的方式
+                help: Vditor渲染的组件进入暗色模式的方式
                 value: disabled
                 options:
                   - label: 禁用暗色模式
