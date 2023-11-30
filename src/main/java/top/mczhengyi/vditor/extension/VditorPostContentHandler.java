@@ -1,4 +1,4 @@
-package top.mczhengyi.vditor;
+package top.mczhengyi.vditor.extension;
 
 import com.google.common.base.Throwables;
 import lombok.AllArgsConstructor;
@@ -8,6 +8,8 @@ import org.springframework.stereotype.Component;
 import reactor.core.publisher.Mono;
 import run.halo.app.plugin.ReactiveSettingFetcher;
 import run.halo.app.theme.ReactivePostContentHandler;
+import top.mczhengyi.vditor.bean.BasicConfig;
+import top.mczhengyi.vditor.utils.ScriptUtils;
 
 @Component
 @AllArgsConstructor
@@ -20,8 +22,8 @@ public class VditorPostContentHandler implements ReactivePostContentHandler {
     public Mono<PostContentContext> handle(PostContentContext contentContext) {
         return reactiveSettingFetcher.fetch("basic", BasicConfig.class)
                 .map(basicConfig -> {
-                    if (basicConfig.enable_render) {
-                        contentContext.setContent(renderScript(basicConfig) + "\n" + contentContext.getContent());
+                    if (basicConfig.getEnable_render()) {
+                        contentContext.setContent(ScriptUtils.renderScript(basicConfig) + "\n" + contentContext.getContent());
                     }
                     return contentContext;
                 })
@@ -29,22 +31,5 @@ public class VditorPostContentHandler implements ReactivePostContentHandler {
                     log.error("VditorHeadProcessor process failed", Throwables.getRootCause(e));
                     return Mono.empty();
                 });
-    }
-
-    private String renderScript(BasicConfig basicConfig) {
-        return """
-                <script src="/plugins/vditor-mde/assets/static/method.min.js"></script>
-                <script src="/plugins/vditor-mde/assets/static/render.js" id="render-script"
-                  data-dark="%s" data-mediaRender="%s"></script>
-                """.formatted(basicConfig.darkMode, basicConfig.mediaRender);
-    }
-
-    @Data
-    public static class BasicConfig {
-        Boolean enable_render;
-        String defaultRenderMode;
-        Boolean typeWriterMode;
-        String darkMode;
-        Boolean mediaRender;
     }
 }

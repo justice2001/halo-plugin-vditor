@@ -3,8 +3,19 @@ kind: ExtensionDefinition
 metadata:
   name: ext-def-vditor-post-content
 spec:
-  className: top.mczhengyi.vditor.VditorPostContentHandler
+  className: top.mczhengyi.vditor.extension.VditorPostContentHandler
   # 文章内容扩展点的名称，固定值
   extensionPointName: reactive-post-content-handler
   displayName: "VditorPostContentHandler"
   description: "Vditor render support for post content"
+---
+apiVersion: plugin.halo.run/v1alpha1
+kind: ExtensionDefinition
+metadata:
+  name: ext-def-vditor-singlepage-content
+spec:
+  className: top.mczhengyi.vditor.extension.VditorSinglePageContentHandler
+  # 自定义页面内容扩展点的名称，固定值
+  extensionPointName: reactive-singlepage-content-handler
+  displayName: "VditorSinglePageContentHandler"
+  description: "Vditor render support for single page content."
