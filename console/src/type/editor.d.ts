@@ -12,4 +12,5 @@ export declare type Options = {
   after: () => void;
   input: () => void;
   showAttachment: () => void;
+  language: string;
 }

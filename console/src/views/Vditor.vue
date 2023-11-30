@@ -53,6 +53,9 @@ onMounted(async () => {
   let mode: "ir" | "wysiwyg" | "sv" | undefined = "ir"
   let typeWriterMode: boolean = false
   
+  // 实验性功能: 获取当前语言
+  const lang = localStorage.getItem("locale") || "zh-CN"
+  
   try {
     const response = await fetch(
       "/apis/api.vditor.mczhengyi.top/editor-options"
@@ -70,7 +73,8 @@ onMounted(async () => {
       vditor.value.setValue(props.raw || "# Title Here")
     },
     input: debounceOnUpdate,
-    showAttachment: () => attachmentSelectorModalShow.value = true
+    showAttachment: () => attachmentSelectorModalShow.value = true,
+    language: lang
   }))
 })
 
