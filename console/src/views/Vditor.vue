@@ -52,6 +52,7 @@ const attachmentSelect = (attachments: AttachmentLike[]) => {
 onMounted(async () => {
   let mode: "ir" | "wysiwyg" | "sv" | undefined = "ir"
   let typeWriterMode: boolean = false
+  let codeBlockPreview: boolean = true
   
   // 实验性功能: 获取当前语言
   const lang = localStorage.getItem("locale") || "zh-CN"
@@ -63,6 +64,7 @@ onMounted(async () => {
     const editorConfig: EditorConfig = await response.json();
     mode = editorConfig.basic.defaultRenderMode
     typeWriterMode = editorConfig.basic.typeWriterMode
+    codeBlockPreview = editorConfig.basic.codeBlockPreview
   } catch (e) {
     // ignore this
   }
@@ -74,7 +76,8 @@ onMounted(async () => {
     },
     input: debounceOnUpdate,
     showAttachment: () => attachmentSelectorModalShow.value = true,
-    language: lang
+    language: lang,
+    codeBlockPreview: codeBlockPreview
   }))
 })
 

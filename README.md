@@ -5,7 +5,9 @@
 # This Version 🏷️v1.2.0
 
 - ✨ 为编辑器添加多国语言支持
+- ✨ 添加启用编辑器代码块的选项
 - 🐛 修复单页未对内容进行渲染的问题
+- 🐛 修复所见即所得模式下部分内容被小工具栏遮挡的问题 [issue by musnows](https://github.com/justice2001/halo-plugin-vditor/issues/2)
 
 ---
 

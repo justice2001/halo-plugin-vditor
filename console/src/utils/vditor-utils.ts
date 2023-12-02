@@ -23,7 +23,8 @@ export function getOptions(options: Options): IOptions {
     },
     preview: {
       markdown: {
-        toc: true
+        toc: true,
+        codeBlockPreview: options.codeBlockPreview
       }
     },
     outline: {
