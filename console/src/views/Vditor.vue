@@ -97,4 +97,10 @@ onMounted(async () => {
 #plugin-vditor-mde ol {
   list-style: decimal;
 }
+
+/** Fix content was covered by vditor panel in wysiwyg mode  */
+#plugin-vditor-mde button,
+#plugin-vditor-mde input {
+  line-height: normal;
+}
 </style>
