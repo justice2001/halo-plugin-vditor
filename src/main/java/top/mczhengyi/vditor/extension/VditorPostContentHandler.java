@@ -20,7 +20,7 @@ public class VditorPostContentHandler implements ReactivePostContentHandler {
 
     @Override
     public Mono<PostContentContext> handle(PostContentContext contentContext) {
-        return reactiveSettingFetcher.fetch("basic", BasicConfig.class)
+        return reactiveSettingFetcher.fetch("render", BasicConfig.class)
                 .map(basicConfig -> {
                     if (basicConfig.getEnable_render()) {
                         contentContext.setContent(ScriptUtils.renderScript(basicConfig) + "\n" + contentContext.getContent());
@@ -29,7 +29,7 @@ public class VditorPostContentHandler implements ReactivePostContentHandler {
                 })
                 .onErrorResume(e -> {
                     log.error("VditorHeadProcessor process failed", Throwables.getRootCause(e));
-                    return Mono.empty();
+                    return Mono.just(contentContext);
                 });
     }
 }

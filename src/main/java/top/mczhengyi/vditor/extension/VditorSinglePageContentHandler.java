@@ -17,7 +17,7 @@ public class VditorSinglePageContentHandler implements ReactiveSinglePageContent
     private final ReactiveSettingFetcher reactiveSettingFetcher;
     @Override
     public Mono<SinglePageContentContext> handle(SinglePageContentContext contentContext) {
-        return reactiveSettingFetcher.fetch("basic", BasicConfig.class)
+        return reactiveSettingFetcher.fetch("render", BasicConfig.class)
             .map(basicConfig -> {
                 if (basicConfig.getEnable_render()) {
                     contentContext.setContent(ScriptUtils.renderScript(basicConfig) + "\n" + contentContext.getContent());
