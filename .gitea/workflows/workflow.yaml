@@ -9,7 +9,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: debian-12
     steps:
       - uses: actions/checkout@v2
         with:
@@ -60,7 +60,7 @@ jobs:
           retention-days: 1
 
   github-release:
-    runs-on: ubuntu-latest
+    runs-on: debian-12
     needs: build
     if: github.event_name == 'release'
     steps:
