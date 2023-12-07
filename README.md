@@ -1,20 +1,5 @@
 # halo-plugin-vditor
 
----
-
-# This Version 🏷️v1.2.0
-
-> ⚠️ 破坏性: 设置中有关渲染器的设置项会恢复到默认值，您需要重新进行设置
-
-- 🚸 将设置拆分为编辑器和渲染两个部分
-- ✨ 为编辑器添加多国语言支持
-- ✨ 添加启用编辑器代码块的选项
-- ✨ 添加跟随Joe 3.0主题切换暗色模式的选项
-- 🐛 修复单页未对内容进行渲染的问题
-- 🐛 修复所见即所得模式下部分内容被小工具栏遮挡的问题 [issue by musnows](https://github.com/justice2001/halo-plugin-vditor/issues/2)
-
----
-
 本插件将Vditor整合进Halo，支持所见即所得编辑模式。 Support English (*Only Editor)!
 
 编辑器支持数学公式、脑图、图表、流程图、甘特图、时序图、五线谱、graphviz 渲染、plantumlUML图
