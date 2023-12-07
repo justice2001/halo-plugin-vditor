@@ -52,6 +52,10 @@ const attachmentSelect = (attachments: AttachmentLike[]) => {
 onMounted(async () => {
   let mode: "ir" | "wysiwyg" | "sv" | undefined = "ir"
   let typeWriterMode: boolean = false
+  let codeBlockPreview: boolean = true
+  
+  // 实验性功能: 获取当前语言
+  const lang = localStorage.getItem("locale") || "zh-CN"
   
   try {
     const response = await fetch(
@@ -60,6 +64,7 @@ onMounted(async () => {
     const editorConfig: EditorConfig = await response.json();
     mode = editorConfig.basic.defaultRenderMode
     typeWriterMode = editorConfig.basic.typeWriterMode
+    codeBlockPreview = editorConfig.basic.codeBlockPreview
   } catch (e) {
     // ignore this
   }
@@ -70,7 +75,9 @@ onMounted(async () => {
       vditor.value.setValue(props.raw || "# Title Here")
     },
     input: debounceOnUpdate,
-    showAttachment: () => attachmentSelectorModalShow.value = true
+    showAttachment: () => attachmentSelectorModalShow.value = true,
+    language: lang,
+    codeBlockPreview: codeBlockPreview
   }))
 })
 
@@ -92,5 +99,11 @@ onMounted(async () => {
 <style>
 #plugin-vditor-mde ol {
   list-style: decimal;
+}
+
+/** Fix content was covered by vditor panel in wysiwyg mode  */
+#plugin-vditor-mde button,
+#plugin-vditor-mde input {
+  line-height: normal;
 }
 </style>

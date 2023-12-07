@@ -1,5 +1,6 @@
 import type {Options} from "@/type/editor";
 import {mdiImage} from "@/utils/icon";
+import {t} from "@/utils/i18n-utils";
 
 export function getOptions(options: Options): IOptions {
   return {
@@ -7,6 +8,7 @@ export function getOptions(options: Options): IOptions {
     mode: options.defaultRenderMode,
     typewriterMode: options.typeWriterMode,
     icon: "material",
+    lang: getLanguage(options.language),
     toolbarConfig: {
       pin: true,
     },
@@ -15,13 +17,14 @@ export function getOptions(options: Options): IOptions {
     },
     after: options.after,
     input: options.input,
-    toolbar: getToolbar(options.showAttachment),
+    toolbar: getToolbar(options.showAttachment, getLanguage(options.language)),
     counter: {
       enable: true
     },
     preview: {
       markdown: {
-        toc: true
+        toc: true,
+        codeBlockPreview: options.codeBlockPreview
       }
     },
     outline: {
@@ -34,7 +37,17 @@ export function getOptions(options: Options): IOptions {
   }
 }
 
-function getToolbar(showAttachmentCb: () => void): (string | IMenuItem)[] | undefined {
+function getLanguage(lang="zh-CN"):keyof II18n {
+  switch (lang) {
+    case "zh-CN": return "zh_CN";
+    case "zh-TW": return "zh_TW";
+    case "en-US": return "en_US";
+    case "es": return "en_US";
+    default: return "zh_CN";
+  }
+}
+
+function getToolbar(showAttachmentCb: () => void, lang: keyof II18n): (string | IMenuItem)[] | undefined {
   return [
     "emoji",
     "headings",
@@ -59,7 +72,7 @@ function getToolbar(showAttachmentCb: () => void): (string | IMenuItem)[] | unde
     {
       name: "attachment",
       icon: mdiImage,
-      tip: "插入图片",
+      tip: t("insert_image", lang),
       tipPosition: "n",
       hotkey: "⇧⌘P",
       click: showAttachmentCb

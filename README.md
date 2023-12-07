@@ -2,7 +2,20 @@
 
 ---
 
-本插件将Vditor整合进Halo，支持所见即所得编辑模式。
+# This Version 🏷️v1.2.0
+
+> ⚠️ 破坏性: 设置中有关渲染器的设置项会恢复到默认值，您需要重新进行设置
+
+- 🚸 将设置拆分为编辑器和渲染两个部分
+- ✨ 为编辑器添加多国语言支持
+- ✨ 添加启用编辑器代码块的选项
+- ✨ 添加跟随Joe 3.0主题切换暗色模式的选项
+- 🐛 修复单页未对内容进行渲染的问题
+- 🐛 修复所见即所得模式下部分内容被小工具栏遮挡的问题 [issue by musnows](https://github.com/justice2001/halo-plugin-vditor/issues/2)
+
+---
+
+本插件将Vditor整合进Halo，支持所见即所得编辑模式。 Support English (*Only Editor)!
 
 编辑器支持数学公式、脑图、图表、流程图、甘特图、时序图、五线谱、graphviz 渲染、plantumlUML图
 
@@ -45,13 +58,23 @@
 - [x] 添加打字机模式
 - [x] 支持附件选取插入
 - [x] 支持暗色主题渲染
-- [ ] 跟随主题的暗色模式(定向适配)
+- [ ] `🧪` 支持多媒体渲染
+- [x] `💻` 拆分配置为编辑器配置与渲染配置两部分
+- [x] `💻` 添加多国语言支持 `手搓翻译函数实现`
+- [ ] `💻` 支持代码高亮及复制
+- [x] `💻` 跟随主题的暗色模式(joe主题)
 - [ ] 将Vditor前台渲染资源全量引入本地
 - [ ] 添加配置是否使用CDN加载前台资源
-- [ ] 支持代码高亮及复制
-- [ ] 支持多媒体渲染
-- [ ] 添加多国语言支持
-- [ ] 内置渲染器与ToolBench不兼容
+- [ ] `🐛` 内置渲染器与ToolBench不兼容
+- [ ] `📄` 自定义暗色模式触发方式
+- [ ] `📄` 支持AI编写与修改
+
+**注释**
+
+- `🧪` 当前已在某个版本进行实验性发布
+- `📄` 一个想法，如果你有什么比较好的建议可以在ISSUE中提出
+- `💻` 计划在下个版本推出
+- `🐛` 这是一个BUG，但是比较难处理
 
 ## 🙏 鸣谢
 
@@ -113,6 +136,12 @@ halo:
     fixedPluginPath:
       - "/path/to/plugin-starter"
 ```
+
+## 🧑‍💼发布
+
+您可以在 [Gitea ISSUE](https://git.mczhengyi.top/zhengyi/halo-plugin-vditor/issues) 看到该项目的进展
+
+项目发布在 [Github](https://github.com/justice2001/halo-plugin-vditor) 和 [Gitee](https://gitee.com/zhengyi59/halo-plugin-vditor)
 
 ## 📄参考文档
 

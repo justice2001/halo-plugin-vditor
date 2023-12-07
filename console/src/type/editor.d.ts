@@ -3,6 +3,7 @@ export declare type EditorConfig = {
     enable_render: boolean;
     defaultRenderMode: "ir" | "wysiwyg" | "sv" | undefined;
     typeWriterMode: boolean;
+    codeBlockPreview: boolean;
   };
 };
 
@@ -12,4 +13,6 @@ export declare type Options = {
   after: () => void;
   input: () => void;
   showAttachment: () => void;
+  language: string;
+  codeBlockPreview: boolean;
 }
