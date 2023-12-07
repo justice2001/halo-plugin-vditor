@@ -136,6 +136,12 @@ halo:
       - "/path/to/plugin-starter"
 ```
 
+## 🧑‍💼发布
+
+您可以在 [Gitea ISSUE](https://git.mczhengyi.top/zhengyi/halo-plugin-vditor/issues) 看到该项目的进展
+
+项目发布在 [Github](https://github.com/justice2001/halo-plugin-vditor) 和 [Gitee](https://gitee.com/zhengyi59/halo-plugin-vditor)
+
 ## 📄参考文档
 
 - [Halo官方文档](https://docs.halo.run)
