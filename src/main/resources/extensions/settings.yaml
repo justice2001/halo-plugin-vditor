@@ -5,7 +5,7 @@ metadata:
 spec:
     forms:
         - group: basic
-          label: 基本设置
+          label: 编辑器
           formSchema:
               - $formkit: select
                 name: defaultRenderMode
@@ -29,23 +29,26 @@ spec:
                 label: 编辑器代码块渲染
                 help: 关闭后代码块（包括图表）在所见即所得和即时渲染模式下将不会被渲染
                 value: true
-              - $formkit: checkbox
-                name: enable_render
-                label: 内置渲染器
-                help: 内置渲染器会对前台文章页面的公式、图表进行渲染
-                value: true
-              - $formkit: select
-                name: darkMode
-                label: 暗色模式
-                help: Vditor渲染的组件进入暗色模式的方式
-                value: disabled
-                options:
-                  - label: 禁用暗色模式
-                    value: disabled
-                  - label: 跟随系统
-                    value: system
-              - $formkit: checkbox
-                name: mediaRender
-                label: "*实验性 渲染媒体标签"
-                help: 启用该功能会搜索文章内可解析的链接进行解析, 这可能会导致您的渲染出现问题!
-                value: false
+        - group: render
+          label: 渲染
+          formSchema:
+            - $formkit: checkbox
+              name: enableRender
+              label: 内置渲染器
+              help: 内置渲染器会对前台文章页面的公式、图表进行渲染
+              value: true
+            - $formkit: select
+              name: darkMode
+              label: 暗色模式
+              help: Vditor渲染的组件进入暗色模式的方式
+              value: disabled
+              options:
+                - label: 禁用暗色模式
+                  value: disabled
+                - label: 跟随系统
+                  value: system
+            - $formkit: checkbox
+              name: mediaRender
+              label: "*实验性 渲染媒体标签"
+              help: 启用该功能会搜索文章内可解析的链接进行解析, 这可能会导致您的渲染出现问题!
+              value: false

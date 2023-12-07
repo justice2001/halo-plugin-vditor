@@ -2,13 +2,12 @@ package top.mczhengyi.vditor.extension;
 
 import com.google.common.base.Throwables;
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Mono;
 import run.halo.app.plugin.ReactiveSettingFetcher;
 import run.halo.app.theme.ReactivePostContentHandler;
-import top.mczhengyi.vditor.bean.BasicConfig;
+import top.mczhengyi.vditor.bean.RenderConfig;
 import top.mczhengyi.vditor.utils.ScriptUtils;
 
 @Component
@@ -20,16 +19,16 @@ public class VditorPostContentHandler implements ReactivePostContentHandler {
 
     @Override
     public Mono<PostContentContext> handle(PostContentContext contentContext) {
-        return reactiveSettingFetcher.fetch("basic", BasicConfig.class)
-                .map(basicConfig -> {
-                    if (basicConfig.getEnable_render()) {
-                        contentContext.setContent(ScriptUtils.renderScript(basicConfig) + "\n" + contentContext.getContent());
+        return reactiveSettingFetcher.fetch("render", RenderConfig.class)
+                .map(renderConfig -> {
+                    if (renderConfig.getEnableRender()) {
+                        contentContext.setContent(ScriptUtils.renderScript(renderConfig) + "\n" + contentContext.getContent());
                     }
                     return contentContext;
                 })
                 .onErrorResume(e -> {
                     log.error("VditorHeadProcessor process failed", Throwables.getRootCause(e));
-                    return Mono.empty();
+                    return Mono.just(contentContext);
                 });
     }
 }
