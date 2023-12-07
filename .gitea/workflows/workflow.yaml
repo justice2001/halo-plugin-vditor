@@ -3,9 +3,6 @@ name: Build Plugin JAR File
 on:
   push:
     branches: [ main, dev ]
-  release:
-    types:
-      - created
 
 jobs:
   build:
@@ -47,9 +44,11 @@ jobs:
       - name: Build with Gradle
         run: |
           # Set the version with tag name when releasing
-          version=${{ github.event.release.tag_name }}
-          version=${version#v}
-          sed -i "s/version=.*-SNAPSHOT$/version=$version/1" gradle.properties
+          if [ $GITHUB_REF_NAME == "main" ]; then
+            version=${{ github.event.release.tag_name }}
+            version=${version#v}
+            sed -i "s/version=.*-SNAPSHOT$/version=$version/1" gradle.properties
+          fi
           ./gradlew clean build -x test
       - name: Archive plugin-starter jar
         uses: actions/upload-artifact@v3
