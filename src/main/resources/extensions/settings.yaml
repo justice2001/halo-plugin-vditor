@@ -33,7 +33,7 @@ spec:
           label: 渲染
           formSchema:
             - $formkit: checkbox
-              name: enable_render
+              name: enableRender
               label: 内置渲染器
               help: 内置渲染器会对前台文章页面的公式、图表进行渲染
               value: true

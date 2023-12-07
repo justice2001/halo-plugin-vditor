@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 import reactor.core.publisher.Mono;
 import run.halo.app.plugin.ReactiveSettingFetcher;
 import run.halo.app.theme.ReactiveSinglePageContentHandler;
-import top.mczhengyi.vditor.bean.BasicConfig;
+import top.mczhengyi.vditor.bean.RenderConfig;
 import top.mczhengyi.vditor.utils.ScriptUtils;
 
 @Component
@@ -17,10 +17,10 @@ public class VditorSinglePageContentHandler implements ReactiveSinglePageContent
     private final ReactiveSettingFetcher reactiveSettingFetcher;
     @Override
     public Mono<SinglePageContentContext> handle(SinglePageContentContext contentContext) {
-        return reactiveSettingFetcher.fetch("render", BasicConfig.class)
-            .map(basicConfig -> {
-                if (basicConfig.getEnable_render()) {
-                    contentContext.setContent(ScriptUtils.renderScript(basicConfig) + "\n" + contentContext.getContent());
+        return reactiveSettingFetcher.fetch("render", RenderConfig.class)
+            .map(renderConfig -> {
+                if (renderConfig.getEnableRender()) {
+                    contentContext.setContent(ScriptUtils.renderScript(renderConfig) + "\n" + contentContext.getContent());
                 }
                 return contentContext;
             })
