@@ -5,6 +5,7 @@ import top.mczhengyi.vditor.bean.RenderConfig;
 public class ScriptUtils {
     public static String renderScript(RenderConfig renderConfig) {
         StringBuilder script = new StringBuilder();
+        script.append(macCodeBlock());
         script.append(basicScript(renderConfig));
         // 如果是跟随Joe 3.0则注入脚本
         if ("joe".equals(renderConfig.getDarkMode()))
@@ -14,10 +15,18 @@ public class ScriptUtils {
 
     public static String basicScript(RenderConfig renderConfig) {
         return """
-                <script src="/plugins/vditor-mde/assets/static/method.min.js"></script>
-                <script src="/plugins/vditor-mde/assets/static/render.js" id="render-script"
-                  data-dark="%s" data-mediaRender="%s"></script>
-                """.formatted(renderConfig.getDarkMode(), renderConfig.getMediaRender());
+            <script src="/plugins/vditor-mde/assets/static/method.min.js"></script>
+            <script src="/plugins/vditor-mde/assets/static/render.js" id="render-script"
+              data-dark="%s" data-mediaRender="%s"></script>
+            """.formatted(renderConfig.getDarkMode(), renderConfig.getMediaRender());
+    }
+
+    public static String macCodeBlock() {
+        return """
+            <link rel="stylesheet" href="/plugins/vditor-mde/assets/static/code-block.css">
+            <script src="/plugins/vditor-mde/assets/static/lib/jquery.min.js"></script>
+            <script src="/plugins/vditor-mde/assets/static/mac-codeblock.js"></script>
+            """;
     }
 
     public static String joeDarkMode() {
