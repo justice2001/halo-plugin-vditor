@@ -2,7 +2,7 @@ lockfileVersion: '6.0'
 
 dependencies:
   '@halo-dev/components':
-    specifier: ^1.9.0
+    specifier: ^1.7.0
     version: 1.9.0(vue@3.3.4)
   '@halo-dev/console-shared':
     specifier: ^2.8.0
