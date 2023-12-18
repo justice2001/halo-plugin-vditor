@@ -600,7 +600,7 @@ packages:
     engines: {node: '>= 8'}
     dependencies:
       '@nodelib/fs.scandir': 2.1.5
-      fastq: 1.15.0
+      fastq: 1.16.0
     dev: true
 
   /@one-ini/wasm@0.1.1:
@@ -1020,7 +1020,7 @@ packages:
     dev: true
 
   /@zhengyi/vditor@3.9.7:
-    resolution: {integrity: sha512-bmeC8/7hRYFfCmYuqtSZyIlo4pRfcAQgrgszznAm5WJtp3B6wC6IQEmqNlJISSQn6WdBown6r+kIiRcsXxXWWg==, tarball: https://git.mczhengyi.top/api/packages/zhengyi/npm/%40zhengyi%2Fvditor/-/3.9.7/vditor-3.9.7.tgz}
+    resolution: {integrity: sha512-Z50he8zZqA+4PLLadVUnbW2w5Tocmr/dGGc69f2e5Olhizf+yCgVgG1uPk3o+RCRHqQnAokqTWhqTrrYXVK16A==, tarball: https://git.mczhengyi.top/api/packages/zhengyi/npm/%40zhengyi%2Fvditor/-/3.9.7/vditor-3.9.7.tgz}
     dependencies:
       diff-match-patch: 1.0.5
     dev: false
@@ -2013,8 +2013,8 @@ packages:
     resolution: {integrity: sha512-DCXu6Ifhqcks7TZKY3Hxp3y6qphY5SJZmrWMDrKcERSOXWQdMhU9Ig/PYrzyw/ul9jOIyh0N4M0tbC5hodg8dw==}
     dev: true
 
-  /fastq@1.15.0:
-    resolution: {integrity: sha512-wBrocU2LCXXa+lWBt8RoIRD89Fi8OdABODa/kEnyeyjS5aZO5/GNvI5sEINADqP/h8M29UHTHUb53sUu5Ihqdw==}
+  /fastq@1.16.0:
+    resolution: {integrity: sha512-ifCoaXsDrsdkWTtiNJX5uzHDsrck5TzfKKDcuFFTIrrc/BS076qgEIfoIy1VeZqViznfKiysPYTh/QeHtnIsYA==}
     dependencies:
       reusify: 1.0.4
     dev: true
