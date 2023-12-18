@@ -1,6 +1,6 @@
-import type {Options} from "@/type/editor";
-import {mdiImage} from "@/utils/icon";
-import {t} from "@/utils/i18n-utils";
+import type { Options } from "@/type/editor";
+import { mdiImage } from "@/utils/icon";
+import { t } from "@/utils/i18n-utils";
 
 export function getOptions(options: Options): IOptions {
   return {
@@ -19,35 +19,43 @@ export function getOptions(options: Options): IOptions {
     input: options.input,
     toolbar: getToolbar(options.showAttachment, getLanguage(options.language)),
     counter: {
-      enable: true
+      enable: true,
     },
     preview: {
       markdown: {
         toc: true,
-        codeBlockPreview: options.codeBlockPreview
-      }
+        codeBlockPreview: options.codeBlockPreview,
+      },
     },
     outline: {
       enable: true,
-      position: "left"
+      position: "left",
     },
     fullscreen: {
-      index: 1000
-    }
-  }
+      index: 1000,
+    },
+  };
 }
 
-function getLanguage(lang="zh-CN"):keyof II18n {
+function getLanguage(lang = "zh-CN"): keyof II18n {
   switch (lang) {
-    case "zh-CN": return "zh_CN";
-    case "zh-TW": return "zh_TW";
-    case "en-US": return "en_US";
-    case "es": return "en_US";
-    default: return "zh_CN";
+    case "zh-CN":
+      return "zh_CN";
+    case "zh-TW":
+      return "zh_TW";
+    case "en-US":
+      return "en_US";
+    case "es":
+      return "en_US";
+    default:
+      return "zh_CN";
   }
 }
 
-function getToolbar(showAttachmentCb: () => void, lang: keyof II18n): (string | IMenuItem)[] | undefined {
+function getToolbar(
+  showAttachmentCb: () => void,
+  lang: keyof II18n
+): (string | IMenuItem)[] | undefined {
   return [
     "emoji",
     "headings",
@@ -75,7 +83,7 @@ function getToolbar(showAttachmentCb: () => void, lang: keyof II18n): (string | 
       tip: t("insert_image", lang),
       tipPosition: "n",
       hotkey: "⇧⌘P",
-      click: showAttachmentCb
+      click: showAttachmentCb,
     },
     "table",
     "|",
@@ -86,12 +94,7 @@ function getToolbar(showAttachmentCb: () => void, lang: keyof II18n): (string | 
     "edit-mode",
     {
       name: "more",
-      toolbar: [
-        "both",
-        "export",
-        "outline",
-        "info",
-        "help"
-      ],
-    },]
+      toolbar: ["both", "export", "outline", "info", "help"],
+    },
+  ];
 }
