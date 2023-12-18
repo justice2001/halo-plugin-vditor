@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import Vditor from "@zhengyi/vditor";
 import { onMounted, ref } from "vue";
-import "vditor/dist/index.css";
+import "@zhengyi/vditor/dist/index.css";
 import type { EditorConfig } from "@/type/editor";
 import { getOptions } from "@/utils/vditor-utils";
 import type { AttachmentLike } from "@halo-dev/console-shared";

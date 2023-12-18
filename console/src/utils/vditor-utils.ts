@@ -7,6 +7,7 @@ export function getOptions(options: Options): IOptions {
     height: "calc(100vh - 56px)",
     mode: options.defaultRenderMode,
     typewriterMode: options.typeWriterMode,
+    cdn: "/plugins/vditor-mde/assets/static",
     icon: "material",
     lang: getLanguage(options.language),
     toolbarConfig: {

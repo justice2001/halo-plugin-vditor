@@ -1,4 +1,5 @@
-const THEME_PREFIX="https://unpkg.com/vditor@3.9.6/dist/css/content-theme"
+const THEME_PREFIX="/plugins/vditor-mde/assets/static/dist/css/content-theme"
+const CDN = "/plugins/vditor-mde/assets/static"
 
 window.addEventListener("load", () => {
     // 暗色模式初始化
@@ -12,6 +13,7 @@ window.addEventListener("load", () => {
     render("language-abc", Vditor.abcRender)
     render("language-graphviz", Vditor.graphvizRender)
     render("language-flowchart", Vditor.flowchartRender)
+    render("language-halo", Vditor.haloRender)
     // Render Media
     let mediaRenderOption = document.getElementById("render-script").dataset.mediarender
     if (mediaRenderOption==="true") {
@@ -77,9 +79,9 @@ function render(selector, callback, dark=null) {
     for (let i = 0; i < mindmap.length;i++) {
         const el = coverThis(mindmap[i])
         if (dark) {
-            callback(el, "https://unpkg.com/vditor@3.9.6", dark?"dark":"classic")
+            callback(el, CDN, dark?"dark":"classic")
         } else {
-            callback(el)
+            callback(el, CDN)
         }
     }
 }
