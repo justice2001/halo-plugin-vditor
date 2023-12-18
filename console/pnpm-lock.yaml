@@ -14,7 +14,7 @@ specifiers:
   '@vue/eslint-config-typescript': ^11.0.3
   '@vue/test-utils': ^2.3.2
   '@vue/tsconfig': ^0.1.3
-  '@zhengyi/vditor': 3.9.7
+  '@zhengyi/vditor': ^3.9.7
   canvas-confetti: ^1.6.0
   eslint: ^8.42.0
   eslint-plugin-vue: ^9.14.1
@@ -985,7 +985,7 @@ packages:
     dev: true
 
   /@zhengyi/vditor/3.9.7:
-    resolution: {integrity: sha512-jJQoCa4Xhisf4G4Sn5NCKOUwUp9v6ztwpe7P4KH1sj0M6l9erqtUUS8JXAssd4P2WkrhqwXWhI8IH0y6dFmOmA==, tarball: '%40zhengyi%2Fvditor/-/3.9.7/vditor-3.9.7.tgz'}
+    resolution: {integrity: sha512-bmeC8/7hRYFfCmYuqtSZyIlo4pRfcAQgrgszznAm5WJtp3B6wC6IQEmqNlJISSQn6WdBown6r+kIiRcsXxXWWg==, tarball: '%40zhengyi%2Fvditor/-/3.9.7/vditor-3.9.7.tgz'}
     dependencies:
       diff-match-patch: 1.0.5
     dev: false
