@@ -97,6 +97,12 @@ cd path/to/plugin-starter
 ```
 
 ```bash
+# 下载依赖包
+chmod a+x download_dist.sh
+./download_dist.sh
+```
+
+```bash
 # macOS / Linux
 ./gradlew pnpmInstall
 
