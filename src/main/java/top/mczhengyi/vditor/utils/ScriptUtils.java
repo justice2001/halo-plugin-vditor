@@ -14,7 +14,7 @@ public class ScriptUtils {
 
     public static String basicScript(RenderConfig renderConfig) {
         return """
-                <script src="/plugins/vditor-mde/assets/static/method.min.js"></script>
+                <script src="/plugins/vditor-mde/assets/static/dist/method.min.js"></script>
                 <script src="/plugins/vditor-mde/assets/static/render.js" id="render-script"
                   data-dark="%s" data-mediaRender="%s"></script>
                 """.formatted(renderConfig.getDarkMode(), renderConfig.getMediaRender());

@@ -15,4 +15,4 @@ export declare type Options = {
   showAttachment: () => void;
   language: string;
   codeBlockPreview: boolean;
-}
+};
