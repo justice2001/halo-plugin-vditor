@@ -1,0 +1,65 @@
+.halo-render {
+  margin: 5px;
+}
+.invalid-type {
+  color: red;
+  margin: 5px;
+  text-align: center;
+  padding: 10px;
+  background-color: lightpink;
+  border-radius: 6px;
+}
+
+.tips {
+  padding: 5px 10px;
+  border-left-style: solid;
+  border-left-width: 6px;
+  border-radius: 6px;
+  border-left-color: #666666;
+  background-color: #eeeeee;
+}
+.tips.tips-warn {
+  background-color: lightyellow;
+  color: darkorange;
+  border-left-color: darkorange;
+}
+.tips.tips-danger {
+  background-color: lightpink;
+  color: darkred;
+  border-left-color: darkred;
+}
+.tips.tips-success {
+  background-color: lightgreen;
+  color: darkgreen;
+  border-left-color: darkgreen;
+}
+.tips.tips-info {
+  background-color: lightblue;
+  color: #0052d9;
+  border-left-color: #0052d9;
+}
+
+.git {
+  margin: 5px;
+  border: 1px solid #ececec;
+  padding: 10px;
+  border-radius: 6px;
+}
+.git .error {
+  color: darkred;
+  text-align: center;
+}
+.git .repo-name a {
+  font-size: 18px;
+  color: #0052d9;
+  text-decoration: none;
+}
+.git .description {
+  font-size: 14px;
+  margin: 10px 0;
+}
+.git .info {
+  font-size: 14px;
+  color: #999999;
+}
+
