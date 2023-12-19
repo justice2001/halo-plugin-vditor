@@ -3,9 +3,6 @@ name: Build Plugin JAR File
 on:
   push:
     branches: [ main, dev ]
-  release:
-    types:
-      - created
 
 jobs:
   build:
@@ -41,15 +38,21 @@ jobs:
           key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/console/pnpm-lock.yaml') }}
           restore-keys: |
             ${{ runner.os }}-pnpm-store-
+      - name: Download Vditor assets
+        run: |
+          chmod a+x download_dist.sh
+          bash download_dist.sh
       - name: Install Frontend Dependencies
         run: |
           ./gradlew pnpmInstall
       - name: Build with Gradle
         run: |
           # Set the version with tag name when releasing
-          version=${{ github.event.release.tag_name }}
-          version=${version#v}
-          sed -i "s/version=.*-SNAPSHOT$/version=$version/1" gradle.properties
+          if [ $GITHUB_REF_NAME == "main" ]; then
+            version=${{ github.event.release.tag_name }}
+            version=${version#v}
+            sed -i "s/version=.*-SNAPSHOT$/version=$version/1" gradle.properties
+          fi
           ./gradlew clean build -x test
       - name: Archive plugin-starter jar
         uses: actions/upload-artifact@v3

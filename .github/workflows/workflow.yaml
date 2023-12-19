@@ -41,6 +41,10 @@ jobs:
           key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/console/pnpm-lock.yaml') }}
           restore-keys: |
             ${{ runner.os }}-pnpm-store-
+      - name: Download Vditor assets
+        run: |
+          chmod a+x download_dist.sh
+          bash download_dist.sh
       - name: Install Frontend Dependencies
         run: |
           ./gradlew pnpmInstall
