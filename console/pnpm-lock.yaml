@@ -12,8 +12,8 @@ dependencies:
     specifier: ^2.8.0
     version: 2.11.0(vue-router@4.2.5)(vue@3.3.12)
   '@zhengyi/vditor':
-    specifier: ^3.9.7
-    version: 3.9.7
+    specifier: ^3.9.8
+    version: 3.9.8
   canvas-confetti:
     specifier: ^1.6.0
     version: 1.9.2
@@ -1019,8 +1019,8 @@ packages:
       '@types/node': 16.18.68
     dev: true
 
-  /@zhengyi/vditor@3.9.7:
-    resolution: {integrity: sha512-Z50he8zZqA+4PLLadVUnbW2w5Tocmr/dGGc69f2e5Olhizf+yCgVgG1uPk3o+RCRHqQnAokqTWhqTrrYXVK16A==, tarball: https://git.mczhengyi.top/api/packages/zhengyi/npm/%40zhengyi%2Fvditor/-/3.9.7/vditor-3.9.7.tgz}
+  /@zhengyi/vditor@3.9.8:
+    resolution: {integrity: sha512-PjGtpoVOezS//hf567BEqg8p0cEmlptV9oxiCc8UsCg9sHaJ0EYvhvS0m6Wsg/L7ShRVZe6RrjKa9SDtRu0m6w==, tarball: https://git.mczhengyi.top/api/packages/zhengyi/npm/%40zhengyi%2Fvditor/-/3.9.8/vditor-3.9.8.tgz}
     dependencies:
       diff-match-patch: 1.0.5
     dev: false
