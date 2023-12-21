@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import Vditor from "@zhengyi/vditor";
-import { onMounted, ref } from "vue";
+import { onMounted, onUnmounted, ref } from "vue";
 import "@zhengyi/vditor/dist/index.css";
 import type { EditorConfig } from "@/type/editor";
 import { getOptions } from "@/utils/vditor-utils";
@@ -48,6 +48,13 @@ const attachmentSelect = (attachments: AttachmentLike[]) => {
     }
   });
 };
+
+onUnmounted(async () => {
+  document
+    .querySelectorAll("script[id^='vditor']")
+    .forEach((el) => el.remove());
+  document.querySelectorAll("link[id^='vditor']").forEach((el) => el.remove());
+});
 
 onMounted(async () => {
   let mode: "ir" | "wysiwyg" | "sv" | undefined = "ir";
