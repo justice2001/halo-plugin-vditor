@@ -4,7 +4,7 @@ import { t } from "@/utils/i18n-utils";
 
 export function getOptions(options: Options): IOptions {
   return {
-    height: "calc(100vh - 56px)",
+    height: "100%",
     mode: options.defaultRenderMode,
     typewriterMode: options.typeWriterMode,
     cdn: "/plugins/vditor-mde/assets/static",
