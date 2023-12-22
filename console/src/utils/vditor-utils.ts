@@ -3,11 +3,15 @@ import { mdiImage } from "@/utils/icon";
 import { t } from "@/utils/i18n-utils";
 
 export function getOptions(options: Options): IOptions {
+  const cdn =
+    `${window.location.protocol}//${window.location.host}` +
+    `/plugins/vditor-mde/assets/static`;
+  console.log(`Your CDN IS: ${cdn}`);
   return {
     height: "100%",
     mode: options.defaultRenderMode,
     typewriterMode: options.typeWriterMode,
-    cdn: "/plugins/vditor-mde/assets/static",
+    cdn: cdn,
     icon: "material",
     lang: getLanguage(options.language),
     toolbarConfig: {
@@ -26,6 +30,10 @@ export function getOptions(options: Options): IOptions {
       markdown: {
         toc: true,
         codeBlockPreview: options.codeBlockPreview,
+      },
+      theme: {
+        current: "light",
+        path: `${cdn}/dist/css/content-theme`,
       },
     },
     outline: {
