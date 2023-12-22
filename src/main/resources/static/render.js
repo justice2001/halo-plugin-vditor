@@ -5,8 +5,14 @@ window.addEventListener("load", () => {
     // 暗色模式初始化
     let dark = initDarkMode()
     setTheme(dark?"dark":"light")
+
+    // Math Render
+    document.querySelectorAll(".language-math").forEach(el => {
+        Vditor.mathRender(coverThis(el), {
+            cdn: CDN
+        })
+    })
     // Render
-    render("language-math", Vditor.mathRender)
     render("language-mindmap", Vditor.mindmapRender, dark)
     render("language-mermaid", Vditor.mermaidRender, dark)
     render("language-echarts", Vditor.chartRender, dark)
