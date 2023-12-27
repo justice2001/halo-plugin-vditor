@@ -6,7 +6,7 @@ settings:
 
 dependencies:
   '@halo-dev/components':
-    specifier: ^1.7.0
+    specifier: ^1.10.0
     version: 1.10.0(vue-router@4.2.5)(vue@3.3.12)
   '@halo-dev/console-shared':
     specifier: ^2.11.0

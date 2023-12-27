@@ -43,6 +43,9 @@ export function getOptions(options: Options): IOptions {
     fullscreen: {
       index: 1000,
     },
+    upload: {
+      handler: options.uploadImage,
+    },
   };
 }
 

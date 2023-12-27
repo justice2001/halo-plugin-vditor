@@ -5,15 +5,18 @@ import "@zhengyi/vditor/dist/index.css";
 import type { EditorConfig } from "@/type/editor";
 import { getOptions } from "@/utils/vditor-utils";
 import type { AttachmentLike } from "@halo-dev/console-shared";
+import type { Attachment } from "@halo-dev/api-client";
 
 const props = withDefaults(
   defineProps<{
     raw?: string;
     content: string;
+    uploadImage?: (file: File) => Promise<Attachment>;
   }>(),
   {
     raw: "",
     content: "",
+    uploadImage: undefined,
   }
 );
 
@@ -87,6 +90,18 @@ onMounted(async () => {
       showAttachment: () => (attachmentSelectorModalShow.value = true),
       language: lang,
       codeBlockPreview: codeBlockPreview,
+      uploadImage: (files: File[]) => {
+        if (props.uploadImage) {
+          vditor.value.tip("正在上传图片...", 2000);
+          props.uploadImage(files[0]).then((res: Attachment) => {
+            console.log(res.status.permalink, res.spec.displayName);
+            vditor.value.insertValue(
+              `\n\n![${res.spec.displayName}](${res.status.permalink})\n\n`
+            );
+          });
+        }
+        return null;
+      },
     })
   );
 });
