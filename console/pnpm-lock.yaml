@@ -12,8 +12,8 @@ dependencies:
     specifier: ^2.11.0
     version: 2.11.0(vue-router@4.2.5)(vue@3.3.12)
   '@zhengyi/vditor':
-    specifier: file:/Users/liuzhengyi/WebstormProjects/vditor
-    version: file:../../WebstormProjects/vditor
+    specifier: 3.9.9-build.0
+    version: 3.9.9-build.0
   canvas-confetti:
     specifier: ^1.6.0
     version: 1.9.2
@@ -1021,6 +1021,13 @@ packages:
 
   /@zhengyi/halo-render@1.1.0:
     resolution: {integrity: sha512-r+aD7wvdXVRyFcw/yI/PbdIqSsC+Bnql2WSKZa8CK+ntpTvc2tybn6Wxsfw96C71QS+Q/MPe8ufwZBjtRd+hhg==, tarball: https://git.mczhengyi.top/api/packages/zhengyi/npm/%40zhengyi%2Fhalo-render/-/1.1.0/halo-render-1.1.0.tgz}
+    dev: false
+
+  /@zhengyi/vditor@3.9.9-build.0:
+    resolution: {integrity: sha512-lvI32FQNm8R+CKw9uSNOIeKXUhRQm71hOEd9bvqplKKTTQm4ToGAFMgkFxBeryCP8R2gzy0K/AH9rLfWMUnCZQ==, tarball: https://git.mczhengyi.top/api/packages/zhengyi/npm/%40zhengyi%2Fvditor/-/3.9.9-build.0/vditor-3.9.9-build.0.tgz}
+    dependencies:
+      '@zhengyi/halo-render': 1.1.0
+      diff-match-patch: 1.0.5
     dev: false
 
   /abab@2.0.6:
@@ -3911,11 +3918,3 @@ packages:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
     dev: true
-
-  file:../../WebstormProjects/vditor:
-    resolution: {directory: ../../WebstormProjects/vditor, type: directory}
-    name: '@zhengyi/vditor'
-    dependencies:
-      '@zhengyi/halo-render': 1.1.0
-      diff-match-patch: 1.0.5
-    dev: false
