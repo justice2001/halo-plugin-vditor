@@ -9,7 +9,7 @@ dependencies:
     specifier: ^1.7.0
     version: 1.10.0(vue-router@4.2.5)(vue@3.3.12)
   '@halo-dev/console-shared':
-    specifier: ^2.8.0
+    specifier: ^2.11.0
     version: 2.11.0(vue-router@4.2.5)(vue@3.3.12)
   '@zhengyi/vditor':
     specifier: ^3.9.8
