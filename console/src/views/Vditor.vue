@@ -6,6 +6,7 @@ import type { EditorConfig } from "@/type/editor";
 import { getOptions } from "@/utils/vditor-utils";
 import type { AttachmentLike } from "@halo-dev/console-shared";
 import type { Attachment } from "@halo-dev/api-client";
+import { VLoading } from "@halo-dev/components";
 
 const props = withDefaults(
   defineProps<{
@@ -22,6 +23,7 @@ const props = withDefaults(
 
 const vditor = ref();
 const vditorRef = ref();
+const vditorLoaded = ref(false);
 const attachmentSelectorModalShow = ref(false);
 
 const emit = defineEmits<{
@@ -57,6 +59,7 @@ onUnmounted(async () => {
     .querySelectorAll("script[id^='vditor']")
     .forEach((el) => el.remove());
   document.querySelectorAll("link[id^='vditor']").forEach((el) => el.remove());
+  vditorLoaded.value = false;
 });
 
 onMounted(async () => {
@@ -85,6 +88,7 @@ onMounted(async () => {
       typeWriterMode: typeWriterMode,
       after: () => {
         vditor.value.setValue(props.raw || "# Title Here");
+        vditorLoaded.value = true;
       },
       input: debounceOnUpdate,
       showAttachment: () => (attachmentSelectorModalShow.value = true),
@@ -116,6 +120,7 @@ onMounted(async () => {
 
 <template>
   <div id="plugin-vditor-mde">
+    <VLoading v-if="!vditorLoaded" style="height: 100%" />
     <div id="vditor" ref="vditorRef"></div>
 
     <AttachmentSelectorModal
