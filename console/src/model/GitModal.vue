@@ -3,7 +3,7 @@ import { VModal, VButton, VSpace } from "@halo-dev/components";
 import { t } from "@/utils/i18n-utils";
 import { ref } from "vue";
 
-const URL_NOT_SHOW = ["github"];
+const URL_NOT_SHOW = ["github", "gitee"];
 
 const props = defineProps<{
   open: boolean;
@@ -44,6 +44,7 @@ const generateCode = () => {
         <span>{{ t("platform") }}</span>
         <select id="platform" v-model="platform" class="vditor-mde-select">
           <option value="github">GitHub</option>
+          <option value="gitee">Gitee</option>
         </select>
       </label>
       <label for="owner" class="vditor-mde-label">

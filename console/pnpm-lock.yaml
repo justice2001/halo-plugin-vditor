@@ -15,8 +15,8 @@ dependencies:
     specifier: ^2.11.0
     version: 2.11.0(vue-router@4.2.5)(vue@3.3.12)
   '@zhengyi/vditor':
-    specifier: 3.9.9-build.0
-    version: 3.9.9-build.0
+    specifier: 3.9.9-build.1
+    version: 3.9.9-build.1
   canvas-confetti:
     specifier: ^1.6.0
     version: 1.9.2
@@ -1026,8 +1026,8 @@ packages:
     resolution: {integrity: sha512-r+aD7wvdXVRyFcw/yI/PbdIqSsC+Bnql2WSKZa8CK+ntpTvc2tybn6Wxsfw96C71QS+Q/MPe8ufwZBjtRd+hhg==, tarball: https://git.mczhengyi.top/api/packages/zhengyi/npm/%40zhengyi%2Fhalo-render/-/1.1.0/halo-render-1.1.0.tgz}
     dev: false
 
-  /@zhengyi/vditor@3.9.9-build.0:
-    resolution: {integrity: sha512-lvI32FQNm8R+CKw9uSNOIeKXUhRQm71hOEd9bvqplKKTTQm4ToGAFMgkFxBeryCP8R2gzy0K/AH9rLfWMUnCZQ==, tarball: https://git.mczhengyi.top/api/packages/zhengyi/npm/%40zhengyi%2Fvditor/-/3.9.9-build.0/vditor-3.9.9-build.0.tgz}
+  /@zhengyi/vditor@3.9.9-build.1:
+    resolution: {integrity: sha512-g5Q106m8oFFwL5Ny46sAs21QfJ/PMQwf/LAE9NadKzkociBwSIAyLslny8kkQAL1vSaZ6RjbTr4Qv3ar8ta4Ag==, tarball: https://git.mczhengyi.top/api/packages/zhengyi/npm/%40zhengyi%2Fvditor/-/3.9.9-build.1/vditor-3.9.9-build.1.tgz}
     dependencies:
       '@zhengyi/halo-render': 1.1.0
       diff-match-patch: 1.0.5
