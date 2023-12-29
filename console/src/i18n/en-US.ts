@@ -17,6 +17,12 @@ const lang: I18nLang = {
   repo: "Repo",
   insert_git: "Insert Git Repo",
   insert_custom: "Insert Custom",
+  insert_drive: "Insert Resources Link",
+  baidu_net_disk: "Baidu Net Disk",
+  ali_drive: "Ali Drive",
+  title: "Title",
+  link: "Link",
+  password: "Password",
 };
 
 export default lang;

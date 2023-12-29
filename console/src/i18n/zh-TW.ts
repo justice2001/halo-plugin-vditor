@@ -17,6 +17,12 @@ const lang: I18nLang = {
   repo: "儲存庫",
   insert_git: "插入Git存儲庫",
   insert_custom: "插入自定義塊",
+  insert_drive: "插入資源鏈接",
+  baidu_net_disk: "百度網盤",
+  ali_drive: "阿里雲盤",
+  title: "標題",
+  link: "鏈接",
+  password: "密碼",
 };
 
 export default lang;

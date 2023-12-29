@@ -125,6 +125,11 @@ function getToolbar(
           icon: t("insert_git"),
           click: () => openModal("git"),
         },
+        {
+          name: "insert_drive",
+          icon: t("insert_drive"),
+          click: () => openModal("drive"),
+        },
       ],
     },
     {

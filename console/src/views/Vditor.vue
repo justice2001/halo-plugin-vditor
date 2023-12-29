@@ -9,6 +9,7 @@ import type { Attachment } from "@halo-dev/api-client";
 import { VLoading } from "@halo-dev/components";
 import TipsModel from "@/model/TipsModel.vue";
 import GitModal from "@/model/GitModal.vue";
+import DriveModal from "@/model/DriveModal.vue";
 
 const props = withDefaults(
   defineProps<{
@@ -143,6 +144,11 @@ onMounted(async () => {
       />
       <GitModal
         :open="insertModel === 'git'"
+        @done="insertValue"
+        @close="insertModel = 'none'"
+      />
+      <DriveModal
+        :open="insertModel === 'drive'"
         @done="insertValue"
         @close="insertModel = 'none'"
       />
