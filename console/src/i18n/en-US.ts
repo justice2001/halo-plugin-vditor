@@ -12,6 +12,10 @@ const lang: I18nLang = {
   insert_tips: "Insert Tips",
   type: "Type",
   content: "Content",
+  platform: "Platform",
+  owner: "Owner",
+  repo: "Repo",
+  insert_git: "Insert Git Repo",
 };
 
 export default lang;

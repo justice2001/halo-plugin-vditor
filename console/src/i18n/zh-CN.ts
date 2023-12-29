@@ -12,6 +12,10 @@ const lang: I18nLang = {
   insert_tips: "插入Tips",
   type: "类型",
   content: "内容",
+  platform: "平台",
+  owner: "所有者",
+  repo: "仓库",
+  insert_git: "插入Git仓库",
 };
 
 export default lang;

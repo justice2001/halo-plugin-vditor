@@ -8,6 +8,7 @@ import type { AttachmentLike } from "@halo-dev/console-shared";
 import type { Attachment } from "@halo-dev/api-client";
 import { VLoading } from "@halo-dev/components";
 import TipsModel from "@/model/TipsModel.vue";
+import GitModal from "@/model/GitModal.vue";
 
 const props = withDefaults(
   defineProps<{
@@ -128,11 +129,14 @@ onMounted(async () => {
 
 <template>
   <div id="plugin-vditor-mde">
-    <button @click="insertModel = 'tips'">OPEN MODAL</button>
+    <button @click="insertModel = 'git'">OPEN MODAL</button>
     <VLoading v-if="!vditorLoaded" style="height: 100%" />
     <div id="vditor" ref="vditorRef"></div>
 
-    <TipsModel :open="insertModel === 'tips'" @done="insertValue" />
+    <div class="insert-modals">
+      <TipsModel :open="insertModel === 'tips'" @done="insertValue" />
+      <GitModal :open="insertModel === 'git'" @done="insertValue" />
+    </div>
 
     <AttachmentSelectorModal
       v-model:visible="attachmentSelectorModalShow"
@@ -154,12 +158,17 @@ onMounted(async () => {
   line-height: normal;
 }
 
-.vditor-mde-label {
+.insert-modals label {
   width: 100%;
   display: flex;
 }
 
-.vditor-mde-select {
+.insert-modals label span {
+  width: 60px;
+  text-align: right;
+}
+
+.insert-modals select {
   border: 1px solid #cccccc;
   border-radius: 3px;
   padding-top: 8px;
@@ -168,10 +177,18 @@ onMounted(async () => {
   flex: 1;
 }
 
-.vditor-mde-textarea {
+.insert-modals textarea {
   border: 1px solid #cccccc;
   border-radius: 3px;
   margin-left: 10px;
   flex: 1;
+}
+
+.insert-modals input[type="text"] {
+  border: 1px solid #cccccc;
+  border-radius: 3px;
+  margin-left: 10px;
+  flex: 1;
+  padding: 8px 10px;
 }
 </style>
