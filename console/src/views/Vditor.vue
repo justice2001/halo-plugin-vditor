@@ -91,10 +91,17 @@ onMounted(async () => {
       language: lang,
       codeBlockPreview: codeBlockPreview,
       uploadImage: (files: File[]) => {
+        const acceptType = ["png", "jpg", "jpeg", "bmp", "gif", "webp", "svg"];
+        const extendName = files[0].name
+          .slice(files[0].name.lastIndexOf(".") + 1)
+          .toLowerCase();
+        if (acceptType.indexOf(extendName) === -1) {
+          vditor.value.tip("不允许上传该类型图片!", 2000);
+          return null;
+        }
         if (props.uploadImage) {
           vditor.value.tip("正在上传图片...", 2000);
           props.uploadImage(files[0]).then((res: Attachment) => {
-            console.log(res.status.permalink, res.spec.displayName);
             vditor.value.insertValue(
               `\n\n![${res.spec.displayName}](${res.status.permalink})\n\n`
             );
