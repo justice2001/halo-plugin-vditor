@@ -16,6 +16,7 @@ const lang: I18nLang = {
   owner: "所有者",
   repo: "仓库",
   insert_git: "插入Git仓库",
+  insert_custom: "插入自定义块",
 };
 
 export default lang;

@@ -122,6 +122,9 @@ onMounted(async () => {
         }
         return null;
       },
+      openModal: (name: string) => {
+        insertModel.value = name;
+      },
     })
   );
 });
@@ -129,13 +132,20 @@ onMounted(async () => {
 
 <template>
   <div id="plugin-vditor-mde">
-    <button @click="insertModel = 'git'">OPEN MODAL</button>
     <VLoading v-if="!vditorLoaded" style="height: 100%" />
     <div id="vditor" ref="vditorRef"></div>
 
     <div class="insert-modals">
-      <TipsModel :open="insertModel === 'tips'" @done="insertValue" />
-      <GitModal :open="insertModel === 'git'" @done="insertValue" />
+      <TipsModel
+        :open="insertModel === 'tips'"
+        @done="insertValue"
+        @close="insertModel = 'none'"
+      />
+      <GitModal
+        :open="insertModel === 'git'"
+        @done="insertValue"
+        @close="insertModel = 'none'"
+      />
     </div>
 
     <AttachmentSelectorModal

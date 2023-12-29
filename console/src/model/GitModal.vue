@@ -44,7 +44,6 @@ const generateCode = () => {
         <span>{{ t("platform") }}</span>
         <select id="platform" v-model="platform" class="vditor-mde-select">
           <option value="github">GitHub</option>
-          <option value="gitea">Gitea</option>
         </select>
       </label>
       <label for="owner" class="vditor-mde-label">

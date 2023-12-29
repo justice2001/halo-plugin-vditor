@@ -16,6 +16,7 @@ const lang: I18nLang = {
   owner: "Owner",
   repo: "Repo",
   insert_git: "Insert Git Repo",
+  insert_custom: "Insert Custom",
 };
 
 export default lang;

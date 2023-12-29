@@ -41,7 +41,7 @@ const generateCode = () => {
         </select>
       </label>
       <label for="content" class="vditor-mde-label">
-        {{ t("content") }}
+        <span>{{ t("content") }}</span>
         <textarea id="content" v-model="content" class="vditor-mde-textarea" />
       </label>
     </v-space>
