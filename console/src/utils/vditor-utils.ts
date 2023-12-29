@@ -49,7 +49,7 @@ export function getOptions(options: Options): IOptions {
   };
 }
 
-function getLanguage(lang = "zh-CN"): keyof II18n {
+export function getLanguage(lang = "zh-CN"): keyof II18n {
   switch (lang) {
     case "zh-CN":
       return "zh_CN";

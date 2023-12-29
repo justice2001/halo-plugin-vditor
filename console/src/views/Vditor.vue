@@ -7,6 +7,7 @@ import { getOptions } from "@/utils/vditor-utils";
 import type { AttachmentLike } from "@halo-dev/console-shared";
 import type { Attachment } from "@halo-dev/api-client";
 import { VLoading } from "@halo-dev/components";
+import TipsModel from "@/model/TipsModel.vue";
 
 const props = withDefaults(
   defineProps<{
@@ -25,6 +26,13 @@ const vditor = ref();
 const vditorRef = ref();
 const vditorLoaded = ref(false);
 const attachmentSelectorModalShow = ref(false);
+// 特殊插入框， 当前支持none/tips/git
+const insertModel = ref("none");
+const insertValue = (value: string) => {
+  insertModel.value = "none";
+  vditor.value.insertValue(value);
+  vditor.value.focus();
+};
 
 const emit = defineEmits<{
   (event: "update:raw", value: string): void;
@@ -120,8 +128,11 @@ onMounted(async () => {
 
 <template>
   <div id="plugin-vditor-mde">
+    <button @click="insertModel = 'tips'">OPEN MODAL</button>
     <VLoading v-if="!vditorLoaded" style="height: 100%" />
     <div id="vditor" ref="vditorRef"></div>
+
+    <TipsModel :open="insertModel === 'tips'" @done="insertValue" />
 
     <AttachmentSelectorModal
       v-model:visible="attachmentSelectorModalShow"
@@ -141,5 +152,26 @@ onMounted(async () => {
 #plugin-vditor-mde button,
 #plugin-vditor-mde input {
   line-height: normal;
+}
+
+.vditor-mde-label {
+  width: 100%;
+  display: flex;
+}
+
+.vditor-mde-select {
+  border: 1px solid #cccccc;
+  border-radius: 3px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  margin-left: 10px;
+  flex: 1;
+}
+
+.vditor-mde-textarea {
+  border: 1px solid #cccccc;
+  border-radius: 3px;
+  margin-left: 10px;
+  flex: 1;
 }
 </style>
