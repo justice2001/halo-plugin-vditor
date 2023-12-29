@@ -54,3 +54,8 @@ spec:
               label: "*实验性 渲染媒体标签"
               help: 启用该功能会搜索文章内可解析的链接进行解析, 这可能会导致您的渲染出现问题!
               value: false
+            - $formkit: checkbox
+              name: onlyMarkdown
+              label: "仅在Markdown模式下渲染"
+              help: "启用该功能将仅在Markdown格式的文章下注入渲染脚本"
+              value: true

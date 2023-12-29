@@ -7,4 +7,5 @@ public class RenderConfig {
     Boolean enableRender;
     String darkMode;
     Boolean mediaRender;
+    Boolean onlyMarkdown;
 }
