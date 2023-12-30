@@ -15,4 +15,6 @@ export declare type Options = {
   showAttachment: () => void;
   language: string;
   codeBlockPreview: boolean;
+  uploadImage?: (files: File[]) => string | null | Promise;
+  openModal: (name: string) => void;
 };

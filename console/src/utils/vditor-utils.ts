@@ -1,5 +1,5 @@
 import type { Options } from "@/type/editor";
-import { mdiImage } from "@/utils/icon";
+import {mdiGrid, mdiImage} from "@/utils/icon";
 import { t } from "@/utils/i18n-utils";
 
 export function getOptions(options: Options): IOptions {
@@ -22,7 +22,11 @@ export function getOptions(options: Options): IOptions {
     },
     after: options.after,
     input: options.input,
-    toolbar: getToolbar(options.showAttachment, getLanguage(options.language)),
+    toolbar: getToolbar(
+      options.showAttachment,
+      options.openModal,
+      getLanguage(options.language)
+    ),
     counter: {
       enable: true,
     },
@@ -43,10 +47,13 @@ export function getOptions(options: Options): IOptions {
     fullscreen: {
       index: 1000,
     },
+    upload: {
+      handler: options.uploadImage,
+    },
   };
 }
 
-function getLanguage(lang = "zh-CN"): keyof II18n {
+export function getLanguage(lang = "zh-CN"): keyof II18n {
   switch (lang) {
     case "zh-CN":
       return "zh_CN";
@@ -63,6 +70,7 @@ function getLanguage(lang = "zh-CN"): keyof II18n {
 
 function getToolbar(
   showAttachmentCb: () => void,
+  openModal: (name: string) => void,
   lang: keyof II18n
 ): (string | IMenuItem)[] | undefined {
   return [
@@ -101,6 +109,29 @@ function getToolbar(
     "|",
     "fullscreen",
     "edit-mode",
+    {
+      name: "insert_custom",
+      tip: t("insert_custom"),
+      icon: mdiGrid,
+      tipPosition: "n",
+      toolbar: [
+        {
+          name: "insert_tips",
+          icon: t("insert_tips"),
+          click: () => openModal("tips"),
+        },
+        {
+          name: "insert_git",
+          icon: t("insert_git"),
+          click: () => openModal("git"),
+        },
+        {
+          name: "insert_drive",
+          icon: t("insert_drive"),
+          click: () => openModal("drive"),
+        },
+      ],
+    },
     {
       name: "more",
       toolbar: ["both", "export", "outline", "info", "help"],

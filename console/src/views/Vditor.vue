@@ -5,21 +5,36 @@ import "@zhengyi/vditor/dist/index.css";
 import type { EditorConfig } from "@/type/editor";
 import { getOptions } from "@/utils/vditor-utils";
 import type { AttachmentLike } from "@halo-dev/console-shared";
+import type { Attachment } from "@halo-dev/api-client";
+import { VLoading } from "@halo-dev/components";
+import TipsModel from "@/model/TipsModel.vue";
+import GitModal from "@/model/GitModal.vue";
+import DriveModal from "@/model/DriveModal.vue";
 
 const props = withDefaults(
   defineProps<{
     raw?: string;
     content: string;
+    uploadImage?: (file: File) => Promise<Attachment>;
   }>(),
   {
     raw: "",
     content: "",
+    uploadImage: undefined,
   }
 );
 
 const vditor = ref();
 const vditorRef = ref();
+const vditorLoaded = ref(false);
 const attachmentSelectorModalShow = ref(false);
+// 特殊插入框， 当前支持none/tips/git
+const insertModel = ref("none");
+const insertValue = (value: string) => {
+  insertModel.value = "none";
+  vditor.value.insertValue(value);
+  vditor.value.focus();
+};
 
 const emit = defineEmits<{
   (event: "update:raw", value: string): void;
@@ -54,6 +69,7 @@ onUnmounted(async () => {
     .querySelectorAll("script[id^='vditor']")
     .forEach((el) => el.remove());
   document.querySelectorAll("link[id^='vditor']").forEach((el) => el.remove());
+  vditorLoaded.value = false;
 });
 
 onMounted(async () => {
@@ -82,11 +98,34 @@ onMounted(async () => {
       typeWriterMode: typeWriterMode,
       after: () => {
         vditor.value.setValue(props.raw || "# Title Here");
+        vditorLoaded.value = true;
       },
       input: debounceOnUpdate,
       showAttachment: () => (attachmentSelectorModalShow.value = true),
       language: lang,
       codeBlockPreview: codeBlockPreview,
+      uploadImage: (files: File[]) => {
+        const acceptType = ["png", "jpg", "jpeg", "bmp", "gif", "webp", "svg"];
+        const extendName = files[0].name
+          .slice(files[0].name.lastIndexOf(".") + 1)
+          .toLowerCase();
+        if (acceptType.indexOf(extendName) === -1) {
+          vditor.value.tip("不允许上传该类型图片!", 2000);
+          return null;
+        }
+        if (props.uploadImage) {
+          vditor.value.tip("正在上传图片...", 2000);
+          props.uploadImage(files[0]).then((res: Attachment) => {
+            vditor.value.insertValue(
+              `\n\n![${res.spec.displayName}](${res.status.permalink})\n\n`
+            );
+          });
+        }
+        return null;
+      },
+      openModal: (name: string) => {
+        insertModel.value = name;
+      },
     })
   );
 });
@@ -94,7 +133,26 @@ onMounted(async () => {
 
 <template>
   <div id="plugin-vditor-mde">
+    <VLoading v-if="!vditorLoaded" style="height: 100%" />
     <div id="vditor" ref="vditorRef"></div>
+
+    <div class="insert-modals">
+      <TipsModel
+        :open="insertModel === 'tips'"
+        @done="insertValue"
+        @close="insertModel = 'none'"
+      />
+      <GitModal
+        :open="insertModel === 'git'"
+        @done="insertValue"
+        @close="insertModel = 'none'"
+      />
+      <DriveModal
+        :open="insertModel === 'drive'"
+        @done="insertValue"
+        @close="insertModel = 'none'"
+      />
+    </div>
 
     <AttachmentSelectorModal
       v-model:visible="attachmentSelectorModalShow"
@@ -114,5 +172,39 @@ onMounted(async () => {
 #plugin-vditor-mde button,
 #plugin-vditor-mde input {
   line-height: normal;
+}
+
+.insert-modals label {
+  width: 100%;
+  display: flex;
+}
+
+.insert-modals label span {
+  width: 60px;
+  text-align: right;
+}
+
+.insert-modals select {
+  border: 1px solid #cccccc;
+  border-radius: 3px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  margin-left: 10px;
+  flex: 1;
+}
+
+.insert-modals textarea {
+  border: 1px solid #cccccc;
+  border-radius: 3px;
+  margin-left: 10px;
+  flex: 1;
+}
+
+.insert-modals input[type="text"] {
+  border: 1px solid #cccccc;
+  border-radius: 3px;
+  margin-left: 10px;
+  flex: 1;
+  padding: 8px 10px;
 }
 </style>

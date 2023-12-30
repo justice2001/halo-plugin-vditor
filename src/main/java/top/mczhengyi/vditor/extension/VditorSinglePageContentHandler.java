@@ -19,7 +19,9 @@ public class VditorSinglePageContentHandler implements ReactiveSinglePageContent
     public Mono<SinglePageContentContext> handle(SinglePageContentContext contentContext) {
         return reactiveSettingFetcher.fetch("render", RenderConfig.class)
             .map(renderConfig -> {
-                if (renderConfig.getEnableRender()) {
+                // 启用条件：开启渲染器，在启用仅Markdown渲染时当前页面为Markdown
+                if (renderConfig.getEnableRender() &&
+                    (!renderConfig.getOnlyMarkdown() || contentContext.getRawType().equals("markdown"))) {
                     contentContext.setContent(ScriptUtils.renderScript(renderConfig) + "\n" + contentContext.getContent());
                 }
                 return contentContext;

@@ -21,7 +21,8 @@ public class VditorPostContentHandler implements ReactivePostContentHandler {
     public Mono<PostContentContext> handle(PostContentContext contentContext) {
         return reactiveSettingFetcher.fetch("render", RenderConfig.class)
                 .map(renderConfig -> {
-                    if (renderConfig.getEnableRender()) {
+                    if (renderConfig.getEnableRender()&&
+                        (!renderConfig.getOnlyMarkdown() || contentContext.getRawType().equals("markdown"))) {
                         contentContext.setContent(ScriptUtils.renderScript(renderConfig) + "\n" + contentContext.getContent());
                     }
                     return contentContext;
