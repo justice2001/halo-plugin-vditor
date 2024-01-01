@@ -1,5 +1,7 @@
 # Halo-Vditor语法介绍
 
+## ⚠️ 这个文档已经过时，您可以[这里](https://github.com/justice2001/vditor-halo-render#语法参考)查看最新文档
+
 > 当前halo-render还在测试中，halo-render也可以接入任何markdown编辑器中，
 > 在维护过程中，我会尽量保证语法保持不变
 
