@@ -23,6 +23,7 @@ const lang: I18nLang = {
   title: "标题",
   link: "链接",
   password: "密码",
+  quick_insert: "快速插入",
 };
 
 export default lang;

@@ -9,6 +9,7 @@ import type { Attachment } from "@halo-dev/api-client";
 import { VLoading } from "@halo-dev/components";
 import TemplateModal from "@/model/TemplateModal.vue";
 import joeProgress from "@/schema/joe-progress";
+import {fetchAllQuickInsert} from "@/utils/fetch-utils";
 
 const props = withDefaults(
   defineProps<{
@@ -97,6 +98,8 @@ onMounted(async () => {
   } catch (e) {
     // ignore this
   }
+
+  const qil = await fetchAllQuickInsert();
   vditor.value = new Vditor(
     vditorRef.value,
     getOptions({
@@ -133,6 +136,8 @@ onMounted(async () => {
         customInsertSchema.value = schema;
         customInsertOpen.value = true;
       },
+      enableQuickInsert: true,
+      quickInsertList: qil,
     })
   );
 });

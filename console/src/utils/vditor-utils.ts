@@ -1,5 +1,5 @@
-import type {Options, Schema} from "@/type/editor";
-import {mdiGrid, mdiImage} from "@/utils/icon";
+import type {Options, QuickInsert, Schema} from "@/type/editor";
+import { mdiGrid, mdiImage } from "@/utils/icon";
 import { t } from "@/utils/i18n-utils";
 import tips from "@/schema/tips";
 import git from "@/schema/git";
@@ -10,6 +10,18 @@ export function getOptions(options: Options): IOptions {
     `${window.location.protocol}//${window.location.host}` +
     `/plugins/vditor-mde/assets/static`;
   console.log(`Your CDN IS: ${cdn}`);
+  // Get Toolbar
+  const toolbar = getToolbar(
+    options.showAttachment,
+    options.openModal,
+    getLanguage(options.language)
+  );
+  if (options.enableQuickInsert) {
+    options.quickInsertList.forEach((insert: QuickInsert) => {
+      toolbar.splice(-1, 0, buildQuickInsertToolbar(options.openModal, insert));
+    });
+  }
+  // Build Options
   return {
     height: "100%",
     mode: options.defaultRenderMode,
@@ -25,11 +37,7 @@ export function getOptions(options: Options): IOptions {
     },
     after: options.after,
     input: options.input,
-    toolbar: getToolbar(
-      options.showAttachment,
-      options.openModal,
-      getLanguage(options.language)
-    ),
+    toolbar: toolbar,
     counter: {
       enable: true,
     },
@@ -75,7 +83,7 @@ function getToolbar(
   showAttachmentCb: () => void,
   openModal: (schema: Schema) => void,
   lang: keyof II18n
-): (string | IMenuItem)[] | undefined {
+): (string | IMenuItem)[] {
   return [
     "emoji",
     "headings",
@@ -140,4 +148,25 @@ function getToolbar(
       toolbar: ["both", "export", "outline", "info", "help"],
     },
   ];
+}
+
+function buildQuickInsertToolbar(
+  openModal: (schema: Schema) => void,
+  quickInsertList: QuickInsert
+): IMenuItem {
+  const children: IMenuItem[] = [];
+  quickInsertList.schema.forEach((sch: Schema) => {
+    children.push({
+      icon: (sch.icon || "") + sch.name,
+      name: sch.id,
+      click: () => openModal(sch),
+    });
+  });
+  return {
+    name: quickInsertList.name,
+    tip: quickInsertList.tip,
+    icon: quickInsertList.icon,
+    tipPosition: "n",
+    toolbar: children,
+  };
 }

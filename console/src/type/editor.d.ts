@@ -17,6 +17,8 @@ export declare type Options = {
   codeBlockPreview: boolean;
   uploadImage?: (files: File[]) => string | null | Promise;
   openModal: (schema: Schema) => void;
+  quickInsertList: QuickInsert[];
+  enableQuickInsert: boolean;
 };
 
 export interface Schema {
@@ -30,4 +32,17 @@ export interface Schema {
   afterHandle?: (data: { [key: string]: string }, code: string) => string;
   // 覆盖解析
   handler?: (data: { [key: string]: string }) => string;
+}
+
+export interface QuickInsert {
+  // 展示名称
+  name: string;
+  // 鼠标移入时的提示文本
+  tip: string;
+  // 提供者
+  provider: string;
+  // 插入按钮的图标
+  icon: string;
+  // 配置结构
+  schema: Schema[];
 }
