@@ -9,7 +9,7 @@ import type { Attachment } from "@halo-dev/api-client";
 import { VLoading } from "@halo-dev/components";
 import TemplateModal from "@/model/TemplateModal.vue";
 import joeProgress from "@/schema/joe-progress";
-import {fetchAllQuickInsert} from "@/utils/fetch-utils";
+import { fetchAllQuickInsert } from "@/utils/fetch-utils";
 
 const props = withDefaults(
   defineProps<{
@@ -85,7 +85,7 @@ onMounted(async () => {
   let typeWriterMode = false;
   let codeBlockPreview = true;
   let enableQuickInsert = false;
-  let quickInsertUrls = [];
+  let quickInsertUrls: { url: string }[] = [];
 
   // 实验性功能: 获取当前语言
   const lang = localStorage.getItem("locale") || "zh-CN";
@@ -150,7 +150,6 @@ onMounted(async () => {
 
 <template>
   <div id="plugin-vditor-mde">
-    <button @click="customInsertOpen = true">OPEN</button>
     <VLoading v-if="!vditorLoaded" style="height: 100%" />
     <div id="vditor" ref="vditorRef"></div>
     <TemplateModal
