@@ -2,7 +2,7 @@
 import Vditor from "@zhengyi/vditor";
 import { onMounted, onUnmounted, ref } from "vue";
 import "@zhengyi/vditor/dist/index.css";
-import type { EditorConfig } from "@/type/editor";
+import type { EditorConfig, Schema } from "@/type/editor";
 import { getOptions } from "@/utils/vditor-utils";
 import type { AttachmentLike } from "@halo-dev/console-shared";
 import type { Attachment } from "@halo-dev/api-client";
@@ -10,6 +10,8 @@ import { VLoading } from "@halo-dev/components";
 import TipsModel from "@/model/TipsModel.vue";
 import GitModal from "@/model/GitModal.vue";
 import DriveModal from "@/model/DriveModal.vue";
+import FormkitModal from "@/model/FormkitModal.vue";
+import joeProgress from "@/schema/joe-progress";
 
 const props = withDefaults(
   defineProps<{
@@ -30,10 +32,19 @@ const vditorLoaded = ref(false);
 const attachmentSelectorModalShow = ref(false);
 // 特殊插入框， 当前支持none/tips/git
 const insertModel = ref("none");
-const insertValue = (value: string) => {
-  insertModel.value = "none";
-  vditor.value.insertValue(value);
-  vditor.value.focus();
+// 自定义插入
+const customInsertOpen = ref(false);
+const customInsertSchema = ref<Schema>(joeProgress);
+
+const insertValue = (value: string | null) => {
+  if (!value) {
+    vditor.value.tip("未知错误，插入失败", 3000);
+  } else {
+    console.log(value)
+    vditor.value.insertValue(value);
+    vditor.value.focus();
+  }
+  customInsertOpen.value = false;
 };
 
 const emit = defineEmits<{
@@ -133,26 +144,15 @@ onMounted(async () => {
 
 <template>
   <div id="plugin-vditor-mde">
+    <button @click="customInsertOpen = true">OPEN</button>
     <VLoading v-if="!vditorLoaded" style="height: 100%" />
     <div id="vditor" ref="vditorRef"></div>
-
-    <div class="insert-modals">
-      <TipsModel
-        :open="insertModel === 'tips'"
-        @done="insertValue"
-        @close="insertModel = 'none'"
-      />
-      <GitModal
-        :open="insertModel === 'git'"
-        @done="insertValue"
-        @close="insertModel = 'none'"
-      />
-      <DriveModal
-        :open="insertModel === 'drive'"
-        @done="insertValue"
-        @close="insertModel = 'none'"
-      />
-    </div>
+    <FormkitModal
+      :open="customInsertOpen"
+      :schema="customInsertSchema"
+      @close="customInsertOpen = false"
+      @done="insertValue"
+    />
 
     <AttachmentSelectorModal
       v-model:visible="attachmentSelectorModalShow"

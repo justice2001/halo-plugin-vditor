@@ -18,3 +18,12 @@ export declare type Options = {
   uploadImage?: (files: File[]) => string | null | Promise;
   openModal: (name: string) => void;
 };
+
+export interface Schema {
+  type: "template";
+  id: string;
+  icon?: string;
+  name: string;
+  formKit: Array;
+  template?: string;
+}

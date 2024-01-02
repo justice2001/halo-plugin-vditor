@@ -11,11 +11,12 @@
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore"
   },
   "dependencies": {
+    "@formkit/vue": "^1.4.0",
     "@halo-dev/api-client": "^2.11.0",
     "@halo-dev/components": "^1.10.0",
     "@halo-dev/console-shared": "^2.11.0",
-    "canvas-confetti": "^1.6.0",
     "@zhengyi/vditor": "3.9.9",
+    "canvas-confetti": "^1.6.0",
     "vue": "^3.3.4"
   },
   "devDependencies": {
