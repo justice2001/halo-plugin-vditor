@@ -28,7 +28,6 @@ const vditorRef = ref();
 const vditorLoaded = ref(false);
 const attachmentSelectorModalShow = ref(false);
 // 特殊插入框， 当前支持none/tips/git
-const insertModel = ref("none");
 // 自定义插入
 const customInsertOpen = ref(false);
 const customInsertSchema = ref<Schema>(joeProgress);
