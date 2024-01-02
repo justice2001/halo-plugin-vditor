@@ -1,6 +1,9 @@
-import type { Options } from "@/type/editor";
+import type {Options, Schema} from "@/type/editor";
 import {mdiGrid, mdiImage} from "@/utils/icon";
 import { t } from "@/utils/i18n-utils";
+import tips from "@/schema/tips";
+import git from "@/schema/git";
+import drive from "@/schema/drive";
 
 export function getOptions(options: Options): IOptions {
   const cdn =
@@ -70,7 +73,7 @@ export function getLanguage(lang = "zh-CN"): keyof II18n {
 
 function getToolbar(
   showAttachmentCb: () => void,
-  openModal: (name: string) => void,
+  openModal: (schema: Schema) => void,
   lang: keyof II18n
 ): (string | IMenuItem)[] | undefined {
   return [
@@ -118,17 +121,17 @@ function getToolbar(
         {
           name: "insert_tips",
           icon: t("insert_tips"),
-          click: () => openModal("tips"),
+          click: () => openModal(tips),
         },
         {
           name: "insert_git",
           icon: t("insert_git"),
-          click: () => openModal("git"),
+          click: () => openModal(git),
         },
         {
           name: "insert_drive",
           icon: t("insert_drive"),
-          click: () => openModal("drive"),
+          click: () => openModal(drive),
         },
       ],
     },

@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import { FormKit, FormKitSchema } from "@formkit/vue";
-import { ref } from "vue";
+import { ref, watch } from "vue";
 import { t } from "@/utils/i18n-utils";
 import { VButton, VModal, VSpace } from "@halo-dev/components";
 import type { Schema } from "@/type/editor";
 
 const data = ref<{ [key: string]: string }>({});
+const loadKey = ref("");
 
 const props = defineProps<{
   open: boolean;
@@ -29,8 +30,16 @@ const generateCode = () => {
     emit("done", "\n\n" + htmlEncode(code) + "\n\n");
     return;
   }
+  props.schema.handler && props.schema.handler(data.value);
   emit("done", null);
 };
+
+// Fix formkit schema not reload when schema Changed
+watch(props, () => {
+  if (props.open) {
+    loadKey.value = props.schema.name;
+  }
+});
 
 const htmlEncode = (str: string) => {
   let s = "";
@@ -55,10 +64,8 @@ const htmlEncode = (str: string) => {
     @close="emit('close')"
   >
     <FormKit v-model="data" type="form">
-      <FormKitSchema :schema="schema.formKit" />
+      <FormKitSchema :key="loadKey" :schema="schema.formKit" :data="data" />
     </FormKit>
-    <div>{{ data }}</div>
-    <div>{{ schema }}</div>
     <template #footer>
       <v-space align="center" direction="row" spacing="xs">
         <v-button type="primary" @click="generateCode">

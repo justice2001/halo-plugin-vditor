@@ -7,10 +7,7 @@ import { getOptions } from "@/utils/vditor-utils";
 import type { AttachmentLike } from "@halo-dev/console-shared";
 import type { Attachment } from "@halo-dev/api-client";
 import { VLoading } from "@halo-dev/components";
-import TipsModel from "@/model/TipsModel.vue";
-import GitModal from "@/model/GitModal.vue";
-import DriveModal from "@/model/DriveModal.vue";
-import FormkitModal from "@/model/FormkitModal.vue";
+import TemplateModal from "@/model/TemplateModal.vue";
 import joeProgress from "@/schema/joe-progress";
 
 const props = withDefaults(
@@ -40,7 +37,6 @@ const insertValue = (value: string | null) => {
   if (!value) {
     vditor.value.tip("未知错误，插入失败", 3000);
   } else {
-    console.log(value)
     vditor.value.insertValue(value);
     vditor.value.focus();
   }
@@ -134,8 +130,9 @@ onMounted(async () => {
         }
         return null;
       },
-      openModal: (name: string) => {
-        insertModel.value = name;
+      openModal: (schema: Schema) => {
+        customInsertSchema.value = schema;
+        customInsertOpen.value = true;
       },
     })
   );
@@ -147,7 +144,7 @@ onMounted(async () => {
     <button @click="customInsertOpen = true">OPEN</button>
     <VLoading v-if="!vditorLoaded" style="height: 100%" />
     <div id="vditor" ref="vditorRef"></div>
-    <FormkitModal
+    <TemplateModal
       :open="customInsertOpen"
       :schema="customInsertSchema"
       @close="customInsertOpen = false"

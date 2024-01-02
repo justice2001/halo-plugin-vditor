@@ -16,7 +16,7 @@ export declare type Options = {
   language: string;
   codeBlockPreview: boolean;
   uploadImage?: (files: File[]) => string | null | Promise;
-  openModal: (name: string) => void;
+  openModal: (schema: Schema) => void;
 };
 
 export interface Schema {
@@ -26,4 +26,8 @@ export interface Schema {
   name: string;
   formKit: Array;
   template?: string;
+  // 解析后处理
+  afterHandle?: (data: { [key: string]: string }, code: string) => string;
+  // 覆盖解析
+  handler?: (data: { [key: string]: string }) => string;
 }
