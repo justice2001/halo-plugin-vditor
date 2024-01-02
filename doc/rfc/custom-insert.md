@@ -1,4 +1,4 @@
-# 自定义插入按钮 设计方案
+# 快速插入 设计方案
 
 > Issue https://github.com/justice2001/halo-plugin-vditor/issues/11
  
@@ -15,30 +15,32 @@
 ### 配置格式
 
 ```json
-[
+{
+"type": "template",
+"id": "joe-progress",
+"icon": "",
+"name": "Joe Progress Bar",
+"formkit": [
   {
-    "type": "template",
-    "id": "joe-progress",
-    "icon": "",
-    "name": "Joe Progress Bar",
-    "formkit": [
-      {
-        "$formkit": "text",
-        "name": "percentage",
-        "label": "Percentage",
-        "help": "This is the percentage for progress bar."
-      },
-      {
-        "$formkit": "text",
-        "name": "color",
-        "label": "Color",
-        "help": "This is the color for progress bar."
-      }
-    ],
-    "template": "<joe-progress percentage=\"$percentage$\" color=\"$color$\"></joe-progress>"
+    "$formkit": "text",
+    "name": "percentage",
+    "label": "Percentage",
+    "help": "This is the percentage for progress bar."
+  },
+  {
+    "$formkit": "text",
+    "name": "color",
+    "label": "Color",
+    "help": "This is the color for progress bar."
   }
-]
+],
+"template": "<joe-progress percentage=\"$percentage$\" color=\"$color$\"></joe-progress>"
+}
 ```
+
+### 配置文件示例
+
+[quick-insert-demo.json](quick-insert-demo.json)
 
 ### 表单方案
 

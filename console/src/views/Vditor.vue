@@ -37,6 +37,7 @@ const insertValue = (value: string | null) => {
   if (!value) {
     vditor.value.tip("未知错误，插入失败", 3000);
   } else {
+    console.log("Insert" + value);
     vditor.value.insertValue(value);
     vditor.value.focus();
   }

@@ -11,18 +11,21 @@
             "name": "进度条",
             "formKit": [
                 {
-                    "$formkit": "text",
+                    "$formkit": "number",
+                    "min": 0,
+                    "max": 100,
+                    "step": 1,
                     "name": "percentage",
                     "label": "进度",
                     "help": "This is the percentage for progress bar.",
-                    "value": "0"
+                    "value": 50
                 },
                 {
                     "$formkit": "color",
                     "name": "color",
                     "label": "颜色",
                     "help": "This is the color for progress bar.",
-                    "value": "#ffffff"
+                    "value": "#fb6c28"
                 }
             ],
             "template": "<joe-progress percentage=\"$percentage$%\" color=\"$color$\"></joe-progress>"

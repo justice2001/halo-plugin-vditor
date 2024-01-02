@@ -38,6 +38,9 @@ const generateCode = () => {
 watch(props, () => {
   if (props.open) {
     loadKey.value = props.schema.name;
+    props.schema.formKit.forEach((form: { [key: string]: string }) => {
+      data.value[form.name] = form.value;
+    });
   }
 });
 
@@ -46,12 +49,8 @@ const htmlEncode = (str: string) => {
   if (str.length === 0) {
     return "";
   }
-  s = str.replace(/&/g, "&amp;");
-  s = s.replace(/</g, "&lt;");
+  s = str.replace(/</g, "&lt;");
   s = s.replace(/>/g, "&gt;");
-  s = s.replace(/ /g, "&nbsp;");
-  s = s.replace(/'/g, "&#39;");
-  s = s.replace(/"/g, "&quot;");
   return s;
 };
 </script>
