@@ -84,6 +84,8 @@ onMounted(async () => {
   let mode: "ir" | "wysiwyg" | "sv" | undefined = "ir";
   let typeWriterMode = false;
   let codeBlockPreview = true;
+  let enableQuickInsert = false;
+  let quickInsertUrls = [];
 
   // 实验性功能: 获取当前语言
   const lang = localStorage.getItem("locale") || "zh-CN";
@@ -96,11 +98,13 @@ onMounted(async () => {
     mode = editorConfig.basic.defaultRenderMode;
     typeWriterMode = editorConfig.basic.typeWriterMode;
     codeBlockPreview = editorConfig.basic.codeBlockPreview;
+    enableQuickInsert = editorConfig.basic.enableQuickInsert;
+    quickInsertUrls = editorConfig.basic.quickInsertUrl;
   } catch (e) {
     // ignore this
   }
 
-  const qil = await fetchAllQuickInsert();
+  const qil = await fetchAllQuickInsert(quickInsertUrls);
   vditor.value = new Vditor(
     vditorRef.value,
     getOptions({
@@ -137,7 +141,7 @@ onMounted(async () => {
         customInsertSchema.value = schema;
         customInsertOpen.value = true;
       },
-      enableQuickInsert: true,
+      enableQuickInsert: enableQuickInsert,
       quickInsertList: qil,
     })
   );

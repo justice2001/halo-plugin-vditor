@@ -29,6 +29,23 @@ spec:
                 label: 编辑器代码块渲染
                 help: 关闭后代码块（包括图表）在所见即所得和即时渲染模式下将不会被渲染
                 value: true
+              - $formkit: checkbox
+                id: enableQuickInsert
+                name: enableQuickInsert
+                label: 启用快速插入功能
+                help: 开启此选项后，将会加入插件或主题提供的快速插入按钮
+                value: false
+              - $formkit: repeater
+                if: "$enableQuickInsert"
+                name: quickInsertUrl
+                label: 快速插入链接
+                help: 在下面的选项框中填入主题或插件给出的配置地址，即可使用
+                value: [ ]
+                children:
+                  - $formkit: text
+                    name: url
+                    label: URL
+                    value: ""
         - group: render
           label: 渲染
           formSchema:

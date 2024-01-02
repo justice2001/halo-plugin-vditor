@@ -4,6 +4,8 @@ export declare type EditorConfig = {
     defaultRenderMode: "ir" | "wysiwyg" | "sv" | undefined;
     typeWriterMode: boolean;
     codeBlockPreview: boolean;
+    enableQuickInsert: boolean;
+    quickInsertUrl: [];
   };
 };
 
