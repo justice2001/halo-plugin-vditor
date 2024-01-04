@@ -1,4 +1,4 @@
-import type {Options, QuickInsert, Schema} from "@/type/editor";
+import type { Options, QuickInsert, Schema } from "@/type/editor";
 import { mdiGrid, mdiImage } from "@/utils/icon";
 import { t } from "@/utils/i18n-utils";
 import tips from "@/schema/tips";

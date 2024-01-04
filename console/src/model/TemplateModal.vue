@@ -7,6 +7,7 @@ import type { Schema } from "@/type/editor";
 
 const data = ref<{ [key: string]: string }>({});
 const loadKey = ref("");
+let idCount = 0;
 
 const props = defineProps<{
   open: boolean;
@@ -27,17 +28,23 @@ const generateCode = () => {
         data.value[form.name] || form.value
       );
     });
-    emit("done", "\n\n" + htmlEncode(code) + "\n\n");
+    emit("done", htmlEncode(code));
     return;
   }
   props.schema.handler && props.schema.handler(data.value);
   emit("done", null);
 };
 
-// Fix formkit schema not reload when schema Changed
-watch(props, () => {
+// 修改FormKit ID来实现Schema重载
+watch(props, (val, old) => {
   if (props.open) {
-    loadKey.value = props.schema.name;
+    if (old.schema.id === val.schema.id) {
+      loadKey.value = `${val.schema.id}-${idCount++}`;
+    } else {
+      idCount = 0;
+      loadKey.value = props.schema.id;
+    }
+    console.log("This Load Key: " + loadKey.value);
     props.schema.formKit.forEach((form: { [key: string]: string }) => {
       data.value[form.name] = form.value;
     });
@@ -51,6 +58,7 @@ const htmlEncode = (str: string) => {
   }
   s = str.replace(/</g, "&lt;");
   s = s.replace(/>/g, "&gt;");
+  s = s.replace(/"/g, "&quot;");
   return s;
 };
 </script>
