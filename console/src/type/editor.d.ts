@@ -47,4 +47,11 @@ export interface QuickInsert {
   icon: string;
   // 配置结构
   schema: Schema[];
+  inject?: Inject[];
+}
+
+export interface Inject {
+  id: string;
+  type: "script" | "style";
+  url?: string;
 }
