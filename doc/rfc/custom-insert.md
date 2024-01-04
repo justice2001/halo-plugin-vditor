@@ -22,7 +22,8 @@
     "tip": "Joe自定义模块",
     "provider": "halo-theme-joe-3.0",
     "icon": "...",
-    "schema": []
+    "schema": [],
+    "inject": []
 }
 ```
 
@@ -31,6 +32,7 @@
 - `provider`：标识该配置文件的提供者，暂无实际作用
 - `icon`：您可以在此处直接插入svg图标，用于在工具栏展示
 - `schema`：具体的插入结构，详细配置见下方Schema格式
+- `inject`: 注入附加的js或样式表文件，详细配置见下方Inject章节
 
 ### Schema格式
 
@@ -68,6 +70,35 @@ Schema存储了每个快速插入功能的插入处理规则，如生成表单�
 - `name`：在toolbar下拉列表中展示的名称
 - `formkit`：template模式下需要，遵守FormKit Schema规范，其中value被定义为缺省值
 - `template`：模版文本，使用`$varible$`识别变量，会被formkit中同name的值替换
+
+# Inject格式
+
+Inject是提供给利用HTML自定义标签或自定义样式表方式进行渲染的主题/插件实现实时渲染的配置。
+
+该数组内的所有资源将在Vditor初始化时进行加载。
+
+例如`joe`主题利用了`customElements`来实现的。
+
+```json
+[
+    {
+        "id": "inject-js",
+        "type": "script",
+        "url": "/plugins/vditor-mde/assets/static/inject-demo.js"
+    },
+    {
+        "id": "inject-css",
+        "type": "style",
+        "url": "/plugins/vditor-mde/assets/static/inject-demo.css"
+    }
+]
+```
+
+- `id`:  注入表示，用于注入的标签加入id选择器，id选择器为: <config-id>-<inject-id>
+- `type`: 注入类型，当前支持注入脚本和样式文件
+  - `script`: 注入脚本
+  - `style`: 注入样式表
+- `url`: 脚本和样式文件的URL
 
 ### 配置文件示例
 
