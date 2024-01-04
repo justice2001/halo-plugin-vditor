@@ -46,6 +46,11 @@ spec:
                     name: url
                     label: URL
                     value: ""
+              - $formkit: checkbox
+                name: disableHTMLBlockPreview
+                label: 禁用HTML代码块隐藏
+                help: 开启此选项后，HTML代码块将会一直显示
+                value: false
         - group: render
           label: 渲染
           formSchema:

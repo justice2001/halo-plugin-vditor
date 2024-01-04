@@ -6,6 +6,7 @@ export declare type EditorConfig = {
     codeBlockPreview: boolean;
     enableQuickInsert: boolean;
     quickInsertUrl: [];
+    disableHTMLBlockPreview: boolean;
   };
 };
 
