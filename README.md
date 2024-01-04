@@ -93,9 +93,17 @@ cd path/to/plugin-starter
 
 ```bash
 # 下载依赖包
+
+# macOS/Linux执行:
 chmod a+x download_dist.sh
 ./download_dist.sh
+
+# Windows
+# 要求安装7Zip并将7Zip的文件夹加入Path环境变量
+./download_dist.bat
 ```
+
+
 
 ```bash
 # macOS / Linux
