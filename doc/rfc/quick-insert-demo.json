@@ -30,5 +30,22 @@
             ],
             "template": "<joe-progress percentage=\"$percentage$%\" color=\"$color$\"></joe-progress>"
         }
+    ],
+    "inject": [
+        {
+            "id": "inject-js",
+            "type": "script",
+            "url": "/plugins/vditor-mde/assets/static/inject-demo.js"
+        },
+        {
+            "id": "inject-css",
+            "type": "style",
+            "url": "/plugins/vditor-mde/assets/static/inject-demo.css"
+        },
+        {
+            "id": "inject-font",
+            "type": "style",
+            "url": "/themes/theme-Joe3/assets/lib/font-awesome/css/font-awesome.min.css"
+        }
     ]
 }
