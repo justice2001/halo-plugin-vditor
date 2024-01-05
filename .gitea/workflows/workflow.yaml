@@ -55,7 +55,7 @@ jobs:
           else
             build=${{ github.run_number }}
             echo 当前版本的构建号为: $build
-            sed -i 's/\(version=[0-9]*\.[0-9]*\.[0-9]*\)-SNAPSHOT/\1-build.$build-SNAPSHOT/g' gradle.properties
+            sed -i "s/\(version=[0-9]*\.[0-9]*\.[0-9]*\)-SNAPSHOT/\1-build.$build-SNAPSHOT/g" gradle.properties
           fi
           ./gradlew clean build -x test
       - name: Archive plugin-starter jar
