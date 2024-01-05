@@ -52,6 +52,10 @@ jobs:
             version=${{ github.event.release.tag_name }}
             version=${version#v}
             sed -i "s/version=.*-SNAPSHOT$/version=$version/1" gradle.properties
+          else
+            build=${{ github.run_number }}
+            echo 当前版本的构建号为: $build
+            sed -i 's/\(version=[0-9]\+\.[0-9]\+\.[0-9]\+\)-SNAPSHOT.jar/\1-build.$build-SNAPSHOT.jar/g' gradle.properties
           fi
           ./gradlew clean build -x test
       - name: Archive plugin-starter jar
