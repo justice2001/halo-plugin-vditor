@@ -14,6 +14,7 @@ public class ScriptUtils {
 
     public static String basicScript(RenderConfig renderConfig) {
         return """
+                <link rel="stylesheet" type="text/css" href="/plugins/vditor-mde/assets/static/dist/index.css" id="vditor-style" />
                 <script src="/plugins/vditor-mde/assets/static/dist/method.min.js"></script>
                 <script src="/plugins/vditor-mde/assets/static/render.js" id="render-script"
                   data-dark="%s" data-mediaRender="%s"></script>

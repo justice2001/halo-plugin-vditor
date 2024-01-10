@@ -12,6 +12,8 @@ window.addEventListener("load", () => {
             cdn: CDN
         })
     })
+    const root = document.getElementById("render-script").parentElement
+    root.classList.add("vditor-reset")
     // Render
     render("language-mindmap", Vditor.mindmapRender, dark)
     render("language-mermaid", Vditor.mermaidRender, dark)
