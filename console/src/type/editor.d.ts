@@ -1,15 +1,3 @@
-export declare type EditorConfig = {
-  basic: {
-    enable_render: boolean;
-    defaultRenderMode: "ir" | "wysiwyg" | "sv" | undefined;
-    typeWriterMode: boolean;
-    codeBlockPreview: boolean;
-    enableQuickInsert: boolean;
-    quickInsertUrl: [];
-    disableHTMLBlockPreview: boolean;
-  };
-};
-
 export declare type Options = {
   defaultRenderMode: "ir" | "wysiwyg" | "sv" | undefined;
   typeWriterMode: boolean;

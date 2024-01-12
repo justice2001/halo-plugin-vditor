@@ -51,6 +51,14 @@ spec:
                 label: 禁用HTML代码块隐藏
                 help: 开启此选项后，HTML代码块将会一直显示
                 value: false
+        - group: extension
+          label: 文件格式
+          formSchema:
+              - $formkit: text
+                name: allowImageType
+                label: 允许的图片格式
+                help: 自定义允许上传的图片格式
+                value: "png,jpg,jpeg,bmp,gif,webp,svg"
         - group: render
           label: 渲染
           formSchema:
