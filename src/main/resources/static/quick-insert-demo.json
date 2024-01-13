@@ -1,0 +1,70 @@
+{
+    "name": "Joe Theme",
+    "tip": "Joe自定义模块",
+    "provider": "halo-theme-joe-3.0",
+    "icon": "<svg xmlns=\"http://www.w3.org/2000/svg\" height=\"24\" viewBox=\"0 -960 960 960\" width=\"24\"><path d=\"M480-80q-26 0-47-12.5T400-126q-33 0-56.5-23.5T320-206v-142q-59-39-94.5-103T190-590q0-121 84.5-205.5T480-880q121 0 205.5 84.5T770-590q0 77-35.5 140T640-348v142q0 33-23.5 56.5T560-126q-12 21-33 33.5T480-80Zm-80-126h160v-36H400v36Zm0-76h160v-38H400v38Zm-8-118h58v-108l-88-88 42-42 76 76 76-76 42 42-88 88v108h58q54-26 88-76.5T690-590q0-88-61-149t-149-61q-88 0-149 61t-61 149q0 63 34 113.5t88 76.5Zm88-162Zm0-38Z\"/></svg>",
+    "schema": [
+        {
+            "type": "template",
+            "id": "joe-cloud",
+            "icon": "",
+            "name": "网盘资源",
+            "formKit": [
+                {
+                    "$formkit": "select",
+                    "name": "cloud-type",
+                    "label": "云盘类型",
+                    "help": "Choose the type of cloud service.",
+                    "value": "default",
+                    "options": [
+                        {"label": "默认网盘", "value": "default"},
+                        {"label": "百度网盘", "value": "bd"},
+                        {"label": "阿里网盘", "value": "ad"},
+                        {"label": "蓝奏云网盘", "value": "lz"},
+                        {"label": "微云网盘", "value": "wy"},
+                        {"label": "Github仓库", "value": "github"},
+                        {"label": "Gitee仓库", "value": "gitee"}
+                    ]
+                },
+                {
+                    "$formkit": "text",
+                    "name": "cloud-title",
+                    "label": "网盘名称",
+                    "help": "留空则显示默认标题"
+                },
+                {
+                    "$formkit": "url",
+                    "name": "cloud-url",
+                    "label": "跳转链接",
+                    "help": "网盘链接地址",
+                    "value": ""
+                },
+                {
+                    "$formkit": "text",
+                    "name": "cloud-password",
+                    "label": "密码",
+                    "help": "网盘的访问密码，无则留空",
+                    "value": ""
+                }
+            ],
+            "template": "<joe-cloud type=\"$cloud-type$\" url=\"$cloud-url$\" password=\"$cloud-password$\" title=\"$cloud-title$\"></joe-cloud>"
+        }
+    ],
+    "inject": [
+        {
+            "id": "inject-js",
+            "type": "script",
+            "url": "/plugins/vditor-mde/assets/static/inject-demo.js"
+        },
+        {
+            "id": "inject-css",
+            "type": "style",
+            "url": "/plugins/vditor-mde/assets/static/inject-demo.css"
+        },
+        {
+            "id": "inject-font",
+            "type": "style",
+            "url": "/themes/theme-Joe3/assets/lib/font-awesome/css/font-awesome.min.css"
+        }
+    ]
+}

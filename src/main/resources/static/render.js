@@ -6,24 +6,22 @@ window.addEventListener("load", () => {
     let dark = initDarkMode()
     setTheme(dark?"dark":"light")
 
-    // Math Render
-    document.querySelectorAll(".language-math").forEach(el => {
-        Vditor.mathRender(coverThis(el), {
-            cdn: CDN
-        })
-    })
+    const root = document.getElementById("vditor-render").parentElement
+    root.classList.add("vditor-reset")
     // Render
-    render("language-mindmap", Vditor.mindmapRender, dark)
-    render("language-mermaid", Vditor.mermaidRender, dark)
-    render("language-echarts", Vditor.chartRender, dark)
-    render("language-abc", Vditor.abcRender)
-    render("language-graphviz", Vditor.graphvizRender)
-    render("language-flowchart", Vditor.flowchartRender)
-    render("language-halo", Vditor.haloRender)
+    const renderTheme = dark?"dark":"classic"
+    Vditor.mathRender(root, {cdn: CDN})
+    Vditor.mindmapRender(root, CDN, renderTheme)
+    Vditor.mermaidRender(root, CDN, renderTheme)
+    Vditor.chartRender(root, CDN, renderTheme)
+    Vditor.abcRender(root, CDN)
+    Vditor.graphvizRender(root, CDN)
+    Vditor.flowchartRender(root, CDN)
+    Vditor.haloRender(root, CDN)
     // Render Media
-    let mediaRenderOption = document.getElementById("render-script").dataset.mediarender
+    let mediaRenderOption = document.getElementById("vditor-render").dataset.mediarender
     if (mediaRenderOption==="true") {
-        let article = document.getElementById("render-script").parentElement;
+        let article = document.getElementById("vditor-render").parentElement;
         Vditor.mediaRender(article)
     }
 })
@@ -34,7 +32,7 @@ window.addEventListener("load", () => {
  * @returns {boolean} 初始暗黑模式状态
  */
 function initDarkMode() {
-    let darkModeChange = document.getElementById("render-script").dataset.dark
+    let darkModeChange = document.getElementById("vditor-render").dataset.dark
     let dark = false
     // 检测暗黑模式策略
     switch (darkModeChange) {
@@ -72,37 +70,4 @@ function initSystemDarkMode() {
  */
 function setTheme(theme) {
     Vditor.setContentTheme(theme, THEME_PREFIX)
-}
-
-/**
- * 通用渲染
- * @param selector 选择器
- * @param callback 渲染方法
- * @param dark 暗色模式，null为不配置
- */
-function render(selector, callback, dark=null) {
-    let mindmap = document.getElementsByClassName(selector)
-    for (let i = 0; i < mindmap.length;i++) {
-        const el = coverThis(mindmap[i])
-        if (dark) {
-            callback(el, CDN, dark?"dark":"classic")
-        } else {
-            callback(el, CDN)
-        }
-    }
-}
-
-/**
- * 符合Vditor渲染器要求
- * 需要在外套一层div
- * @param el 元素
- * @returns {*}
- */
-function coverThis(el) {
-    let copy = el.cloneNode(true)
-    el.innerHTML = ""
-    el.className = "vditor-reset"
-    el.dataset.code = ""
-    el.append(copy)
-    return el
 }

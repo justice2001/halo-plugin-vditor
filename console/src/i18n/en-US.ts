@@ -23,6 +23,7 @@ const lang: I18nLang = {
   title: "Title",
   link: "Link",
   password: "Password",
+  quick_insert: "Quick Insert",
 };
 
 export default lang;
