@@ -1,4 +1,4 @@
-const THEME_PREFIX="/plugins/vditor-mde/assets/static/dist/css/content-theme"
+const THEME_PREFIX="/plugins/vditor-mde/assets/static/themes"
 const CDN = "/plugins/vditor-mde/assets/static"
 
 window.addEventListener("load", () => {
