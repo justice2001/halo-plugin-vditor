@@ -10,42 +10,17 @@ public class ScriptUtils {
         PROPERTY_PLACEHOLDER_HELPER = new PropertyPlaceholderHelper("${", "}");
 
     public static String renderScript(RenderConfig renderConfig) {
-        StringBuilder script = new StringBuilder();
-        script.append(basicScript(renderConfig));
-        // 如果是跟随Joe 3.0则注入脚本
-        if ("joe".equals(renderConfig.getDarkMode()))
-            script.append(joeDarkMode());
-        return script.toString();
-    }
-
-    public static String basicScript(RenderConfig renderConfig) {
-        return """
-                <link rel="stylesheet" type="text/css" href="/plugins/vditor-mde/assets/static/vditor-render.css?version=${version}" id="vditor-style" />
-                <script src="/plugins/vditor-mde/assets/static/dist/method.min.js?version=${version}"></script>
-                <script src="/plugins/vditor-mde/assets/static/render.js?version=${version}" id="vditor-render"
-                  data-dark="%s" data-mediaRender="%s"></script>
-                """.formatted(renderConfig.getDarkMode(), renderConfig.getMediaRender());
-    }
-
-    public static String joeDarkMode() {
-        return """
-            <script>
-            window.addEventListener("load", () => {
-                var html = document.getElementsByTagName("html")[0]
-                if (!html) return
-                setTheme(html.dataset.mode)
-                var callback = (mutation) => {
-                    if (mutation[0].attributeName=="data-mode") {
-                        console.log("CHANGED")
-                        var mode = mutation[0].target.dataset.mode
-                        setTheme(mode)
-                    }
-                }
-                var observer = new MutationObserver(callback)
-                observer.observe(html, {attributes:true})
-            })
-            </script>
-            """;
+        ScriptBuilder script = new ScriptBuilder();
+        script.stylesheet("vditor-render.css", "style")
+            .script("dist/method.min.js", "methods")
+            .script("render.js", "render");
+        if (renderConfig.getMediaRender())
+            script.script("external/media-render.js", "media");
+        if (!renderConfig.getDarkMode().equals("disabled")) {
+            script.script("dark-mode/dark-%s.js".formatted(renderConfig.getDarkMode()), "dark-mode");
+        }
+        script.innerScript("initRender()");
+        return script.getScript();
     }
 
     public static String setContentProperty(String script, PluginWrapper pluginWrapper) {
