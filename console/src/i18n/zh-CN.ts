@@ -24,6 +24,13 @@ const lang: I18nLang = {
   link: "链接",
   password: "密码",
   quick_insert: "快速插入",
+  insert_gallery: "插入图集",
+  grid: "九宫格",
+  linear: "线性",
+  image_group: "图片组",
+  image: "图片",
+  image_alt: "图片介绍",
+  image_alt_ph: "不填写此项则默认使用图像文件名",
 };
 
 export default lang;
