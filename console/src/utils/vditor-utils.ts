@@ -4,6 +4,7 @@ import { t } from "@/utils/i18n-utils";
 import tips from "@/schema/tips";
 import git from "@/schema/git";
 import drive from "@/schema/drive";
+import gallery from "@/schema/gallery";
 
 export function getOptions(options: Options): IOptions {
   const cdn =
@@ -140,6 +141,11 @@ function getToolbar(
           name: "insert_drive",
           icon: t("insert_drive"),
           click: () => openModal(drive),
+        },
+        {
+          name: "insert_gallery",
+          icon: t("insert_gallery"),
+          click: () => openModal(gallery),
         },
       ],
     },

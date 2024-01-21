@@ -31,8 +31,11 @@ const generateCode = () => {
     emit("done", htmlEncode(code));
     return;
   }
-  props.schema.handler && props.schema.handler(data.value);
-  emit("done", null);
+
+  emit(
+    "done",
+    (props.schema.handler && props.schema.handler(data.value)) || null
+  );
 };
 
 // 修改FormKit ID来实现Schema重载

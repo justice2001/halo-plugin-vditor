@@ -24,6 +24,13 @@ const lang: I18nLang = {
   link: "Link",
   password: "Password",
   quick_insert: "Quick Insert",
+  insert_gallery: "Insert Gallery",
+  grid: "Grid",
+  linear: "Linear",
+  image_group: "Image Group",
+  image: "Image",
+  image_alt: "Alt",
+  image_alt_ph: "Use File Name If You Dont Place This",
 };
 
 export default lang;

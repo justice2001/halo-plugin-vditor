@@ -22,7 +22,11 @@ export interface Schema {
   // 解析后处理
   afterHandle?: (data: { [key: string]: string }, code: string) => string;
   // 覆盖解析
-  handler?: (data: { [key: string]: string }) => string;
+  handler?: (data: SchemaData) => string;
+}
+
+export interface SchemaData {
+  _id?: string;
 }
 
 export interface QuickInsert {

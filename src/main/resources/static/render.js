@@ -1,11 +1,32 @@
-const THEME_PREFIX="/plugins/vditor-mde/assets/static/dist/css/content-theme"
+const THEME_PREFIX="/plugins/vditor-mde/assets/static/themes"
 const CDN = "/plugins/vditor-mde/assets/static"
 
-window.addEventListener("load", () => {
-    // 暗色模式初始化
-    let dark = initDarkMode()
-    setTheme(dark?"dark":"light")
+/** 拓展处理 ({dark}) => void */
+let functionList = []
+let darkMode = false
 
+/**
+ * 处理渲染
+ * @param func
+ */
+function addExternal(func) {
+    functionList.push(func)
+}
+
+/**
+ * 设置暗色模式
+ * @param {Boolean} dark
+ */
+function setDarkMode(dark = false) {
+    darkMode = dark
+}
+
+/**
+ * 渲染
+ * @param dark
+ */
+function render(dark) {
+    Vditor.setContentTheme(dark?"dark":"light", THEME_PREFIX)
     const root = document.getElementById("vditor-render").parentElement
     root.classList.add("vditor-reset")
     // Render
@@ -18,56 +39,17 @@ window.addEventListener("load", () => {
     Vditor.graphvizRender(root, CDN)
     Vditor.flowchartRender(root, CDN)
     Vditor.haloRender(root, CDN)
-    // Render Media
-    let mediaRenderOption = document.getElementById("vditor-render").dataset.mediarender
-    if (mediaRenderOption==="true") {
-        let article = document.getElementById("vditor-render").parentElement;
-        Vditor.mediaRender(article)
-    }
-})
-
-/**
- * 初始化暗色模式策略
- * 创建所需监听器
- * @returns {boolean} 初始暗黑模式状态
- */
-function initDarkMode() {
-    let darkModeChange = document.getElementById("vditor-render").dataset.dark
-    let dark = false
-    // 检测暗黑模式策略
-    switch (darkModeChange) {
-            // 禁用暗黑模式
-        case "disabled": break
-            // 跟随系统
-        case "system":
-            dark = initSystemDarkMode()
-    }
-    return dark
-}
-
-
-/**
- * 系统模式暗黑模式策略
- * @returns {boolean}
- */
-function initSystemDarkMode() {
-    let media = window.matchMedia('(prefers-color-scheme: dark)');
-    let callback = (e) => {
-        let prefersDarkMode = e.matches;
-        setTheme(prefersDarkMode?"dark":"light")
-    };
-    if (typeof media.addEventListener === 'function') {
-        media.addEventListener('change', callback);
-    } else if (typeof media.addListener === 'function') {
-        media.addListener(callback);
-    }
-    return media.matches
+    // Run External Plugin
+    functionList.forEach(func => {
+        func({
+            dark
+        })
+    })
 }
 
 /**
- * 配置主题
- * @param theme 主题
+ * 页面加载完成时处理任务
  */
-function setTheme(theme) {
-    Vditor.setContentTheme(theme, THEME_PREFIX)
+function initRender() {
+    window.addEventListener("load", () => render(darkMode))
 }
