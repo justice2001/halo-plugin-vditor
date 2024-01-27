@@ -65,6 +65,7 @@ export function getOptions(options: Options): IOptions {
     upload: {
       handler: options.uploadImage,
     },
+    debugger: options.config.developer.debugger,
   };
 }
 
