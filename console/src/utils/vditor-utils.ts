@@ -51,6 +51,9 @@ export function getOptions(options: Options): IOptions {
         current: "light",
         path: `${cdn}/dist/css/content-theme`,
       },
+      math: {
+        inlineDigit: true,
+      },
     },
     outline: {
       enable: true,
