@@ -13,8 +13,8 @@ public class ScriptBuilder {
     }
 
     public ScriptBuilder script(String path, String id) {
-        this.script.append("<script src=\"/plugins/vditor-mde/assets/static/%s?version=${version}\" id=\"vditor-%s\"></script>"
-            .formatted(path, id));
+        this.script.append("<script src=\"%s?version=${version}\" id=\"vditor-%s\"></script>"
+            .formatted(getUrl(path), id));
         return this;
     }
 
@@ -24,12 +24,20 @@ public class ScriptBuilder {
     }
 
     public ScriptBuilder stylesheet(String path, String id) {
-        this.script.append("<link rel=\"stylesheet\" type=\"text/css\" href=\"/plugins/vditor-mde/assets/static/%s?version=${version}\" id=\"vditor-%s\" />"
-            .formatted(path, id));
+        this.script.append("<link rel=\"stylesheet\" type=\"text/css\" href=\"%s?version=${version}\" id=\"vditor-%s\" />"
+            .formatted(getUrl(path), id));
         return  this;
     }
 
     public String getScript() {
         return this.script.toString();
+    }
+
+    private String getUrl(String url) {
+        if (url.startsWith("http")) {
+            return url;
+        } else {
+            return "/plugins/vditor-mde/assets/static/%s".formatted(url);
+        }
     }
 }

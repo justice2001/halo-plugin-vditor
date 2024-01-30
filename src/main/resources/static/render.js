@@ -1,5 +1,5 @@
 const THEME_PREFIX="/plugins/vditor-mde/assets/static/themes"
-const CDN = "/plugins/vditor-mde/assets/static"
+const CDN = "https://cdn.jsdelivr.net/npm/vditor@3.9.9"
 
 /** 拓展处理 ({dark}) => void */
 let functionList = []
@@ -38,7 +38,6 @@ function render(dark) {
     Vditor.abcRender(root, CDN)
     Vditor.graphvizRender(root, CDN)
     Vditor.flowchartRender(root, CDN)
-    Vditor.haloRender(root, CDN)
     // Run External Plugin
     functionList.forEach(func => {
         func({

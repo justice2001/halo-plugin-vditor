@@ -5,6 +5,11 @@ import tips from "@/schema/tips";
 import git from "@/schema/git";
 import drive from "@/schema/drive";
 import gallery from "@/schema/gallery";
+import {addScript, addStyle, addStyleSheet} from "@/utils/dom-utils";
+
+declare const HaloJs: {
+  renderHalo: (content: string, cdn: string) => string;
+};
 
 export function getOptions(options: Options): IOptions {
   const cdn =
@@ -27,7 +32,7 @@ export function getOptions(options: Options): IOptions {
     height: "100%",
     mode: options.defaultRenderMode,
     typewriterMode: options.typeWriterMode,
-    cdn: cdn,
+    cdn: "https://cdn.jsdelivr.net/npm/vditor@3.9.9",
     icon: "material",
     lang: getLanguage(options.language),
     toolbarConfig: {
@@ -66,6 +71,7 @@ export function getOptions(options: Options): IOptions {
       handler: options.uploadImage,
     },
     debugger: options.config.developer.debugger,
+    customRenders: getCustomRenders(options),
   };
 }
 
@@ -179,4 +185,41 @@ function buildQuickInsertToolbar(
     tipPosition: "n",
     toolbar: children,
   };
+}
+
+/**
+ * 获取自定义渲染器
+ * @param options
+ */
+function getCustomRenders(options: Options):
+  | {
+      language: string;
+      render: (element: HTMLElement, vditor: IVditor) => void;
+    }[]
+  | undefined {
+  const renders: {
+    language: string;
+    render: (element: HTMLElement, vditor: IVditor) => void;
+  }[] = [];
+  // 启用内置渲染器
+  addScript(
+    "/plugins/vditor-mde/assets/static/halo-renders/index.js",
+    "halo-render"
+  );
+  addStyleSheet(
+    "/plugins/vditor-mde/assets/static/halo-renders/index.css",
+    "halo-render-css"
+  );
+  renders.push({
+    language: "halo",
+    render: (element: HTMLElement) => {
+      console.log(element);
+      element.innerHTML = HaloJs.renderHalo(
+        element.textContent || "",
+        "/plugins/vditor-mde/assets/static/halo-renders"
+      );
+    },
+  });
+  console.log("Renders: ", renders);
+  return renders;
 }

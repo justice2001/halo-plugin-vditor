@@ -17,12 +17,12 @@ dependencies:
   '@halo-dev/console-shared':
     specifier: ^2.11.0
     version: 2.11.0(vue-router@4.2.5)(vue@3.3.12)
-  '@zhengyi/vditor':
-    specifier: 3.9.10
-    version: 3.9.10
   canvas-confetti:
     specifier: ^1.6.0
     version: 1.9.2
+  vditor:
+    specifier: 3.9.9
+    version: 3.9.9
   vue:
     specifier: ^3.3.4
     version: 3.3.12(typescript@4.7.4)
@@ -1116,17 +1116,6 @@ packages:
     dependencies:
       '@types/node': 16.18.68
     dev: true
-
-  /@zhengyi/halo-render@1.1.0:
-    resolution: {integrity: sha512-r+aD7wvdXVRyFcw/yI/PbdIqSsC+Bnql2WSKZa8CK+ntpTvc2tybn6Wxsfw96C71QS+Q/MPe8ufwZBjtRd+hhg==, tarball: https://git.mczhengyi.top/api/packages/zhengyi/npm/%40zhengyi%2Fhalo-render/-/1.1.0/halo-render-1.1.0.tgz}
-    dev: false
-
-  /@zhengyi/vditor@3.9.10:
-    resolution: {integrity: sha512-8bAUlH4bsuUNbkrxAuxTL0XMNoLre/mab5HF8cR9wND7e/Xj56l2qz7aEARklK6oRtOlCoTYK6JEkLdozUfTkg==, tarball: https://git.mczhengyi.top/api/packages/zhengyi/npm/%40zhengyi%2Fvditor/-/3.9.10/vditor-3.9.10.tgz}
-    dependencies:
-      '@zhengyi/halo-render': 1.1.0
-      diff-match-patch: 1.0.5
-    dev: false
 
   /abab@2.0.6:
     resolution: {integrity: sha512-j2afSsaIENvHZN2B8GOpF566vZ5WVk5opAiMTvWgaQT8DkbOqsTfvNAvHoRGU2zzP8cPoqys+xHTRDWW8L+/BA==}
@@ -3716,6 +3705,12 @@ packages:
       spdx-correct: 3.2.0
       spdx-expression-parse: 3.0.1
     dev: true
+
+  /vditor@3.9.9:
+    resolution: {integrity: sha512-yeUb6E//ppiN0bX85O0sDCZ7tf/b3Lz6CcR8n77mwuZWNYOmJaqG15CfSFHg21NyNFStdN54A3P/s+eq/TkwLg==}
+    dependencies:
+      diff-match-patch: 1.0.5
+    dev: false
 
   /vite@3.2.7(@types/node@16.18.68)(sass@1.69.5):
     resolution: {integrity: sha512-29pdXjk49xAP0QBr0xXqu2s5jiQIXNvE/xwd0vUizYT2Hzqe4BksNNoWllFVXJf4eLZ+UlVQmXfB4lWrc+t18g==}

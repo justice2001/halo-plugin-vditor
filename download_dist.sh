@@ -4,7 +4,7 @@ cd src/main/resources/static
 rm -rf dist
 pwd
 curl -o vditor.tgz \
- https://git.mczhengyi.top/zhengyi/-/packages/npm/@zhengyi%2Fvditor/3.9.10/files/262
+ https://registry.npmjs.org/vditor/-/vditor-3.9.9.tgz
 tar -xzvf vditor.tgz
 mv package/dist .
 rm -rf package
