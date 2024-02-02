@@ -2,6 +2,7 @@ package top.mczhengyi.vditor.utils;
 
 import org.pf4j.PluginWrapper;
 import org.springframework.util.PropertyPlaceholderHelper;
+import top.mczhengyi.vditor.Constants;
 import top.mczhengyi.vditor.bean.RenderConfig;
 import java.util.Properties;
 
@@ -12,7 +13,7 @@ public class ScriptUtils {
     public static String renderScript(RenderConfig renderConfig) {
         ScriptBuilder script = new ScriptBuilder();
         script.stylesheet("vditor-render.css", "style")
-            .script("https://cdn.jsdelivr.net/npm/vditor@3.9.9/dist/method.min.js", "methods")
+            .script("%s/dist/method.min.js".formatted(Constants.getCdn("jsdelivr")), "methods")
             .script("render.js", "render");
         if (renderConfig.getMediaRender())
             script.script("external/media-render.js", "media");
