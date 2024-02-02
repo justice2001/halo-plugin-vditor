@@ -5,12 +5,13 @@
 - [ ] 更换vditor版本为官方版本 (pending vditor 3.9.9)
 - [ ] 修复所见即所得模式下使用工具栏修改属性不生效的问题 (pending vditor 3.9.9)
 
-### v1.5.2
+### v1.6.0
 
-- ✨ 添加Vditor Debugger设置
+- ⬆️ 修改Vditor为官方版本(Vditor 3.9.9)
+- ✨ 添加 Vditor Debugger 设置
 - 🐛 修复行内公式渲染的问题 #22
 - 🐛 修复操作栏修改属性不生效的问题 #20 \[vditor]
-- ⬆️ 修改Vditor为官方版本(Vditor 3.9.9)
+- 🐛 修复在 PJAX 主题下渲染器无法正常处理的问题 #24
 
 ### v1.5.1
 

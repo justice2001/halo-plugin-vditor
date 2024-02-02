@@ -41,8 +41,9 @@ build {
 }
 
 halo {
-    version = '2.11.3'
+    version = '2.12'
     superAdminUsername = 'admin'
     superAdminPassword = 'admin'
     externalUrl = 'http://localhost:8090'
+    debug = true
 }

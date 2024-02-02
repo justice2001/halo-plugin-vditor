@@ -1,54 +1,67 @@
-const THEME_PREFIX="/plugins/vditor-mde/assets/static/themes"
-const CDN = "https://cdn.jsdelivr.net/npm/vditor@3.9.9"
+(function (win) {
+    if (win.vditorRender) return;
 
-/** 拓展处理 ({dark}) => void */
-let functionList = []
-let darkMode = false
+    const THEME_PREFIX="/plugins/vditor-mde/assets/static/themes"
+    const CDN = "https://cdn.jsdelivr.net/npm/vditor@3.9.9"
 
-/**
- * 处理渲染
- * @param func
- */
-function addExternal(func) {
-    functionList.push(func)
-}
+    /** 拓展处理 ({dark}) => void */
+    let functionList = []
+    let darkMode = false
 
-/**
- * 设置暗色模式
- * @param {Boolean} dark
- */
-function setDarkMode(dark = false) {
-    darkMode = dark
-}
+    /**
+     * 处理渲染
+     * @param func
+     */
+    function addExternal(func) {
+        functionList.push(func)
+    }
 
-/**
- * 渲染
- * @param dark
- */
-function render(dark) {
-    Vditor.setContentTheme(dark?"dark":"light", THEME_PREFIX)
-    const root = document.getElementById("vditor-render").parentElement
-    root.classList.add("vditor-reset")
-    // Render
-    const renderTheme = dark?"dark":"classic"
-    Vditor.mathRender(root, {cdn: CDN})
-    Vditor.mindmapRender(root, CDN, renderTheme)
-    Vditor.mermaidRender(root, CDN, renderTheme)
-    Vditor.chartRender(root, CDN, renderTheme)
-    Vditor.abcRender(root, CDN)
-    Vditor.graphvizRender(root, CDN)
-    Vditor.flowchartRender(root, CDN)
-    // Run External Plugin
-    functionList.forEach(func => {
-        func({
-            dark
+    /**
+     * 设置暗色模式
+     * @param {Boolean} dark
+     */
+    function setDarkMode(dark = false) {
+        darkMode = dark
+    }
+
+    /**
+     * 渲染
+     * @param elId 搜寻位置
+     */
+    function vditorRender(elId="vditor-article-sign") {
+        Vditor.setContentTheme(darkMode?"dark":"light", THEME_PREFIX)
+        let root = document.getElementById(elId)
+        if (!root) {
+            console.log("[Vditor Render] Can't Found Article Root Element!");
+            return
+        }
+        root = root.parentElement
+        root.classList.add("vditor-reset")
+        // Render
+        const renderTheme = darkMode?"dark":"classic"
+        Vditor.mathRender(root, {cdn: CDN})
+        Vditor.mindmapRender(root, CDN, renderTheme)
+        Vditor.mermaidRender(root, CDN, renderTheme)
+        Vditor.chartRender(root, CDN, renderTheme)
+        Vditor.abcRender(root, CDN)
+        Vditor.graphvizRender(root, CDN)
+        Vditor.flowchartRender(root, CDN)
+        // Run External Plugin
+        functionList.forEach(func => {
+            func({
+                darkMode
+            })
         })
-    })
-}
+    }
 
-/**
- * 页面加载完成时处理任务
- */
-function initRender() {
-    window.addEventListener("load", () => render(darkMode))
-}
+    win.vditorRender = {
+        THEME_PREFIX,
+        CDN,
+        functionList,
+        darkMode,
+        addExternal,
+        setDarkMode,
+        vditorRender,
+        render: vditorRender
+    }
+})(window)

@@ -29,6 +29,11 @@ public class ScriptBuilder {
         return  this;
     }
 
+    public ScriptBuilder sign(String signId) {
+        this.script.append("<div data-type=\"sign\" id=\"vditor-%s\"></div>".formatted(signId));
+        return this;
+    }
+
     public String getScript() {
         return this.script.toString();
     }
