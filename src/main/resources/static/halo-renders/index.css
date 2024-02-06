@@ -27,20 +27,34 @@
   font-family: iconfont, sans-serif;
   font-size: 16px;
 }
+.halo-render img,
+.halo-render a {
+  width: initial;
+  height: initial;
+  min-width: initial;
+  min-height: initial;
+  max-width: initial;
+  max-height: initial;
+  border-radius: initial;
+  border: initial;
+  margin: initial;
+  padding: initial;
+}
 .halo-render-wrapper {
   margin: 20px 15px;
 }
 
-.tips {
+.halo-render.tips {
   position: relative;
   padding: 15px 15px;
   border-left-style: solid;
   border-left-width: 6px;
   border-radius: 3px;
+  color: #333333;
   border-left-color: #818181;
   background-color: #F4F4F4;
 }
-.tips.tips:after {
+.halo-render.tips.halo-render.tips:after {
   font-family: "iconfont", serif !important;
   width: 20px;
   height: 20px;
@@ -59,64 +73,64 @@
   top: 4px;
   content: "\e77e";
 }
-.tips.tips-warn {
+.halo-render.tips.halo-render.tips-warn {
   background-color: #FFFAED;
   color: #FF8C00;
   border-left-color: #FF8C00;
 }
-.tips.tips-warn.tips.tips-warn:after {
+.halo-render.tips.halo-render.tips-warn.halo-render.tips.halo-render.tips-warn:after {
   color: #FFFAED;
   background-color: #FF8C00;
   content: "\e671";
 }
-.tips.tips-danger {
+.halo-render.tips.halo-render.tips-danger {
   background-color: #FFEDED;
   color: #C31919;
   border-left-color: #C31919;
 }
-.tips.tips-danger.tips.tips-danger:after {
+.halo-render.tips.halo-render.tips-danger.halo-render.tips.halo-render.tips-danger:after {
   background-color: #C31919;
   color: #FFEDED;
   content: "\e671";
 }
-.tips.tips-success {
+.halo-render.tips.halo-render.tips-success {
   background-color: #F2FFED;
   color: #05B800;
   border-left-color: #05B800;
 }
-.tips.tips-success.tips.tips-success:after {
+.halo-render.tips.halo-render.tips-success.halo-render.tips.halo-render.tips-success:after {
   background-color: #05B800;
   color: #F2FFED;
 }
-.tips.tips-info {
+.halo-render.tips.halo-render.tips-info {
   background-color: #F1F7FF;
   color: #3478CD;
   border-left-color: #3478CD;
 }
-.tips.tips-info.tips.tips-info:after {
+.halo-render.tips.halo-render.tips-info.halo-render.tips.halo-render.tips-info:after {
   color: #F1F7FF;
   background-color: #3478CD;
 }
 
-.git {
+.halo-render.git {
   display: flex;
   gap: 10px;
   border: 1px solid #ececec;
   padding: 10px;
   border-radius: 3px;
 }
-.git .information {
+.halo-render.git .information {
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
-.git .information .info {
+.halo-render.git .information .info {
   font-size: 14px;
   display: flex;
   align-items: center;
   gap: 15px;
 }
-.git .information .info .topics {
+.halo-render.git .information .info .topics {
   position: relative;
   display: flex;
   gap: 5px;
@@ -127,7 +141,7 @@
   transition: max-width 0.2s;
   cursor: pointer;
 }
-.git .information .info .topics:after {
+.halo-render.git .information .info .topics:after {
   position: absolute;
   display: block;
   width: 20px;
@@ -137,65 +151,65 @@
   content: '';
   transition: width 0.2s;
 }
-.git .information .info .topics:hover:after {
+.halo-render.git .information .info .topics:hover:after {
   width: 0;
 }
-.git .information .info .topics:hover {
+.halo-render.git .information .info .topics:hover {
   max-width: 70%;
 }
-.git .information .info .topics .topic {
+.halo-render.git .information .info .topics .topic {
   background-color: #3478CD;
   padding: 3px 5px;
   border-radius: 3px;
   white-space: nowrap;
 }
-.git .information .info .language {
+.halo-render.git .information .info .language {
   display: flex;
   align-items: center;
   gap: 5px;
 }
-.git .information .info .language .dot {
+.halo-render.git .information .info .language .dot {
   width: 14px;
   height: 14px;
   border-radius: 50%;
 }
-.git .information .info .count {
+.halo-render.git .information .info .count {
   display: flex;
   align-items: center;
   gap: 10px;
 }
-.git .information .info .count .count-item {
+.halo-render.git .information .info .count .count-item {
   display: flex;
   align-items: center;
   gap: 5px;
 }
-.git .information .info .count .icon {
+.halo-render.git .information .info .count .icon {
   font-size: 18px;
   color: #818181;
 }
-.git .information .description {
+.halo-render.git .information .description {
   font-size: 14px;
 }
-.git .information .info {
+.halo-render.git .information .info {
   font-size: 14px;
   color: #999999;
 }
-.git .error {
+.halo-render.git .error {
   color: darkred;
   text-align: center;
 }
-.git .repo-name a {
+.halo-render.git .repo-name a {
   font-size: 18px;
   color: #3478CD;
   text-decoration: none;
 }
-.git .icon {
+.halo-render.git .icon {
   font-family: "iconfont", serif;
   font-size: 24px;
   color: #333333;
 }
 
-.drive {
+.halo-render.drive {
   border: 1px solid #F4F4F4;
   border-radius: 3px;
   padding: 10px;
@@ -204,29 +218,29 @@
   justify-content: space-between;
   user-select: none;
 }
-.drive .drive-info {
+.halo-render.drive .drive-info {
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
-.drive .drive-info .platform {
+.halo-render.drive .drive-info .platform {
   display: flex;
   align-items: center;
 }
-.drive .drive-info .platform .drive-icon {
+.halo-render.drive .drive-info .platform .drive-icon {
   width: 25px;
 }
-.drive .drive-info .platform span {
+.halo-render.drive .drive-info .platform span {
   font-size: 16px;
   margin-left: 3px;
   color: #3478CD;
 }
-.drive .download-info {
+.halo-render.drive .download-info {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
-.drive .download-info .drive-password {
+.halo-render.drive .download-info .drive-password {
   color: #818181;
   font-size: 12px;
   margin-top: 5px;
