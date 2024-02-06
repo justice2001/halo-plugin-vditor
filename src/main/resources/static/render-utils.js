@@ -25,6 +25,14 @@
     }
 
     /**
+     * 设置CDN
+     * @param {string} cdn CDN
+     */
+    function setCDN(cdn) {
+        this.CDN = cdn;
+    }
+
+    /**
      * 渲染
      * @param elId 搜寻位置
      */
@@ -62,6 +70,7 @@
         addExternal,
         setDarkMode,
         vditorRender,
-        render: vditorRender
+        render: vditorRender,
+        setCDN
     }
 })(window)

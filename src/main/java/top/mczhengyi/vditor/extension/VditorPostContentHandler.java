@@ -32,7 +32,9 @@ public class VditorPostContentHandler implements ReactivePostContentHandler {
                     return contentContext;
                 })
                 .onErrorResume(e -> {
-                    log.error("VditorHeadProcessor process failed", Throwables.getRootCause(e));
+                    if (e instanceof Throwable) {
+                        log.error("VditorHeadProcessor process failed", Throwables.getRootCause(e));
+                    }
                     return Mono.just(contentContext);
                 });
     }

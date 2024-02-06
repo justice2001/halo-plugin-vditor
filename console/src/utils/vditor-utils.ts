@@ -32,7 +32,7 @@ export function getOptions(options: Options): IOptions {
     height: "100%",
     mode: options.defaultRenderMode,
     typewriterMode: options.typeWriterMode,
-    cdn: "https://cdn.jsdelivr.net/npm/vditor@3.9.9",
+    cdn: cdn,
     icon: "material",
     lang: getLanguage(options.language),
     toolbarConfig: {

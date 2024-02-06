@@ -1,5 +1,8 @@
 if (!window.vditorPjax) {
     window.vditorPjax = true
+    let cdnVar = document.getElementById("vditor-var-cdn")
+    let cdn = cdnVar ? cdnVar.getAttribute("value") : ""
+    cdn && vditorRender.setCDN(cdn)
     // 当网页已经准备就绪则直接执行渲染任务
     if (document.readyState === "complete") {
         vditorRender.render()

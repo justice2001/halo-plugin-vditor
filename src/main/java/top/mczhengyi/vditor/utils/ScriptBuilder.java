@@ -34,6 +34,12 @@ public class ScriptBuilder {
         return this;
     }
 
+    public ScriptBuilder variable(String varId, String varValue) {
+        this.script.append("<div data-type=\"var\" id=\"vditor-var-%s\" value=\"%s\"></div>"
+            .formatted(varId, varValue));
+        return this;
+    }
+
     public String getScript() {
         return this.script.toString();
     }

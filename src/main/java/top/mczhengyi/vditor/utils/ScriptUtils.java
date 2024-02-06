@@ -12,8 +12,9 @@ public class ScriptUtils {
     public static String renderScript(RenderConfig renderConfig) {
         ScriptBuilder script = new ScriptBuilder();
         script.sign("article-sign")
+            .variable("cdn", "/plugins/vditor-mde/assets/static/")
             .stylesheet("vditor-render.css", "style")
-            .script("https://cdn.jsdelivr.net/npm/vditor@3.9.9/dist/method.min.js", "methods")
+            .script("dist/method.min.js", "methods")
             .script("render-utils.js", "render-utils"); // 标记文章位置
         if (renderConfig.getMediaRender())
             script.script("external/media-render.js", "media");
