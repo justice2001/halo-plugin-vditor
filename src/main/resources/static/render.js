@@ -1,67 +1,20 @@
-(function (win) {
-    if (win.vditorRender) return;
-
-    const THEME_PREFIX="/plugins/vditor-mde/assets/static/themes"
-    const CDN = "https://cdn.jsdelivr.net/npm/vditor@3.9.9"
-
-    /** 拓展处理 ({dark}) => void */
-    let functionList = []
-    let darkMode = false
-
-    /**
-     * 处理渲染
-     * @param func
-     */
-    function addExternal(func) {
-        functionList.push(func)
+if (!window.vditorPjax) {
+    window.vditorPjax = true
+    // 当网页已经准备就绪则直接执行渲染任务
+    if (document.readyState === "complete") {
+        vditorRender.render()
+    } else {
+        window.addEventListener('load', () => vditorRender.render())
     }
-
-    /**
-     * 设置暗色模式
-     * @param {Boolean} dark
-     */
-    function setDarkMode(dark = false) {
-        darkMode = dark
-    }
-
-    /**
-     * 渲染
-     * @param elId 搜寻位置
-     */
-    function vditorRender(elId="vditor-article-sign") {
-        Vditor.setContentTheme(darkMode?"dark":"light", THEME_PREFIX)
-        let root = document.getElementById(elId)
-        if (!root) {
-            console.log("[Vditor Render] Can't Found Article Root Element!");
-            return
-        }
-        root = root.parentElement
-        root.classList.add("vditor-reset")
-        // Render
-        const renderTheme = darkMode?"dark":"classic"
-        Vditor.mathRender(root, {cdn: CDN})
-        Vditor.mindmapRender(root, CDN, renderTheme)
-        Vditor.mermaidRender(root, CDN, renderTheme)
-        Vditor.chartRender(root, CDN, renderTheme)
-        Vditor.abcRender(root, CDN)
-        Vditor.graphvizRender(root, CDN)
-        Vditor.flowchartRender(root, CDN)
-        // Run External Plugin
-        functionList.forEach(func => {
-            func({
-                darkMode
-            })
-        })
-    }
-
-    win.vditorRender = {
-        THEME_PREFIX,
-        CDN,
-        functionList,
-        darkMode,
-        addExternal,
-        setDarkMode,
-        vditorRender,
-        render: vditorRender
-    }
-})(window)
+    // 兼容 PJAX
+    $(document).on('pjax:complete', function() {
+        vditorRender.render()
+        console.log("[Vditor Render] PJAX END")
+    })
+    // 兼容 Jquery-Pjax
+    $(document).on('pjax:end', function() {
+        vditorRender.render()
+        console.log("[Vditor Render] PJAX END")
+    })
+    console.log("[Vditor Render] PJAX Injected")
+}

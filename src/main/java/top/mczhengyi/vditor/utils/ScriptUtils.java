@@ -14,7 +14,7 @@ public class ScriptUtils {
         script.sign("article-sign")
             .stylesheet("vditor-render.css", "style")
             .script("https://cdn.jsdelivr.net/npm/vditor@3.9.9/dist/method.min.js", "methods")
-            .script("render.js", "render"); // 标记文章位置
+            .script("render-utils.js", "render-utils"); // 标记文章位置
         if (renderConfig.getMediaRender())
             script.script("external/media-render.js", "media");
         if (!renderConfig.getDarkMode().equals("disabled")) {
@@ -23,7 +23,7 @@ public class ScriptUtils {
         script.script("halo-renders/index.js", "halo-render-js")
                 .stylesheet("halo-renders/index.css", "halo-render-css")
                 .script("external/halo-renders.js", "halo-render")
-                .script("pjax.js", "vditor-pjax"); // 完成操作后渲染
+                .script("render.js", "render"); // 完成操作后渲染
         return script.getScript();
     }
 
