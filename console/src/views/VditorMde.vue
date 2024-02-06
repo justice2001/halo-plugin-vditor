@@ -3,7 +3,7 @@ import Vditor from "vditor";
 import { onMounted, onUnmounted, ref } from "vue";
 import "vditor/dist/index.css";
 import type { Schema } from "@/type/editor";
-import { getOptions } from "@/utils/vditor-utils";
+import { getOptions, renderHTML } from "@/utils/vditor-utils";
 import type { AttachmentLike } from "@halo-dev/console-shared";
 import type { Attachment } from "@halo-dev/api-client";
 import { VLoading } from "@halo-dev/components";
@@ -14,6 +14,7 @@ import { quickInsertInject } from "@/utils/quick-insert-utils";
 import { addStyle } from "@/utils/dom-utils";
 import { getCursor, setCursor } from "@/utils/cursor-utils";
 import { defaultEditorConfig, type EditorConfig } from "@/utils/config-utils";
+import DebugPanel from "@/model/DebugPanel.vue";
 
 const props = withDefaults(
   defineProps<{
@@ -41,6 +42,8 @@ let lastSelectionRange: Range | undefined = undefined;
 let imageUploadCursor: Range | undefined;
 const imageUploadLock = false;
 let allowImageUpload: string[] = [];
+// Debug
+const debugMode = ref<boolean>(false);
 
 const emit = defineEmits<{
   (event: "update:raw", value: string): void;
@@ -48,9 +51,11 @@ const emit = defineEmits<{
   (event: "update", value: string): void;
 }>();
 
+const customRenderList = ["halo"];
+
 const debounceOnUpdate = () => {
   emit("update:raw", vditor.value.getValue());
-  emit("update:content", vditor.value.getHTML() || "");
+  emit("update:content", renderHTML(vditor.value) || "");
   emit("update", vditor.value.getValue());
 };
 
@@ -103,7 +108,7 @@ onMounted(async () => {
         ".vditor-ir__node[data-type=html-block] .vditor-ir__marker {height: auto; width: auto; display: inline;}",
       "vditor-mde-hide-html"
     );
-
+  debugMode.value = editorConfig.developer.debugger;
   const qil = await fetchAllQuickInsert(editorConfig.basic.quickInsertUrl);
   qil.forEach((q) => {
     quickInsertInject(q.inject || [], q.provider);
@@ -185,6 +190,7 @@ const update = (val: string | null) => {
 <template>
   <div id="plugin-vditor-mde">
     <VLoading v-if="!vditorLoaded" style="height: 100%" />
+    <DebugPanel v-if="debugMode" :vditor="vditor" />
     <div id="vditor" ref="vditorRef"></div>
     <TemplateModal
       :open="customInsertOpen"

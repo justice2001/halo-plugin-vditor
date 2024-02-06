@@ -6,6 +6,7 @@ import git from "@/schema/git";
 import drive from "@/schema/drive";
 import gallery from "@/schema/gallery";
 import { addScript, addStyleSheet } from "@/utils/dom-utils";
+import type Vditor from "vditor";
 
 declare const HaloJs: {
   renderHalo: (content: string, cdn: string) => string;
@@ -225,4 +226,23 @@ function getCustomRenders(options: Options):
   });
   console.log("Renders: ", renders);
   return renders;
+}
+
+/**
+ * 进行自定义渲染器的后处理
+ * TODO: 该部分建议加入Vditor
+ * @param vditor vditor
+ * @returns html
+ */
+export function renderHTML(vditor: Vditor): string {
+  let value = vditor.getHTML();
+  const customRenders = vditor.vditor.options.customRenders;
+  customRenders?.forEach((render) => {
+    const reg = new RegExp(
+      `<pre><code class="language-${render.language}">(.*?)</code></pre>`,
+      "gs"
+    );
+    value = value.replace(reg, '<div class="language-halo">$1</div>');
+  });
+  return value;
 }
