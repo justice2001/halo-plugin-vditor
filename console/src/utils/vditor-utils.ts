@@ -5,7 +5,7 @@ import tips from "@/schema/tips";
 import git from "@/schema/git";
 import drive from "@/schema/drive";
 import gallery from "@/schema/gallery";
-import {addScript, addStyle, addStyleSheet} from "@/utils/dom-utils";
+import { addScript, addStyleSheet } from "@/utils/dom-utils";
 
 declare const HaloJs: {
   renderHalo: (content: string, cdn: string) => string;
@@ -197,6 +197,9 @@ function getCustomRenders(options: Options):
       render: (element: HTMLElement, vditor: IVditor) => void;
     }[]
   | undefined {
+  if (options.config.developer.debugger) {
+    console.log("QUICK INSERT: ", options.quickInsertList);
+  }
   const renders: {
     language: string;
     render: (element: HTMLElement, vditor: IVditor) => void;

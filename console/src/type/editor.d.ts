@@ -1,4 +1,4 @@
-import type {EditorConfig} from "@/utils/config-utils";
+import type { EditorConfig } from "@/utils/config-utils";
 
 export declare type Options = {
   defaultRenderMode: "ir" | "wysiwyg" | "sv" | undefined;

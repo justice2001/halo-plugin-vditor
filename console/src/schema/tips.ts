@@ -1,5 +1,5 @@
 import type { Schema } from "@/type/editor";
-import {t} from "@/utils/i18n-utils";
+import { t } from "@/utils/i18n-utils";
 
 const schema: Schema = {
   type: "template",
