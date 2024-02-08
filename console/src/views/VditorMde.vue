@@ -33,6 +33,7 @@ const vditor = ref();
 const vditorRef = ref();
 const vditorLoaded = ref(false);
 const attachmentSelectorModalShow = ref(false);
+const editorConfig = ref<EditorConfig>();
 // 特殊插入框， 当前支持none/tips/git
 // 自定义插入
 const customInsertOpen = ref(false);
@@ -86,32 +87,34 @@ onUnmounted(async () => {
 onMounted(async () => {
   // 实验性功能: 获取当前语言
   const lang = localStorage.getItem("locale") || "zh-CN";
-  let editorConfig: EditorConfig;
   try {
     const response = await fetch(
       "/apis/api.vditor.mczhengyi.top/editor-options"
     );
-    editorConfig = await response.json();
+    editorConfig.value = await response.json();
   } catch (e) {
     // ignore this
-    editorConfig = defaultEditorConfig;
+    editorConfig.value = defaultEditorConfig;
   }
+  if (!editorConfig.value) return;
   // Assign allowImage
   allowImageUpload = allowImageUpload.concat(
-    editorConfig.extension.allowImageType.split(",").map((i) => i.trim())
+    editorConfig.value.extension.allowImageType.split(",").map((i) => i.trim())
   );
   console.log("ALLOW", allowImageUpload);
   // 禁用HTML代码块隐藏
-  if (editorConfig.basic.disableHTMLBlockPreview)
+  if (editorConfig.value.basic.disableHTMLBlockPreview)
     addStyle(
       "[data-type=html-block] pre {display: block!important;}\n" +
         ".vditor-ir__node[data-type=html-block] .vditor-ir__marker {height: auto; width: auto; display: inline;}",
       "vditor-mde-hide-html"
     );
   // Debug Mode
-  debugMode.value = editorConfig.developer.debugger;
+  debugMode.value = editorConfig.value.developer.debugger;
   // Quick Insert Process
-  const qil = await fetchAllQuickInsert(editorConfig.basic.quickInsertUrl);
+  const qil = await fetchAllQuickInsert(
+    editorConfig.value.basic.quickInsertUrl
+  );
   qil.forEach((q) => {
     quickInsertInject(q.inject || [], q.provider);
   });
@@ -119,8 +122,8 @@ onMounted(async () => {
   vditor.value = new Vditor(
     vditorRef.value,
     getOptions({
-      defaultRenderMode: editorConfig.basic.defaultRenderMode,
-      typeWriterMode: editorConfig.basic.typeWriterMode,
+      defaultRenderMode: editorConfig.value.basic.defaultRenderMode,
+      typeWriterMode: editorConfig.value.basic.typeWriterMode,
       after: () => {
         vditor.value.setValue(props.raw || "# Title Here");
         vditorLoaded.value = true;
@@ -128,7 +131,7 @@ onMounted(async () => {
       input: debounceOnUpdate,
       showAttachment: () => (attachmentSelectorModalShow.value = true),
       language: lang,
-      codeBlockPreview: editorConfig.basic.codeBlockPreview,
+      codeBlockPreview: editorConfig.value.basic.codeBlockPreview,
       uploadImage: (files: File[]) => {
         console.log("UPLOAD IMAGE");
         if (imageUploadLock) {
@@ -171,9 +174,9 @@ onMounted(async () => {
         customInsertSchema.value = schema;
         customInsertOpen.value = true;
       },
-      enableQuickInsert: editorConfig.basic.enableQuickInsert,
+      enableQuickInsert: editorConfig.value.basic.enableQuickInsert,
       quickInsertList: qil,
-      config: editorConfig,
+      config: editorConfig.value,
     })
   );
 });
@@ -193,7 +196,7 @@ const update = (val: string | null) => {
 <template>
   <div id="plugin-vditor-mde">
     <VLoading v-if="!vditorLoaded" style="height: 100%" />
-    <DebugPanel v-if="debugMode" :vditor="vditor" />
+    <DebugPanel v-if="debugMode" :config="editorConfig" :vditor="vditor" />
     <div id="vditor" ref="vditorRef"></div>
     <TemplateModal
       :open="customInsertOpen"
