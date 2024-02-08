@@ -11,6 +11,9 @@
       <VButton type="primary" size="sm" @click="getPluginConfig">
         Get Plugin Config
       </VButton>
+      <VButton type="primary" size="sm" @click="getCursor">
+        Get Last Cursor
+      </VButton>
     </div>
     <div v-if="false" id="vditor-debug-data">
       <div>Vditor DEBUG</div>
@@ -30,6 +33,7 @@ const debugOpOpen = ref<boolean>(false);
 const props = defineProps<{
   vditor: Vditor | null;
   config: EditorConfig | undefined;
+  cursor: Range | undefined;
 }>();
 
 const getHTML = () => {
@@ -45,6 +49,12 @@ const getRenderList = () => {
 const getPluginConfig = () => {
   if (props.config) {
     console.log("CONFIG: ", props.config);
+  }
+};
+
+const getCursor = () => {
+  if (props.cursor) {
+    console.log("LAST CURSOR", props.cursor);
   }
 };
 </script>

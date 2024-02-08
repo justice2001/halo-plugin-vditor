@@ -52,8 +52,6 @@ const emit = defineEmits<{
   (event: "update", value: string): void;
 }>();
 
-const customRenderList = ["halo"];
-
 const debounceOnUpdate = () => {
   emit("update:raw", vditor.value.getValue());
   emit("update:content", renderHTML(vditor.value) || "");
@@ -200,7 +198,12 @@ const update = (val: string | null) => {
 <template>
   <div id="plugin-vditor-mde">
     <VLoading v-if="!vditorLoaded" style="height: 100%" />
-    <DebugPanel v-if="debugMode" :config="editorConfig" :vditor="vditor" />
+    <DebugPanel
+      v-if="debugMode"
+      :config="editorConfig"
+      :vditor="vditor"
+      :cursor="lastSelectionRange"
+    />
     <div id="vditor" ref="vditorRef"></div>
     <TemplateModal
       :open="customInsertOpen"
