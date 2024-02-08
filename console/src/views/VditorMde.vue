@@ -62,6 +62,7 @@ const debounceOnUpdate = () => {
 
 // 选取附件后处理
 const attachmentSelect = (attachments: AttachmentLike[]) => {
+  setCursor(lastSelectionRange);
   // Reference https://github.com/guqing/willow-mde/blob/4b8e697132f8a8f4b08dd0f92cf10d070cb26793/console/src/components/toolbar/Toolbar.vue#L104
   attachments.forEach((attachment) => {
     if (typeof attachment === "string") {
@@ -129,7 +130,10 @@ onMounted(async () => {
         vditorLoaded.value = true;
       },
       input: debounceOnUpdate,
-      showAttachment: () => (attachmentSelectorModalShow.value = true),
+      showAttachment: () => {
+        lastSelectionRange = getCursor();
+        attachmentSelectorModalShow.value = true;
+      },
       language: lang,
       codeBlockPreview: editorConfig.value.basic.codeBlockPreview,
       uploadImage: (files: File[]) => {
