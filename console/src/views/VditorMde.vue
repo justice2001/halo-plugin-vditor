@@ -108,11 +108,14 @@ onMounted(async () => {
         ".vditor-ir__node[data-type=html-block] .vditor-ir__marker {height: auto; width: auto; display: inline;}",
       "vditor-mde-hide-html"
     );
+  // Debug Mode
   debugMode.value = editorConfig.developer.debugger;
+  // Quick Insert Process
   const qil = await fetchAllQuickInsert(editorConfig.basic.quickInsertUrl);
   qil.forEach((q) => {
     quickInsertInject(q.inject || [], q.provider);
   });
+  // Create Vditor
   vditor.value = new Vditor(
     vditorRef.value,
     getOptions({

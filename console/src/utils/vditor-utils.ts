@@ -217,11 +217,12 @@ function getCustomRenders(options: Options):
   renders.push({
     language: "halo",
     render: (element: HTMLElement) => {
-      console.log(element);
-      element.innerHTML = HaloJs.renderHalo(
-        element.textContent || "",
-        "/plugins/vditor-mde/assets/static/halo-renders"
-      );
+      element.querySelectorAll(".language-halo").forEach((el) => {
+        el.outerHTML = HaloJs.renderHalo(
+          el.textContent || "",
+          "/plugins/vditor-mde/assets/static/halo-renders"
+        );
+      });
     },
   });
   console.log("Renders: ", renders);
