@@ -1,7 +1,7 @@
-import {definePlugin, type EditorProvider} from "@halo-dev/console-shared";
-import Vditor from "./views/Vditor.vue";
-import logo from "./assets/vditor.png"
-import {markRaw} from "vue";
+import { definePlugin, type EditorProvider } from "@halo-dev/console-shared";
+import logo from "./assets/vditor.png";
+import { markRaw } from "vue";
+import VditorMde from "./views/VditorMde.vue";
 
 export default definePlugin({
   components: {},
@@ -11,10 +11,9 @@ export default definePlugin({
         {
           name: "vditor-mde",
           displayName: "Vditor Markdown",
-          // @ts-ignore
-          component: markRaw(Vditor),
+          component: markRaw(VditorMde),
           rawType: "markdown",
-          logo: logo
+          logo: logo,
         },
       ];
     },

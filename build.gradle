@@ -41,13 +41,9 @@ build {
 }
 
 halo {
-    version = '2.11.3'
+    version = '2.12'
     superAdminUsername = 'admin'
     superAdminPassword = 'admin'
     externalUrl = 'http://localhost:8090'
-    docker {
-        // windows 默认为 npipe:////./pipe/docker_engine
-        url = 'npipe:////./pipe/docker_engine'
-        apiVersion = '1.42'
-    }
+    debug = true
 }

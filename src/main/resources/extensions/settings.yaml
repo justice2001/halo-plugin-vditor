@@ -89,3 +89,11 @@ spec:
               label: "仅在Markdown模式下渲染"
               help: "启用该功能将仅在Markdown格式的文章下注入渲染脚本"
               value: true
+        - group: developer
+          label: 开发者设置
+          formSchema:
+            - $formkit: checkbox
+              name: debugger
+              label: "启用Debugger"
+              help: "启动Vditor编辑器的Debugger模式，一般用于开发者使用"
+              value: false

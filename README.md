@@ -1,15 +1,5 @@
 # halo-plugin-vditor
 
----
-
-## NEXT VERSION
-
-- ✨ 使用新的快速插入表单，界面更美观
-- ✨ 支持渲染其他插件/主题的自定义组件（需要开发者支持）
-- ✨ 允许用户禁用HTML代码块隐藏的特性
-
----
-
 本插件将Vditor整合进Halo，支持所见即所得编辑模式。 Support English (*Only Editor)!
 
 编辑器支持数学公式、脑图、图表、流程图、甘特图、时序图、五线谱、graphviz 渲染、plantumlUML图

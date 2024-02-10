@@ -1,4 +1,4 @@
-addExternal((conf) => {
+vditorRender.addExternal((conf) => {
     console.log("Run External Function: Media Render!")
     let mediaRenderOption = document.getElementById("vditor-render").dataset.mediarender
     if (mediaRenderOption==="true") {

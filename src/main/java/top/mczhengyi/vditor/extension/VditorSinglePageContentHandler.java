@@ -1,6 +1,7 @@
 package top.mczhengyi.vditor.extension;
 
 import com.google.common.base.Throwables;
+
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -27,7 +28,9 @@ public class VditorSinglePageContentHandler implements ReactiveSinglePageContent
                 return contentContext;
             })
             .onErrorResume(e -> {
-                log.error("VditorHeadProcessor process failed", Throwables.getRootCause(e));
+                if (e instanceof Throwable) {
+                    log.error("VditorHeadProcessor process failed", Throwables.getRootCause(e));
+                }
                 return Mono.empty();
             });
     }

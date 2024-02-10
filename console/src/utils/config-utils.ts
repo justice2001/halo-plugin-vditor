@@ -11,6 +11,9 @@ export declare type EditorConfig = {
   extension: {
     allowImageType: string;
   };
+  developer: {
+    debugger: boolean;
+  };
 };
 
 export const defaultEditorConfig: EditorConfig = {
@@ -25,5 +28,8 @@ export const defaultEditorConfig: EditorConfig = {
   },
   extension: {
     allowImageType: "png,jpg,jpeg,bmp,gif,webp,svg",
-  }
-}
+  },
+  developer: {
+    debugger: false,
+  },
+};

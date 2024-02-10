@@ -1,3 +1,5 @@
+import type { EditorConfig } from "@/utils/config-utils";
+
 export declare type Options = {
   defaultRenderMode: "ir" | "wysiwyg" | "sv" | undefined;
   typeWriterMode: boolean;
@@ -10,6 +12,7 @@ export declare type Options = {
   openModal: (schema: Schema) => void;
   quickInsertList: QuickInsert[];
   enableQuickInsert: boolean;
+  config: EditorConfig;
 };
 
 export interface Schema {

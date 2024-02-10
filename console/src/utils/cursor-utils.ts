@@ -1,5 +1,5 @@
 export function getCursor() {
-  return window.getSelection()?.getRangeAt(0);
+  return window.getSelection()?.getRangeAt(0).cloneRange();
 }
 
 export function setCursor(range: Range | undefined) {

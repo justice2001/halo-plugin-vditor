@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.pf4j.PluginWrapper;
 import org.springframework.stereotype.Component;
-import org.springframework.util.PropertyPlaceholderHelper;
 import reactor.core.publisher.Mono;
 import run.halo.app.plugin.ReactiveSettingFetcher;
 import run.halo.app.theme.ReactivePostContentHandler;
@@ -33,7 +32,9 @@ public class VditorPostContentHandler implements ReactivePostContentHandler {
                     return contentContext;
                 })
                 .onErrorResume(e -> {
-                    log.error("VditorHeadProcessor process failed", Throwables.getRootCause(e));
+                    if (e instanceof Throwable) {
+                        log.error("VditorHeadProcessor process failed", Throwables.getRootCause(e));
+                    }
                     return Mono.just(contentContext);
                 });
     }
