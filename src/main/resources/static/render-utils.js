@@ -54,6 +54,7 @@
         Vditor.abcRender(root, CDN)
         Vditor.graphvizRender(root, CDN)
         Vditor.flowchartRender(root, CDN)
+        Vditor.plantumlRender(root, CDN)
         // Run External Plugin
         functionList.forEach(func => {
             func({
