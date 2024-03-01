@@ -2,3 +2,17 @@
 This is a theme for halo-plugin-vditor
 Modified from vditor content_theme
  */
+
+.vditor-reset .iframe__video {
+    display: block;
+    margin: 0 auto !important;
+    min-width: 80%;
+    min-height: 36vh;
+    border: none;
+}
+
+.vditor-reset video {
+    display: block;
+    margin: 0 auto !important;
+    min-width: 80%;
+}
