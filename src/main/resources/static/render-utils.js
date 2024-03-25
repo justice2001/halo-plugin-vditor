@@ -45,16 +45,17 @@
         }
         root = root.parentElement
         root.classList.add("vditor-reset")
+        console.log(`Using CDN: ${this.CDN}`)
         // Render
         const renderTheme = darkMode?"dark":"classic"
-        Vditor.mathRender(root, {cdn: CDN})
-        Vditor.mindmapRender(root, CDN, renderTheme)
-        Vditor.mermaidRender(root, CDN, renderTheme)
-        Vditor.chartRender(root, CDN, renderTheme)
-        Vditor.abcRender(root, CDN)
-        Vditor.graphvizRender(root, CDN)
-        Vditor.flowchartRender(root, CDN)
-        Vditor.plantumlRender(root, CDN)
+        Vditor.mathRender(root, {cdn: this.CDN})
+        Vditor.mindmapRender(root, this.CDN, renderTheme)
+        Vditor.mermaidRender(root, this.CDN, renderTheme)
+        Vditor.chartRender(root, this.CDN, renderTheme)
+        Vditor.abcRender(root, this.CDN)
+        Vditor.graphvizRender(root, this.CDN)
+        Vditor.flowchartRender(root, this.CDN)
+        Vditor.plantumlRender(root, this.CDN)
         // Run External Plugin
         functionList.forEach(func => {
             func({

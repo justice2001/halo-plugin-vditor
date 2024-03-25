@@ -12,7 +12,7 @@ public class ScriptUtils {
     public static String renderScript(RenderConfig renderConfig) {
         ScriptBuilder script = new ScriptBuilder();
         script.sign("article-sign")
-            .variable("cdn", "/plugins/vditor-mde/assets/static/")
+            .variable("cdn", renderConfig.getCdn())
             .stylesheet("vditor-render.css", "style")
             .script("dist/method.min.js", "methods")
             .script("render-utils.js", "render-utils"); // 标记文章位置

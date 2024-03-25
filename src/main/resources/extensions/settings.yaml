@@ -89,6 +89,29 @@ spec:
               label: "仅在Markdown模式下渲染"
               help: "启用该功能将仅在Markdown格式的文章下注入渲染脚本"
               value: true
+            - $formkit: select
+              id: cdn
+              name: cdn
+              label: "Vditor CDN"
+              help: "前台渲染所使用的 CDN 配置"
+              value: "/plugins/vditor-mde/assets/static"
+              options:
+                - label: "内建"
+                  value: "/plugins/vditor-mde/assets/static"
+                - label: "jsDelivr(国外)"
+                  value: "https://cdn.jsdelivr.net/npm/vditor@${v}"
+                - label: "unpkg(国外)"
+                  value: "https://unpkg.com/vditor@${v}"
+                - label: "npmmirror(国内)"
+                  value: "https://registry.npmmirror.com/vditor/${v}/files"
+                - label: "自建"
+                  value: "self-hosted"
+            - $formkit: text
+              if: "$cdn == 'self-hosted'"
+              name: cdnUrl
+              label: CDN URL
+              placeholder: "在此处填入您的自建cdn(不支持 cdnjs 格式，使用${v}代替版本号)"
+              value: ""
         - group: developer
           label: 开发者设置
           formSchema:
