@@ -102,8 +102,8 @@ spec:
                   value: "https://cdn.jsdelivr.net/npm/vditor@${v}"
                 - label: "unpkg(国外)"
                   value: "https://unpkg.com/vditor@${v}"
-                - label: "ZStatic(国内)"
-                  value: "https://s4.zstatic.net/npm/vditor@${v}"
+                - label: "npmmirror(国内)"
+                  value: "https://registry.npmmirror.com/vditor/${v}/files"
                 - label: "自建"
                   value: "self-hosted"
             - $formkit: text
