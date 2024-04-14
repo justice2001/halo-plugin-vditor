@@ -70,9 +70,9 @@ watch(
 const debounceOnUpdate = () => {
   // 解析标题
   let value = vditor.value.getValue();
-  const firstLine = value.split("\n")[0];
-  if (editorConfig.value?.basic.firstH1AsTitle && firstLine.startsWith("# ")) {
+  if (editorConfig.value?.basic.firstH1AsTitle && value.startsWith("# ")) {
     // First Line is Title
+    const firstLine = value.match(/^.*/)[0];
     console.log(`title is ${firstLine.substring(2)}`);
     emit("update:title", firstLine.substring(2));
     // 删除第一行并清除空行
