@@ -51,6 +51,11 @@ spec:
                 label: 禁用HTML代码块隐藏
                 help: 开启此选项后，HTML代码块将会一直显示
                 value: false
+              - $formkit: checkbox
+                name: firstH1AsTitle
+                label: 🧪自动将第一行作为标题
+                help: 开启此选项后，第一行H1将会作为文章标题，同时标题会用 T 标识
+                value: false
         - group: extension
           label: 文件格式
           formSchema:
