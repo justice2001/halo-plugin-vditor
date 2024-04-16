@@ -234,6 +234,7 @@ function getCustomRenders(options: Options):
  * 进行自定义渲染器的后处理
  * TODO: 该部分建议加入Vditor
  * @param vditor vditor
+ * @param config Editor Config
  * @returns html
  */
 export function renderHTML(vditor: Vditor, config: EditorConfig): string {
@@ -249,7 +250,8 @@ export function renderHTML(vditor: Vditor, config: EditorConfig): string {
   });
   // Remove H1 Title When start with "h1"
   if (config.basic.firstH1AsTitle && value.startsWith("<h1")) {
-    value = value.replace(/<h1>(.*?)<\/h1>/, "");
+    value = value.replace(/<h1(?:\s+[^>]*)?>(.*?)<\/h1>/, "");
+    console.log(value);
   }
   return value;
 }
