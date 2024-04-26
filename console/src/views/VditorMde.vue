@@ -324,8 +324,20 @@ const update = (val: string | null) => {
   padding: 8px 10px;
 }
 
+
+/* title */
 #plugin-vditor-mde.h1AsTitle .vditor-ir h1:first-child::before,
 #plugin-vditor-mde.h1AsTitle .vditor-wysiwyg h1:first-child::before {
   content: "T";
+}
+
+#plugin-vditor-mde.h1AsTitle .vditor-ir h1:first-child,
+#plugin-vditor-mde.h1AsTitle .vditor-wysiwyg h1:first-child {
+  border-bottom: 2px solid #eaecef;
+  color: #333333;
+  text-align: left;
+  text-decoration: none;
+  font-size: 2rem;
+  background: none;
 }
 </style>
