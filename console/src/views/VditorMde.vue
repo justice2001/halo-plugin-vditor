@@ -47,6 +47,8 @@ const imageUploadLock = false;
 let allowImageUpload: string[] = [];
 // Debug
 const debugMode = ref<boolean>(false);
+// 防止内部标题更新触发updateContent
+const internalTitle = ref<string>("");
 
 const emit = defineEmits<{
   (event: "update:raw", value: string): void;
@@ -59,14 +61,23 @@ const emit = defineEmits<{
 watch(
   () => props.title,
   (val) => {
-    if (!editorConfig.value?.basic.firstH1AsTitle) return;
+    // When option disabled or nothing to update
+    if (
+      !editorConfig.value?.basic.firstH1AsTitle ||
+      internalTitle.value === val
+    ) {
+      return;
+    }
+    // Get title
     const vdiVal = vditor.value.getValue();
     if (vdiVal.startsWith("# ")) {
+      internalTitle.value = val;
       vditor.value.setValue(vdiVal.replace(/# .*?\n/, `# ${val}\n`));
     }
   }
 );
 
+// Update content
 const debounceOnUpdate = () => {
   // 解析标题
   let value = vditor.value.getValue();
@@ -74,10 +85,12 @@ const debounceOnUpdate = () => {
     // First Line is Title
     const firstLine = value.match(/^.*/)[0];
     console.log(`title is ${firstLine.substring(2)}`);
-    emit("update:title", firstLine.substring(2));
+    internalTitle.value = firstLine.substring(2);
+    emit("update:title", internalTitle.value);
     // 删除第一行并清除空行
     value = value.substring(firstLine.length + 2);
   }
+  // update content
   emit("update:raw", value);
   emit(
     "update:content",
@@ -152,11 +165,12 @@ onMounted(async () => {
       defaultRenderMode: editorConfig.value.basic.defaultRenderMode,
       typeWriterMode: editorConfig.value.basic.typeWriterMode,
       after: () => {
-        let content = "# Title Here";
+        let content = "";
         if (props.raw) {
           content = props.raw;
         }
         if (editorConfig.value?.basic.firstH1AsTitle) {
+          internalTitle.value = props.title;
           content = `# ${props.title}\n\n` + content;
         }
         vditor.value.setValue(content);
