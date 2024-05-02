@@ -2,6 +2,8 @@ apiVersion: plugin.halo.run/v1alpha1
 kind: Plugin
 metadata:
   name: vditor-mde
+  annotations:
+    store.halo.run/app-id: app-uBcYw
 spec:
   enabled: true
   requires: ">=2.11.0"
