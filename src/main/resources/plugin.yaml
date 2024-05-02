@@ -1,22 +1,21 @@
 apiVersion: plugin.halo.run/v1alpha1
 kind: Plugin
 metadata:
-  # The name defines how the plugin is invoked,A unique name
   name: vditor-mde
 spec:
   enabled: true
   requires: ">=2.11.0"
   author:
     name: zhengyi59
-    website: https://github.com/justice2001/veditor-plugin
+    website: https://github.com/justice2001/halo-plugin-vditor
   logo: vditor.png
-  # 'homepage' usually links to the GitHub repository of the plugin
-  homepage: https://github.com/justice2001/veditor-plugin
-  # 'displayName' explains what the plugin does in only a few words
+  homepage: https://www.halo.run/store/apps/app-uBcYw
+  repo: https://github.com/justice2001/halo-plugin-vditor
+  issues: https://github.com/justice2001/halo-plugin-vditor/issues
   settingName: vditor-mde-settings
   configMapName: vditor-mde-configMap
-  displayName: "Vditor编辑器"
-  description: "适用于Halo的Vditor编辑器"
+  displayName: "Vditor 编辑器"
+  description: "适用于 Halo 的 Vditor 编辑器"
   license:
     - name: "GPL-3.0"
-      url: "https://github.com/justice2001/veditor-plugin/blob/main/LICENSE"
+      url: "https://github.com/justice2001/halo-plugin-vditor/blob/main/LICENSE"
