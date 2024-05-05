@@ -340,4 +340,13 @@ const update = (val: string | null) => {
   font-size: 2rem;
   background: none;
 }
+
+/**
+ Fix compatible issues with docsme.
+ https://github.com/justice2001/halo-plugin-vditor/issues/38
+*/
+#plugin-vditor-mde code[class*=language-],
+#plugin-vditor-mde pre[class*=language-] {
+  color: #000000;
+}
 </style>
