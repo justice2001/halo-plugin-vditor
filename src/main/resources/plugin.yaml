@@ -6,7 +6,7 @@ metadata:
     store.halo.run/app-id: app-uBcYw
 spec:
   enabled: true
-  requires: ">=2.11.0"
+  requires: ">=2.14.0"
   author:
     name: zhengyi59
     website: https://github.com/justice2001/halo-plugin-vditor

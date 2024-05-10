@@ -7,6 +7,7 @@ export declare type EditorConfig = {
     enableQuickInsert: boolean;
     quickInsertUrl: [];
     disableHTMLBlockPreview: boolean;
+    firstH1AsTitle: boolean;
   };
   extension: {
     allowImageType: string;
@@ -25,6 +26,7 @@ export const defaultEditorConfig: EditorConfig = {
     enableQuickInsert: false,
     quickInsertUrl: [],
     disableHTMLBlockPreview: false,
+    firstH1AsTitle: false,
   },
   extension: {
     allowImageType: "png,jpg,jpeg,bmp,gif,webp,svg",

@@ -7,6 +7,7 @@ import drive from "@/schema/drive";
 import gallery from "@/schema/gallery";
 import { addScript, addStyleSheet } from "@/utils/dom-utils";
 import type Vditor from "vditor";
+import type {EditorConfig} from "@/utils/config-utils";
 
 declare const HaloJs: {
   renderHalo: (content: string, cdn: string) => string;
@@ -233,11 +234,13 @@ function getCustomRenders(options: Options):
  * 进行自定义渲染器的后处理
  * TODO: 该部分建议加入Vditor
  * @param vditor vditor
+ * @param config Editor Config
  * @returns html
  */
-export function renderHTML(vditor: Vditor): string {
+export function renderHTML(vditor: Vditor, config: EditorConfig): string {
   let value = vditor.getHTML();
   const customRenders = vditor.vditor.options.customRenders;
+  // FIXME 此部分逻辑有大问题！
   customRenders?.forEach((render) => {
     const reg = new RegExp(
       `<pre><code class="language-${render.language}">(.*?)</code></pre>`,
@@ -245,5 +248,10 @@ export function renderHTML(vditor: Vditor): string {
     );
     value = value.replace(reg, '<div class="language-halo">$1</div>');
   });
+  // Remove H1 Title When start with "h1"
+  if (config.basic.firstH1AsTitle && value.startsWith("<h1")) {
+    value = value.replace(/<h1(?:\s+[^>]*)?>(.*?)<\/h1>/, "");
+    console.log(value);
+  }
   return value;
 }

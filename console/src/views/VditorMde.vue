@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import Vditor from "vditor";
-import { onMounted, onUnmounted, ref } from "vue";
+import { onMounted, onUnmounted, ref, watch } from "vue";
 import "vditor/dist/index.css";
 import type { Schema } from "@/type/editor";
 import { getOptions, renderHTML } from "@/utils/vditor-utils";
@@ -18,11 +18,13 @@ import DebugPanel from "@/model/DebugPanel.vue";
 
 const props = withDefaults(
   defineProps<{
+    title?: string;
     raw?: string;
     content: string;
     uploadImage?: (file: File) => Promise<Attachment>;
   }>(),
   {
+    title: "",
     raw: "",
     content: "",
     uploadImage: undefined,
@@ -45,17 +47,56 @@ const imageUploadLock = false;
 let allowImageUpload: string[] = [];
 // Debug
 const debugMode = ref<boolean>(false);
+// 防止内部标题更新触发updateContent
+const internalTitle = ref<string>("");
 
 const emit = defineEmits<{
   (event: "update:raw", value: string): void;
   (event: "update:content", value: string): void;
   (event: "update", value: string): void;
+  (event: "update:title", value: string): void;
 }>();
 
+// Watch Title Change
+watch(
+  () => props.title,
+  (val) => {
+    // When option disabled or nothing to update
+    if (
+      !editorConfig.value?.basic.firstH1AsTitle ||
+      internalTitle.value === val
+    ) {
+      return;
+    }
+    // Get title
+    const vdiVal = vditor.value.getValue();
+    if (vdiVal.startsWith("# ")) {
+      internalTitle.value = val;
+      vditor.value.setValue(vdiVal.replace(/# .*?\n/, `# ${val}\n`));
+    }
+  }
+);
+
+// Update content
 const debounceOnUpdate = () => {
-  emit("update:raw", vditor.value.getValue());
-  emit("update:content", renderHTML(vditor.value) || "");
-  emit("update", vditor.value.getValue());
+  // 解析标题
+  let value = vditor.value.getValue();
+  if (editorConfig.value?.basic.firstH1AsTitle && value.startsWith("# ")) {
+    // First Line is Title
+    const firstLine = value.match(/^.*/)[0];
+    console.log(`title is ${firstLine.substring(2)}`);
+    internalTitle.value = firstLine.substring(2);
+    emit("update:title", internalTitle.value);
+    // 删除第一行并清除空行
+    value = value.substring(firstLine.length + 2);
+  }
+  // update content
+  emit("update:raw", value);
+  emit(
+    "update:content",
+    renderHTML(vditor.value, editorConfig.value || defaultEditorConfig) || ""
+  );
+  emit("update", value);
 };
 
 // 选取附件后处理
@@ -124,7 +165,15 @@ onMounted(async () => {
       defaultRenderMode: editorConfig.value.basic.defaultRenderMode,
       typeWriterMode: editorConfig.value.basic.typeWriterMode,
       after: () => {
-        vditor.value.setValue(props.raw || "# Title Here");
+        let content = "";
+        if (props.raw) {
+          content = props.raw;
+        }
+        if (editorConfig.value?.basic.firstH1AsTitle) {
+          internalTitle.value = props.title;
+          content = `# ${props.title}\n\n` + content;
+        }
+        vditor.value.setValue(content);
         vditorLoaded.value = true;
       },
       input: debounceOnUpdate,
@@ -196,7 +245,10 @@ const update = (val: string | null) => {
 </script>
 
 <template>
-  <div id="plugin-vditor-mde">
+  <div
+    id="plugin-vditor-mde"
+    :class="{ h1AsTitle: editorConfig?.basic.firstH1AsTitle }"
+  >
     <VLoading v-if="!vditorLoaded" style="height: 100%" />
     <DebugPanel
       v-if="debugMode"
@@ -270,5 +322,31 @@ const update = (val: string | null) => {
   margin-left: 10px;
   flex: 1;
   padding: 8px 10px;
+}
+
+
+/* title */
+#plugin-vditor-mde.h1AsTitle .vditor-ir h1:first-child::before,
+#plugin-vditor-mde.h1AsTitle .vditor-wysiwyg h1:first-child::before {
+  content: "T";
+}
+
+#plugin-vditor-mde.h1AsTitle .vditor-ir h1:first-child,
+#plugin-vditor-mde.h1AsTitle .vditor-wysiwyg h1:first-child {
+  border-bottom: 2px solid #eaecef;
+  color: #333333;
+  text-align: left;
+  text-decoration: none;
+  font-size: 2rem;
+  background: none;
+}
+
+/**
+ Fix compatible issues with docsme.
+ https://github.com/justice2001/halo-plugin-vditor/issues/38
+*/
+#plugin-vditor-mde code[class*=language-],
+#plugin-vditor-mde pre[class*=language-] {
+  color: #000000;
 }
 </style>

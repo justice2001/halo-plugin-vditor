@@ -64,7 +64,7 @@ jobs:
           name: plugin-starter
           path: |
             build/libs/*.jar
-          retention-days: 1
+          retention-days: 90
 
   github-release:
     runs-on: debian-12
