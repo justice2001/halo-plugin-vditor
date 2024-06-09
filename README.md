@@ -1,5 +1,10 @@
 # halo-plugin-vditor
 
+![](https://img.shields.io/badge/状态-稳定-red.svg)
+![](https://img.shields.io/badge/启动时间-2023/11/23-green.svg)
+![](https://img.shields.io/badge/优先级-HIGH-blue.svg)
+![GitHub Release](https://img.shields.io/github/v/release/justice2001/halo-plugin-vditor?color=yellow&label=版本)
+
 本插件将Vditor整合进Halo，支持所见即所得编辑模式。 Support English (*Only Editor)!
 
 编辑器支持数学公式、脑图、图表、流程图、甘特图、时序图、五线谱、graphviz 渲染、plantumlUML图
@@ -58,7 +63,9 @@
 
 ## 🙏 鸣谢
 
->特别感谢[Vditor](https://github.com/Vanessa219/vditor),本插件大部分内容均为此编辑器提供
+> 特别感谢来自 [Halo](https://github.com/halo-dev) 的投喂
+
+> 特别感谢[Vditor](https://github.com/Vanessa219/vditor),本插件大部分内容均为此编辑器提供
 
 * [Vditor](https://github.com/Vanessa219/vditor) 一款浏览器端的 Markdown 编辑器，支持所见即所得、即时渲染（类似 Typora）和分屏预览模式。
 * [Lute](https://github.com/88250/lute)：🎼 一款结构化的 Markdown 引擎，支持 Go 和 JavaScript
