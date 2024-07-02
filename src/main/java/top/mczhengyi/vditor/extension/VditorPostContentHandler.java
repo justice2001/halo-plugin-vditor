@@ -3,9 +3,9 @@ package top.mczhengyi.vditor.extension;
 import com.google.common.base.Throwables;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.pf4j.PluginWrapper;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Mono;
+import run.halo.app.plugin.PluginContext;
 import run.halo.app.plugin.ReactiveSettingFetcher;
 import run.halo.app.theme.ReactivePostContentHandler;
 import top.mczhengyi.vditor.bean.RenderConfig;
@@ -18,7 +18,7 @@ public class VditorPostContentHandler implements ReactivePostContentHandler {
 
     private final ReactiveSettingFetcher reactiveSettingFetcher;
 
-    private final PluginWrapper pluginWrapper;
+    private final PluginContext pluginContext;
 
     @Override
     public Mono<PostContentContext> handle(PostContentContext contentContext) {
@@ -27,7 +27,7 @@ public class VditorPostContentHandler implements ReactivePostContentHandler {
                     if (renderConfig.getEnableRender()&&
                         (!renderConfig.getOnlyMarkdown() || contentContext.getRawType().equals("markdown"))) {
                         var content = ScriptUtils.renderScript(renderConfig) + "\n" + contentContext.getContent();
-                        contentContext.setContent(ScriptUtils.setContentProperty(content, pluginWrapper));
+                        contentContext.setContent(ScriptUtils.setContentProperty(content, pluginContext));
                     }
                     return contentContext;
                 })
