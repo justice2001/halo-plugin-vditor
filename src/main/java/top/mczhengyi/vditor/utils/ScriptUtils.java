@@ -1,7 +1,7 @@
 package top.mczhengyi.vditor.utils;
 
-import org.pf4j.PluginWrapper;
 import org.springframework.util.PropertyPlaceholderHelper;
+import run.halo.app.plugin.PluginContext;
 import top.mczhengyi.vditor.bean.RenderConfig;
 import java.util.Properties;
 
@@ -28,9 +28,9 @@ public class ScriptUtils {
         return script.getScript();
     }
 
-    public static String setContentProperty(String script, PluginWrapper pluginWrapper) {
+    public static String setContentProperty(String script, PluginContext pluginContext) {
         final Properties properties = new Properties();
-        properties.setProperty("version", pluginWrapper.getDescriptor().getVersion());
+        properties.setProperty("version", pluginContext.getVersion());
         return PROPERTY_PLACEHOLDER_HELPER.replacePlaceholders(script, properties);
     }
 }
