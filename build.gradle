@@ -41,6 +41,7 @@ task downloadDependencies {
         } else {
             // 在非 Windows 系统上运行 a.sh
             exec {
+                commandLine 'chmod a+x ./download_dist.sh'
                 commandLine './download_dist.sh'
             }
         }

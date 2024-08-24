@@ -13,7 +13,7 @@ jobs:
     permissions:
       contents: write
     with:
-      node-version: "20"
-      pnpm-version: "9"
+      node-version: "18"
+      pnpm-version: "8"
       app-id: app-uBcYw
       ui-path: "ui"
