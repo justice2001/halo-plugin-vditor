@@ -48,7 +48,22 @@
         console.log(`Using CDN: ${this.CDN}`)
         // Render
         const renderTheme = darkMode?"dark":"classic"
-        Vditor.mathRender(root, {cdn: this.CDN})
+        // Get Katex Macros
+        if (fetch) {
+            fetch("/apis/api.vditor.mczhengyi.top/macros").then(res => {
+                return res.json();
+            }).then(conf => {
+                console.log("Get macros config", conf)
+                Vditor.mathRender(root, {cdn: this.CDN, math: {
+                    macros: JSON.parse(conf || "{}")
+                }})
+            }).catch(e => {
+                console.error("Load macros config failed! Msg=" + e)
+                Vditor.mathRender(root, {cdn: this.CDN})
+            })
+        } else {
+            Vditor.mathRender(root, {cdn: this.CDN})
+        }
         Vditor.mindmapRender(root, this.CDN, renderTheme)
         Vditor.mermaidRender(root, this.CDN, renderTheme)
         Vditor.chartRender(root, this.CDN, renderTheme)

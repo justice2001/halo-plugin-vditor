@@ -24,6 +24,11 @@ public class VditorConfiguration {
                         .bodyValue(result)
                     )
             )
+            .GET("/apis/api.vditor.mczhengyi.top/macros",
+                request -> settingFetcher.getValues()
+                    .flatMap(result -> ServerResponse.ok()
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .bodyValue(result.get("basic").get("macros"))))
             .build();
     }
 }

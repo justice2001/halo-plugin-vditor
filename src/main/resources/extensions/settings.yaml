@@ -59,6 +59,7 @@ spec:
               - $formkit: code
                 name: macros
                 label: Katex宏定义
+                help: 宏定义仅支持内置渲染器渲染
                 value: "{}"
                 language: json
         - group: extension

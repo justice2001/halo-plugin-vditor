@@ -9,3 +9,15 @@ metadata:
 rules:
   - nonResourceURLs: [ "/apis/api.vditor.mczhengyi.top/editor-options" ]
     verbs: [ "get" ]
+---
+apiVersion: v1alpha1
+kind: "Role"
+metadata:
+  name: vditor-mde-role-anonymous
+  labels:
+    halo.run/role-template: "true"
+    halo.run/hidden: "true"
+    rbac.authorization.halo.run/aggregate-to-anonymous: "true"
+rules:
+  - nonResourceURLs: [ "/apis/api.vditor.mczhengyi.top/macros" ]
+    verbs: [ "get" ]
