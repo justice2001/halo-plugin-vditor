@@ -1,8 +1,8 @@
 plugins {
     id 'java'
-    id "com.github.node-gradle.node" version "5.0.0"
+    id "com.github.node-gradle.node" version "7.0.2"
     id "io.freefair.lombok" version "8.0.1"
-    id "run.halo.plugin.devtools" version "0.0.7"
+    id "run.halo.plugin.devtools" version "0.1.1"
 }
 
 group 'top.mczhengyi'
@@ -16,7 +16,7 @@ repositories {
 }
 
 dependencies {
-    implementation platform('run.halo.tools.platform:plugin:2.11.0-SNAPSHOT')
+    implementation platform('run.halo.tools.platform:plugin:2.17.0-SNAPSHOT')
     compileOnly 'run.halo.app:api'
 
     testImplementation 'run.halo.app:api'
@@ -27,38 +27,53 @@ test {
     useJUnitPlatform()
 }
 
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = "UTF-8"
+}
+
 node {
     nodeProjectDir = file("${project.projectDir}/console")
 }
 
-task downloadDependencies {
+tasks.register('downloadDependencies') {
+    doFirst {
+        if (!System.properties['os.name'].toLowerCase().contains('windows')) {
+            // 在非 Windows 系统上添加执行权限
+            exec {
+                commandLine 'chmod', '+x', 'download_dist.sh'
+            }
+        }
+    }
     doLast {
         if (System.properties['os.name'].toLowerCase().contains('windows')) {
-            // 在 Windows 上运行 a.bat
             exec {
                 commandLine 'cmd', '/c', 'download_dist.bat'
             }
         } else {
-            // 在非 Windows 系统上运行 a.sh
             exec {
-                commandLine 'chmod a+x ./download_dist.sh'
-                commandLine './download_dist.sh'
+                commandLine 'bash', '-c', './download_dist.sh'
             }
         }
     }
 }
 
-task buildFrontend(type: PnpmTask) {
+tasks.register('installDepsForUI', PnpmTask) {
+    args = ['install']
+
+    dependsOn('downloadDependencies')
+}
+
+tasks.register('buildFrontend', PnpmTask) {
     args = ['build']
 
-    // 让 buildFrontend 依赖于 downloadDependencies
-    final downloadDependenciesTask = tasks.named('downloadDependencies')
-    finalizedBy(downloadDependenciesTask)
+    dependsOn('installDepsForUI')
 }
 
 build {
     // build frontend before build
-    tasks.getByName('compileJava').dependsOn('buildFrontend')
+    tasks.named('compileJava').configure {
+        dependsOn('buildFrontend')
+    }
 }
 
 halo {
