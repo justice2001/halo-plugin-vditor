@@ -56,6 +56,11 @@ spec:
                 label: 🧪自动将第一行作为标题
                 help: 开启此选项后，第一行H1将会作为文章标题，同时标题会用 T 标识
                 value: false
+              - $formkit: code
+                name: macros
+                label: Katex宏定义
+                value: "{}"
+                language: json
         - group: extension
           label: 文件格式
           formSchema:

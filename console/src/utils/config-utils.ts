@@ -8,6 +8,7 @@ export declare type EditorConfig = {
     quickInsertUrl: [];
     disableHTMLBlockPreview: boolean;
     firstH1AsTitle: boolean;
+    macros: string;
   };
   extension: {
     allowImageType: string;
@@ -27,6 +28,7 @@ export const defaultEditorConfig: EditorConfig = {
     quickInsertUrl: [],
     disableHTMLBlockPreview: false,
     firstH1AsTitle: false,
+    macros: ""
   },
   extension: {
     allowImageType: "png,jpg,jpeg,bmp,gif,webp,svg",
