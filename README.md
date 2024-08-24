@@ -1,5 +1,6 @@
 # halo-plugin-vditor
 
+<a href="https://www.halo.run/store/apps/app-uBcYw"><img src="https://img.shields.io/badge/Halo-应用市场-%230A81F5?logo=appstore&logoColor=%23fff"></a>
 ![](https://img.shields.io/badge/状态-稳定-red.svg)
 ![](https://img.shields.io/badge/启动时间-2023/11/23-green.svg)
 ![](https://img.shields.io/badge/优先级-HIGH-blue.svg)
