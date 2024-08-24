@@ -42,7 +42,6 @@ const customInsertOpen = ref(false);
 const customInsertSchema = ref<Schema>(joeProgress);
 let lastSelectionRange: Range | undefined = undefined;
 // Image Upload
-let imageUploadCursor: Range | undefined;
 const imageUploadLock = false;
 let allowImageUpload: string[] = [];
 // Debug
@@ -189,8 +188,6 @@ onMounted(async () => {
           vditor.value.tip("当前已经存在正在上传的文件，请等待上传完成", 2000);
           return;
         }
-        // Save cursor
-        imageUploadCursor = getCursor();
         // Check extension name
         const extendName = files[0].name
           .slice(files[0].name.lastIndexOf(".") + 1)
@@ -201,21 +198,20 @@ onMounted(async () => {
         }
         // Upload
         if (props.uploadImage) {
+          vditor.value.disabled();
           vditor.value.tip("正在上传图片...", 2000);
           props.uploadImage(files[0]).then((res: Attachment) => {
-            if (!res.status) return;
-            vditor.value.disabled();
-            // Move cursor
-            const tmpCursor = getCursor();
-            setCursor(imageUploadCursor);
-            imageUploadCursor = undefined;
-            // Insert
+            if (!res.status) {
+              vditor.value.enable();
+              return;
+            }
+            // Insert Image
             vditor.value.insertValue(
               `\n\n![${res.spec.displayName}](${res.status.permalink})\n\n`
             );
             // Restore cursor
-            setCursor(tmpCursor);
             vditor.value.enable();
+            vditor.value.focus();
           });
         }
         return null;
