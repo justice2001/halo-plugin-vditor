@@ -16,4 +16,4 @@ jobs:
       node-version: "18"
       pnpm-version: "8"
       app-id: app-uBcYw
-      ui-path: "ui"
+      ui-path: "console"
