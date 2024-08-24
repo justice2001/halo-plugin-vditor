@@ -29,6 +29,8 @@ export function getOptions(options: Options): IOptions {
       toolbar.splice(-1, 0, buildQuickInsertToolbar(options.openModal, insert));
     });
   }
+  // Load macros
+  const macros = JSON.parse(options.config.basic.macros || "{}")
   // Build Options
   return {
     height: "100%",
@@ -60,6 +62,7 @@ export function getOptions(options: Options): IOptions {
       },
       math: {
         inlineDigit: true,
+        macros: macros
       },
     },
     outline: {
