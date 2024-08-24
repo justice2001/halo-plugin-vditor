@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/bin/bash
 
 cd src/main/resources/static
 rm -rf dist
