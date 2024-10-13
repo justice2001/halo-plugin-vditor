@@ -46,6 +46,16 @@ spec:
                     name: url
                     label: URL
                     value: ""
+              - $formkit: repeater
+                name: customRenders
+                label: 自定义渲染器
+                help: 在下面的选项框中填入符合规范的自定义渲染器js的url
+                value: [ ]
+                children:
+                  - $formkit: text
+                    name: url
+                    label: URL
+                    value: ""
               - $formkit: checkbox
                 name: disableHTMLBlockPreview
                 label: 禁用HTML代码块隐藏

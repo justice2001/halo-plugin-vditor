@@ -7,7 +7,7 @@ import drive from "@/schema/drive";
 import gallery from "@/schema/gallery";
 import { addScript, addStyleSheet } from "@/utils/dom-utils";
 import type Vditor from "vditor";
-import type {EditorConfig} from "@/utils/config-utils";
+import type { EditorConfig } from "@/utils/config-utils";
 
 declare const HaloJs: {
   renderHalo: (content: string, cdn: string) => string;
@@ -30,7 +30,7 @@ export function getOptions(options: Options): IOptions {
     });
   }
   // Load macros
-  const macros = JSON.parse(options.config.basic.macros || "{}")
+  const macros = JSON.parse(options.config.basic.macros || "{}");
   // Build Options
   return {
     height: "100%",
@@ -62,7 +62,7 @@ export function getOptions(options: Options): IOptions {
       },
       math: {
         inlineDigit: true,
-        macros: macros
+        macros: macros,
       },
     },
     outline: {
@@ -229,13 +229,32 @@ function getCustomRenders(options: Options):
       });
     },
   });
+  // custom Renders
+  for (const script of options.customRenders) {
+    try {
+      console.debug("Loading custom script: " + script);
+      const ext = eval(script)();
+      console.log("Loading custom script: " + ext.language);
+      renders.push({
+        language: ext.language,
+        render: (element: HTMLElement) => {
+          element
+            .querySelectorAll(".language-" + ext.language)
+            .forEach((el) => {
+              el.outerHTML = ext.render(el.textContent || "");
+            });
+        },
+      });
+    } catch (e) {
+      console.error("Load custom script failed! " + e);
+    }
+  }
   console.log("Renders: ", renders);
   return renders;
 }
 
 /**
  * 进行自定义渲染器的后处理
- * TODO: 该部分建议加入Vditor
  * @param vditor vditor
  * @param config Editor Config
  * @returns html
@@ -243,13 +262,15 @@ function getCustomRenders(options: Options):
 export function renderHTML(vditor: Vditor, config: EditorConfig): string {
   let value = vditor.getHTML();
   const customRenders = vditor.vditor.options.customRenders;
-  // FIXME 此部分逻辑有大问题！
   customRenders?.forEach((render) => {
     const reg = new RegExp(
       `<pre><code class="language-${render.language}">(.*?)</code></pre>`,
       "gs"
     );
-    value = value.replace(reg, '<div class="language-halo">$1</div>');
+    value = value.replace(
+      reg,
+      `<div class="language-${render.language}">$1</div>`
+    );
   });
   // Remove H1 Title When start with "h1"
   if (config.basic.firstH1AsTitle && value.startsWith("<h1")) {

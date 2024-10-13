@@ -11,6 +11,7 @@ export declare type Options = {
   uploadImage?: (files: File[]) => string | null | Promise;
   openModal: (schema: Schema) => void;
   quickInsertList: QuickInsert[];
+  customRenders: string[];
   enableQuickInsert: boolean;
   config: EditorConfig;
 };

@@ -6,6 +6,7 @@ export declare type EditorConfig = {
     codeBlockPreview: boolean;
     enableQuickInsert: boolean;
     quickInsertUrl: [];
+    customRenders: [];
     disableHTMLBlockPreview: boolean;
     firstH1AsTitle: boolean;
     macros: string;
@@ -26,9 +27,10 @@ export const defaultEditorConfig: EditorConfig = {
     codeBlockPreview: true,
     enableQuickInsert: false,
     quickInsertUrl: [],
+    customRenders: [],
     disableHTMLBlockPreview: false,
     firstH1AsTitle: false,
-    macros: ""
+    macros: "",
   },
   extension: {
     allowImageType: "png,jpg,jpeg,bmp,gif,webp,svg",

@@ -9,7 +9,10 @@ import type { Attachment } from "@halo-dev/api-client";
 import { VLoading } from "@halo-dev/components";
 import TemplateModal from "@/model/TemplateModal.vue";
 import joeProgress from "@/schema/joe-progress";
-import { fetchAllQuickInsert } from "@/utils/fetch-utils";
+import {
+  fetchAllCustomRenderScripts,
+  fetchAllQuickInsert,
+} from "@/utils/fetch-utils";
 import { quickInsertInject } from "@/utils/quick-insert-utils";
 import { addStyle } from "@/utils/dom-utils";
 import { getCursor, setCursor } from "@/utils/cursor-utils";
@@ -157,6 +160,10 @@ onMounted(async () => {
   qil.forEach((q) => {
     quickInsertInject(q.inject || [], q.provider);
   });
+  // Get all custom render script
+  const renderScripts = await fetchAllCustomRenderScripts(
+    editorConfig.value?.basic.customRenders
+  );
   // Create Vditor
   vditor.value = new Vditor(
     vditorRef.value,
@@ -224,6 +231,7 @@ onMounted(async () => {
       enableQuickInsert: editorConfig.value.basic.enableQuickInsert,
       quickInsertList: qil,
       config: editorConfig.value,
+      customRenders: renderScripts,
     })
   );
 });
@@ -320,7 +328,6 @@ const update = (val: string | null) => {
   padding: 8px 10px;
 }
 
-
 /* title */
 #plugin-vditor-mde.h1AsTitle .vditor-ir h1:first-child::before,
 #plugin-vditor-mde.h1AsTitle .vditor-wysiwyg h1:first-child::before {
@@ -341,8 +348,8 @@ const update = (val: string | null) => {
  Fix compatible issues with docsme.
  https://github.com/justice2001/halo-plugin-vditor/issues/38
 */
-#plugin-vditor-mde code[class*=language-],
-#plugin-vditor-mde pre[class*=language-] {
+#plugin-vditor-mde code[class*="language-"],
+#plugin-vditor-mde pre[class*="language-"] {
   color: #000000;
 }
 </style>
