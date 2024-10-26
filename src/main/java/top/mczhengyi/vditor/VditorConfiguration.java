@@ -29,6 +29,11 @@ public class VditorConfiguration {
                     .flatMap(result -> ServerResponse.ok()
                         .contentType(MediaType.APPLICATION_JSON)
                         .bodyValue(result.get("basic").get("macros"))))
+            .GET("/apis/api.vditor.mczhengyi.top/renders",
+                request -> settingFetcher.getValues()
+                    .flatMap(res -> ServerResponse.ok()
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .bodyValue(res.get("basic").get("customRenders"))))
             .build();
     }
 }

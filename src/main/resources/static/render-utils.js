@@ -61,7 +61,28 @@
                 console.error("Load macros config failed! Msg=" + e)
                 Vditor.mathRender(root, {cdn: this.CDN})
             })
+            // Get CustomRender
+            fetch("/apis/api.vditor.mczhengyi.top/renders").then(res => {
+                return res.json();
+            }).then(renders => {
+                renders.forEach(render => {
+                    const url = render.url
+                    fetch(url).then(res => {
+                        return res.text()
+                    }).then(script => {
+                        const {language, render} = eval(script)()
+                        console.log("Loaded Render: " + language)
+                        const elements = document.getElementsByClassName("language-" + language);
+                        Array.from(elements).forEach(el => {
+                            el.innerHTML = render(el.textContent)
+                        })
+                    }).catch(e => {
+                        console.error("Load render script failed! Msg=" + e)
+                    })
+                })
+            })
         } else {
+            console.warn("Fetch API is not supported!")
             Vditor.mathRender(root, {cdn: this.CDN})
         }
         Vditor.mindmapRender(root, this.CDN, renderTheme)
