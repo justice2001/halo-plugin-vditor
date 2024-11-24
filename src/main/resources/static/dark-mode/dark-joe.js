@@ -3,5 +3,5 @@ window.addEventListener("load", () => {
     let html = document.getElementsByTagName("html")[0]
     if (!html) return
     const mode = html.dataset.mode
-    setDarkMode(mode === "dark")
+    vditorRender.setDarkMode(mode === "dark")
 })
