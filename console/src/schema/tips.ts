@@ -13,13 +13,28 @@ const schema: Schema = {
       label: t("type"),
       help: "This is the percentage for progress bar.",
       value: "default",
-      options: {
-        default: t("default"),
-        info: t("info"),
-        success: t("success"),
-        warn: t("warning"),
-        danger: t("danger"),
-      },
+      options: [
+        {
+          label: t("default"),
+          value: "default",
+        },
+        {
+          label: t("info"),
+          value: "info",
+        },
+        {
+          label: t("success"),
+          value: "success",
+        },
+        {
+          label: t("warning"),
+          value: "warn",
+        },
+        {
+          label: t("danger"),
+          value: "danger",
+        },
+      ],
     },
     {
       $formkit: "textarea",

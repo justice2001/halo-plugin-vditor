@@ -12,10 +12,16 @@ const schema: Schema = {
       name: "type",
       label: t("type"),
       value: "grid",
-      options: {
-        grid: t("grid"),
-        linear: t("linear"),
-      },
+      options: [
+        {
+          label: t("grid"),
+          value: "grid",
+        },
+        {
+          label: t("linear"),
+          value: "linear",
+        },
+      ],
     },
     {
       $formkit: "text",
@@ -56,7 +62,7 @@ const schema: Schema = {
     }
     html += "\n";
     galleryData.attachments?.forEach((att) => {
-      let title = "";
+      let title: string;
       if (att.attach_title) {
         title = att.attach_title;
       } else {

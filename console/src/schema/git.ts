@@ -13,10 +13,16 @@ const schema: Schema = {
       name: "platform",
       label: t("platform"),
       value: "github",
-      options: {
-        github: "GitHub",
-        gitee: "Gitee",
-      },
+      options: [
+        {
+          label: "GitHub",
+          value: "github",
+        },
+        {
+          label: "Gitee",
+          value: "gitee",
+        },
+      ],
     },
     {
       $formkit: "text",

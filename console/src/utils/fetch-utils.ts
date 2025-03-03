@@ -37,7 +37,7 @@ export const fetchAllCustomRenderScripts = async (
       scripts.push(await response.text());
     } catch (e) {
       // Ignore this
-      console.error("Load custom render scripts failed! url => " + url);
+      console.error("Load custom render scripts failed! url => " + render.url);
     }
   }
   return scripts;
