@@ -15,7 +15,7 @@
     "@halo-dev/api-client": "^2.11.0",
     "@halo-dev/components": "^1.10.0",
     "@halo-dev/console-shared": "^2.11.0",
-    "vditor": "3.10.4",
+    "vditor": "3.11.0",
     "canvas-confetti": "^1.6.0",
     "vue": "^3.3.4"
   },
