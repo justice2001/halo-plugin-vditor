@@ -59,8 +59,10 @@ export function getOptions(options: Options): IOptions {
         codeBlockPreview: options.codeBlockPreview,
       },
       theme: {
-        current: "light",
-        path: `${cdn}/dist/css/content-theme`,
+        current: options.config.basic.previewTheme || "light",
+        path:
+          options.config.basic.previewThemeBase ||
+          `${cdn}/dist/css/content-theme`,
       },
       math: {
         inlineDigit: true,

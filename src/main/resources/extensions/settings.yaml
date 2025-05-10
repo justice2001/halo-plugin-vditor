@@ -72,6 +72,18 @@ spec:
                 help: 宏定义仅支持内置渲染器渲染
                 value: "{}"
                 language: json
+              - $formkit: text
+                name: previewThemeBase
+                label: 自定义主题基础地址
+                help: 填写要修改的自定义主题基础地址，为空则使用默认主题库
+                placeholder: 如 https://www.example.com/theme/
+                value: ""
+              - $formkit: text
+                name: previewTheme
+                label: 自定义主题名称
+                help: 填写自定义的主题名称
+                placeholder: light
+                value: ""
         - group: extension
           label: 文件格式
           formSchema:

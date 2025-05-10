@@ -10,6 +10,8 @@ export declare type EditorConfig = {
     disableHTMLBlockPreview: boolean;
     firstH1AsTitle: boolean;
     macros: string;
+    previewThemeBase: string;
+    previewTheme: string;
   };
   extension: {
     allowImageType: string;
@@ -31,6 +33,8 @@ export const defaultEditorConfig: EditorConfig = {
     disableHTMLBlockPreview: false,
     firstH1AsTitle: false,
     macros: "",
+    previewThemeBase: "",
+    previewTheme: "",
   },
   extension: {
     allowImageType: "png,jpg,jpeg,bmp,gif,webp,svg",
