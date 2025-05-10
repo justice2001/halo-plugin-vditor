@@ -2,7 +2,7 @@ plugins {
     id 'java'
     id "com.github.node-gradle.node" version "7.0.2"
     id "io.freefair.lombok" version "8.0.1"
-    id "run.halo.plugin.devtools" version "0.1.1"
+    id "run.halo.plugin.devtools" version "0.2.0"
 }
 
 group 'top.mczhengyi'
@@ -60,7 +60,7 @@ tasks.register('downloadDependencies') {
 tasks.register('installDepsForUI', PnpmTask) {
     args = ['install']
 
-    dependsOn('downloadDependencies')
+   dependsOn('downloadDependencies')
 }
 
 tasks.register('buildFrontend', PnpmTask) {

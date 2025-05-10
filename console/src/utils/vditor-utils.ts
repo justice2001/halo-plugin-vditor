@@ -66,6 +66,7 @@ export function getOptions(options: Options): IOptions {
         inlineDigit: true,
         macros: macros,
       },
+      actions: options.actions,
     },
     outline: {
       enable: true,
@@ -245,7 +246,7 @@ function getCustomRenders(options: Options):
   for (const script of options.customRenders) {
     try {
       console.debug("Loading custom script: " + script);
-      const ext = eval(script)();
+      const ext = new Function("return " + script)()();
       console.log("Loading custom script: " + ext.language);
       renders.push({
         language: ext.language,
@@ -271,7 +272,11 @@ function getCustomRenders(options: Options):
  * @param config Editor Config
  * @returns html
  */
-export function renderHTML(vditor: Vditor, config: EditorConfig): string {
+export function renderHTML(
+  vditor: Vditor | undefined,
+  config: EditorConfig
+): string {
+  if (!vditor) return "";
   let value = vditor.getHTML();
   const customRenders = vditor.vditor.options.customRenders;
   customRenders?.forEach((render) => {

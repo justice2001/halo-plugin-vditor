@@ -14,6 +14,7 @@ export declare type Options = {
   customRenders: string[];
   enableQuickInsert: boolean;
   config: EditorConfig;
+  actions: (IPreviewAction | IPreviewActionCustom)[];
 };
 
 export interface Schema {

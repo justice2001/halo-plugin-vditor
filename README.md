@@ -74,6 +74,7 @@
 * [mermaid](https://github.com/knsv/mermaid)：Generation of diagram and flowchart from text in a similar manner as Markdown
 * [incubator-echarts](https://github.com/apache/incubator-echarts)：A powerful, interactive charting and visualization library for browser
 * [abcjs](https://github.com/paulrosen/abcjs)：JavaScript library for rendering standard music notation in a browser
+* [juice](https://github.com/Automattic/juice): Given HTML, juice will inline your CSS properties into the style attribute. 用于复制到微信公众号功能
 
 ## 🏗开发日志
 
