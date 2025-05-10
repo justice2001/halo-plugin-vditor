@@ -31,6 +31,13 @@ const lang: I18nLang = {
   image: "图片",
   image_alt: "图片介绍",
   image_alt_ph: "不填写此项则默认使用图像文件名",
+  hyperlink_card: "超链接卡片",
+  hyperlink_inline: "行内超链接卡片",
+  theme: "样式",
+  target: "打开方式",
+  hyperlink_regular: "链接卡片（普通）",
+  hyperlink_small: "链接卡片（小）",
+  hyperlink_grid: "链接卡片（格子）",
 };
 
 export default lang;

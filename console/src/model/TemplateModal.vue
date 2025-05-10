@@ -28,6 +28,7 @@ const generateCode = () => {
         data.value[form.name] || form.value
       );
     });
+    if (!props.schema.inline) code = "\n\n" + code + "\n\n";
     emit("done", htmlEncode(code));
     return;
   }

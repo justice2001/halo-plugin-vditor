@@ -242,7 +242,7 @@ const update = (val: string | null) => {
     vditor.value.tip("未知错误，插入失败", 3000);
   } else {
     vditor.value.focus();
-    vditor.value.insertValue(`\n\n${val}\n\n`);
+    vditor.value.insertValue(`${val}`);
   }
   customInsertOpen.value = false;
 };

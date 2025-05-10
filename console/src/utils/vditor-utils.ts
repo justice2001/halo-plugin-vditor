@@ -5,6 +5,8 @@ import tips from "@/schema/tips";
 import git from "@/schema/git";
 import drive from "@/schema/drive";
 import gallery from "@/schema/gallery";
+import hyperlinkCard from "@/schema/hyperlink-card";
+import hyperlinkInline from "@/schema/hyperlink-inline";
 import { addScript, addStyleSheet } from "@/utils/dom-utils";
 import type Vditor from "vditor";
 import type { EditorConfig } from "@/utils/config-utils";
@@ -161,6 +163,16 @@ function getToolbar(
           name: "insert_gallery",
           icon: t("insert_gallery"),
           click: () => openModal(gallery),
+        },
+        {
+          name: "hyperlink_card",
+          icon: t("hyperlink_card"),
+          click: () => openModal(hyperlinkCard),
+        },
+        {
+          name: "hyperlink_inline",
+          icon: t("hyperlink_inline"),
+          click: () => openModal(hyperlinkInline),
         },
       ],
     },

@@ -23,6 +23,7 @@ export interface Schema {
   name: string;
   formKit: Array;
   template?: string;
+  inline?: boolean;
   // 解析后处理
   afterHandle?: (data: { [key: string]: string }, code: string) => string;
   // 覆盖解析
