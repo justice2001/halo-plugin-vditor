@@ -70,7 +70,7 @@
                     fetch(url).then(res => {
                         return res.text()
                     }).then(script => {
-                        const {language, render} = eval(script)()
+                        const {language, render} = new Function("return " + script)()();
                         console.log("Loaded Render: " + language)
                         const elements = document.getElementsByClassName("language-" + language);
                         Array.from(elements).forEach(el => {
