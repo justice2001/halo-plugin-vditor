@@ -11,8 +11,10 @@ export declare type Options = {
   uploadImage?: (files: File[]) => string | null | Promise;
   openModal: (schema: Schema) => void;
   quickInsertList: QuickInsert[];
+  customRenders: string[];
   enableQuickInsert: boolean;
   config: EditorConfig;
+  actions: (IPreviewAction | IPreviewActionCustom)[];
 };
 
 export interface Schema {
@@ -22,6 +24,7 @@ export interface Schema {
   name: string;
   formKit: Array;
   template?: string;
+  inline?: boolean;
   // 解析后处理
   afterHandle?: (data: { [key: string]: string }, code: string) => string;
   // 覆盖解析

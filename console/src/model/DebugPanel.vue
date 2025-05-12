@@ -32,7 +32,7 @@ import { defineProps, ref } from "vue";
 const debugOpOpen = ref<boolean>(false);
 
 const props = defineProps<{
-  vditor: Vditor | null;
+  vditor?: Vditor;
   config: EditorConfig | undefined;
   cursor: Range | undefined;
 }>();

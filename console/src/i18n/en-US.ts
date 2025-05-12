@@ -31,6 +31,13 @@ const lang: I18nLang = {
   image: "Image",
   image_alt: "Alt",
   image_alt_ph: "Use File Name If You Dont Place This",
+  hyperlink_card: "Hyperlink Card",
+  hyperlink_inline: "Hyperlink Inline",
+  theme: "Theme",
+  target: "Target",
+  hyperlink_regular: "Regular",
+  hyperlink_small: "Small",
+  hyperlink_grid: "Grid",
 };
 
 export default lang;

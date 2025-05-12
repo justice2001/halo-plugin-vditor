@@ -5,9 +5,11 @@ import tips from "@/schema/tips";
 import git from "@/schema/git";
 import drive from "@/schema/drive";
 import gallery from "@/schema/gallery";
+import hyperlinkCard from "@/schema/hyperlink-card";
+import hyperlinkInline from "@/schema/hyperlink-inline";
 import { addScript, addStyleSheet } from "@/utils/dom-utils";
 import type Vditor from "vditor";
-import type {EditorConfig} from "@/utils/config-utils";
+import type { EditorConfig } from "@/utils/config-utils";
 
 declare const HaloJs: {
   renderHalo: (content: string, cdn: string) => string;
@@ -30,7 +32,7 @@ export function getOptions(options: Options): IOptions {
     });
   }
   // Load macros
-  const macros = JSON.parse(options.config.basic.macros || "{}")
+  const macros = JSON.parse(options.config.basic.macros || "{}");
   // Build Options
   return {
     height: "100%",
@@ -57,13 +59,16 @@ export function getOptions(options: Options): IOptions {
         codeBlockPreview: options.codeBlockPreview,
       },
       theme: {
-        current: "light",
-        path: `${cdn}/dist/css/content-theme`,
+        current: options.config.basic.previewTheme || "light",
+        path:
+          options.config.basic.previewThemeBase ||
+          `${cdn}/dist/css/content-theme`,
       },
       math: {
         inlineDigit: true,
-        macros: macros
+        macros: macros,
       },
+      actions: options.actions,
     },
     outline: {
       enable: true,
@@ -162,6 +167,16 @@ function getToolbar(
           icon: t("insert_gallery"),
           click: () => openModal(gallery),
         },
+        {
+          name: "hyperlink_card",
+          icon: t("hyperlink_card"),
+          click: () => openModal(hyperlinkCard),
+        },
+        {
+          name: "hyperlink_inline",
+          icon: t("hyperlink_inline"),
+          click: () => openModal(hyperlinkInline),
+        },
       ],
     },
     {
@@ -229,27 +244,52 @@ function getCustomRenders(options: Options):
       });
     },
   });
+  // custom Renders
+  for (const script of options.customRenders) {
+    try {
+      console.debug("Loading custom script: " + script);
+      const ext = new Function("return " + script)()();
+      console.log("Loading custom script: " + ext.language);
+      renders.push({
+        language: ext.language,
+        render: (element: HTMLElement) => {
+          element
+            .querySelectorAll(".language-" + ext.language)
+            .forEach((el) => {
+              el.outerHTML = ext.render(el.textContent || "");
+            });
+        },
+      });
+    } catch (e) {
+      console.error("Load custom script failed! " + e);
+    }
+  }
   console.log("Renders: ", renders);
   return renders;
 }
 
 /**
  * 进行自定义渲染器的后处理
- * TODO: 该部分建议加入Vditor
  * @param vditor vditor
  * @param config Editor Config
  * @returns html
  */
-export function renderHTML(vditor: Vditor, config: EditorConfig): string {
+export function renderHTML(
+  vditor: Vditor | undefined,
+  config: EditorConfig
+): string {
+  if (!vditor) return "";
   let value = vditor.getHTML();
   const customRenders = vditor.vditor.options.customRenders;
-  // FIXME 此部分逻辑有大问题！
   customRenders?.forEach((render) => {
     const reg = new RegExp(
       `<pre><code class="language-${render.language}">(.*?)</code></pre>`,
       "gs"
     );
-    value = value.replace(reg, '<div class="language-halo">$1</div>');
+    value = value.replace(
+      reg,
+      `<div class="language-${render.language}">$1</div>`
+    );
   });
   // Remove H1 Title When start with "h1"
   if (config.basic.firstH1AsTitle && value.startsWith("<h1")) {

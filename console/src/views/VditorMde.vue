@@ -9,12 +9,17 @@ import type { Attachment } from "@halo-dev/api-client";
 import { VLoading } from "@halo-dev/components";
 import TemplateModal from "@/model/TemplateModal.vue";
 import joeProgress from "@/schema/joe-progress";
-import { fetchAllQuickInsert } from "@/utils/fetch-utils";
+import {
+  fetchAllCustomRenderScripts,
+  fetchAllQuickInsert,
+} from "@/utils/fetch-utils";
 import { quickInsertInject } from "@/utils/quick-insert-utils";
 import { addStyle } from "@/utils/dom-utils";
 import { getCursor, setCursor } from "@/utils/cursor-utils";
 import { defaultEditorConfig, type EditorConfig } from "@/utils/config-utils";
 import DebugPanel from "@/model/DebugPanel.vue";
+import { copyAsHTML } from "@/utils/html-utils";
+import juice from "juice";
 
 const props = withDefaults(
   defineProps<{
@@ -31,7 +36,7 @@ const props = withDefaults(
   }
 );
 
-const vditor = ref();
+const vditor = ref<Vditor>();
 const vditorRef = ref();
 const vditorLoaded = ref(false);
 const attachmentSelectorModalShow = ref(false);
@@ -68,10 +73,10 @@ watch(
       return;
     }
     // Get title
-    const vdiVal = vditor.value.getValue();
-    if (vdiVal.startsWith("# ")) {
+    const vdiVal = vditor.value?.getValue();
+    if (vdiVal?.startsWith("# ")) {
       internalTitle.value = val;
-      vditor.value.setValue(vdiVal.replace(/# .*?\n/, `# ${val}\n`));
+      vditor.value?.setValue(vdiVal.replace(/# .*?\n/, `# ${val}\n`));
     }
   }
 );
@@ -79,10 +84,13 @@ watch(
 // Update content
 const debounceOnUpdate = () => {
   // 解析标题
-  let value = vditor.value.getValue();
+  let value = vditor.value?.getValue();
+  if (!value) return;
   if (editorConfig.value?.basic.firstH1AsTitle && value.startsWith("# ")) {
     // First Line is Title
-    const firstLine = value.match(/^.*/)[0];
+    const lines = value.match(/^.*/);
+    if (!lines) return;
+    const firstLine = lines[0];
     console.log(`title is ${firstLine.substring(2)}`);
     internalTitle.value = firstLine.substring(2);
     emit("update:title", internalTitle.value);
@@ -104,13 +112,13 @@ const attachmentSelect = (attachments: AttachmentLike[]) => {
   // Reference https://github.com/guqing/willow-mde/blob/4b8e697132f8a8f4b08dd0f92cf10d070cb26793/console/src/components/toolbar/Toolbar.vue#L104
   attachments.forEach((attachment) => {
     if (typeof attachment === "string") {
-      vditor.value.insertValue(`![](${attachment})`);
+      vditor.value?.insertValue(`![](${attachment})`);
     } else if ("url" in attachment) {
-      vditor.value.insertValue(`![${attachment.type}](${attachment.url})`);
+      vditor.value?.insertValue(`![${attachment.type}](${attachment.url})`);
     } else if ("spec" in attachment) {
       const { displayName } = attachment.spec;
       const { permalink } = attachment.status || {};
-      vditor.value.insertValue(`![${displayName}](${permalink})`);
+      vditor.value?.insertValue(`![${displayName}](${permalink})`);
     }
   });
 };
@@ -157,6 +165,10 @@ onMounted(async () => {
   qil.forEach((q) => {
     quickInsertInject(q.inject || [], q.provider);
   });
+  // Get all custom render script
+  const renderScripts = await fetchAllCustomRenderScripts(
+    editorConfig.value?.basic.customRenders
+  );
   // Create Vditor
   vditor.value = new Vditor(
     vditorRef.value,
@@ -172,7 +184,7 @@ onMounted(async () => {
           internalTitle.value = props.title;
           content = `# ${props.title}\n\n` + content;
         }
-        vditor.value.setValue(content);
+        vditor.value?.setValue(content);
         vditorLoaded.value = true;
       },
       input: debounceOnUpdate,
@@ -185,7 +197,7 @@ onMounted(async () => {
       uploadImage: (files: File[]) => {
         console.log("UPLOAD IMAGE");
         if (imageUploadLock) {
-          vditor.value.tip("当前已经存在正在上传的文件，请等待上传完成", 2000);
+          vditor.value?.tip("当前已经存在正在上传的文件，请等待上传完成", 2000);
           return;
         }
         // Check extension name
@@ -193,25 +205,25 @@ onMounted(async () => {
           .slice(files[0].name.lastIndexOf(".") + 1)
           .toLowerCase();
         if (allowImageUpload.indexOf(extendName) === -1) {
-          vditor.value.tip("不允许上传该类型图片!", 2000);
+          vditor.value?.tip("不允许上传该类型图片!", 2000);
           return null;
         }
         // Upload
         if (props.uploadImage) {
-          vditor.value.disabled();
-          vditor.value.tip("正在上传图片...", 2000);
+          vditor.value?.disabled();
+          vditor.value?.tip("正在上传图片...", 2000);
           props.uploadImage(files[0]).then((res: Attachment) => {
             if (!res.status) {
-              vditor.value.enable();
+              vditor.value?.enable();
               return;
             }
             // Insert Image
-            vditor.value.insertValue(
+            vditor.value?.insertValue(
               `\n\n![${res.spec.displayName}](${res.status.permalink})\n\n`
             );
             // Restore cursor
-            vditor.value.enable();
-            vditor.value.focus();
+            vditor.value?.enable();
+            vditor.value?.focus();
           });
         }
         return null;
@@ -224,6 +236,56 @@ onMounted(async () => {
       enableQuickInsert: editorConfig.value.basic.enableQuickInsert,
       quickInsertList: qil,
       config: editorConfig.value,
+      customRenders: renderScripts,
+      actions: [
+        "desktop",
+        "mobile",
+        "tablet",
+        "mp-wechat",
+        "zhihu",
+        {
+          key: "mp-wechat-custom",
+          text: "复制到微信公众号（测试版）",
+          click: () => {
+            const doc = vditor.value?.vditor.preview?.previewElement;
+            if (!doc) return;
+            const options = vditor.value?.vditor.options;
+            if (!options) return;
+            // Load vditor css file
+            const cdn = options.cdn;
+            const themePath =
+              options.preview?.theme?.path || `${cdn}/dist/css/content-theme`;
+            const theme = options.preview?.theme?.current || "light";
+            const hljsTheme = options.preview?.hljs?.style || "github";
+            const css = [
+              `${cdn}/dist/index.css`,
+              `${themePath}/${theme}.css`,
+              `${cdn}/dist/js/highlight.js/styles/${hljsTheme}.min.css`,
+              `${cdn}/dist/js/katex/katex.min.css`,
+            ];
+            Promise.all(
+              css.map((url) => fetch(url).then((res) => res.text()))
+            ).then((contentList) => {
+              let css = "";
+              contentList.forEach((content) => (css += content + "\n\n"));
+              doc
+                .querySelectorAll(".katex-html .base")
+                .forEach((item: Element) => {
+                  (item as HTMLElement).style.display = "initial";
+                });
+              const html = juice(
+                `<div class="vditor-reset">${doc.innerHTML}</div>`,
+                {
+                  extraCss: css,
+                }
+              );
+              copyAsHTML(html).then(() => {
+                vditor.value?.tip("已复制，部分样式可能会丢失！", 2000);
+              });
+            });
+          },
+        },
+      ],
     })
   );
 });
@@ -231,10 +293,10 @@ onMounted(async () => {
 const update = (val: string | null) => {
   setCursor(lastSelectionRange);
   if (!val) {
-    vditor.value.tip("未知错误，插入失败", 3000);
+    vditor.value?.tip("未知错误，插入失败", 3000);
   } else {
-    vditor.value.focus();
-    vditor.value.insertValue(`\n\n${val}\n\n`);
+    vditor.value?.focus();
+    vditor.value?.insertValue(`${val}`);
   }
   customInsertOpen.value = false;
 };
@@ -320,7 +382,6 @@ const update = (val: string | null) => {
   padding: 8px 10px;
 }
 
-
 /* title */
 #plugin-vditor-mde.h1AsTitle .vditor-ir h1:first-child::before,
 #plugin-vditor-mde.h1AsTitle .vditor-wysiwyg h1:first-child::before {
@@ -341,8 +402,8 @@ const update = (val: string | null) => {
  Fix compatible issues with docsme.
  https://github.com/justice2001/halo-plugin-vditor/issues/38
 */
-#plugin-vditor-mde code[class*=language-],
-#plugin-vditor-mde pre[class*=language-] {
+#plugin-vditor-mde code[class*="language-"],
+#plugin-vditor-mde pre[class*="language-"] {
   color: #000000;
 }
 </style>

@@ -12,10 +12,16 @@ const schema: Schema = {
       name: "platform",
       label: t("platform"),
       value: "baidu",
-      options: {
-        baidu: t("baidu_net_disk"),
-        ali: t("ali_drive"),
-      },
+      options: [
+        {
+          label: t("baidu_net_disk"),
+          value: "baidu",
+        },
+        {
+          label: t("ali_drive"),
+          value: "ali",
+        },
+      ],
     },
     {
       $formkit: "text",
