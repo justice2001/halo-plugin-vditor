@@ -186,6 +186,7 @@ onMounted(async () => {
         }
         vditor.value?.setValue(content);
         vditorLoaded.value = true;
+        debounceOnUpdate();
       },
       input: debounceOnUpdate,
       showAttachment: () => {
