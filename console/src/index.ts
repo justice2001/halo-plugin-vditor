@@ -1,7 +1,7 @@
 import { definePlugin, type EditorProvider } from "@halo-dev/console-shared";
 import logo from "./assets/vditor.png";
-import { markRaw } from "vue";
-import VditorMde from "./views/VditorMde.vue";
+import { defineAsyncComponent } from "vue";
+import { VLoading } from "@halo-dev/components";
 
 export default definePlugin({
   components: {},
@@ -11,7 +11,10 @@ export default definePlugin({
         {
           name: "vditor-mde",
           displayName: "Vditor Markdown",
-          component: markRaw(VditorMde),
+          component: defineAsyncComponent({
+            loader: () => import("./views/VditorMde.vue"),
+            loadingComponent: VLoading,
+          }),
           rawType: "markdown",
           logo: logo,
         },
