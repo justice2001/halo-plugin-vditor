@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { FormKit, FormKitSchema } from "@formkit/vue";
 import { ref, watch } from "vue";
 import { t } from "@/utils/i18n-utils";
 import { VButton, VModal, VSpace } from "@halo-dev/components";
