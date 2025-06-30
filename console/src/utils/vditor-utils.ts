@@ -10,6 +10,7 @@ import hyperlinkInline from "@/schema/hyperlink-inline";
 import { addScript, addStyleSheet } from "@/utils/dom-utils";
 import type Vditor from "vditor";
 import type { EditorConfig } from "@/utils/config-utils";
+ import type {PluginModule} from "@halo-dev/console-shared";
 
 declare const HaloJs: {
   renderHalo: (content: string, cdn: string) => string;
@@ -146,44 +147,71 @@ function getToolbar(
       tip: t("insert_custom"),
       icon: mdiGrid,
       tipPosition: "n",
-      toolbar: [
-        {
-          name: "insert_tips",
-          icon: t("insert_tips"),
-          click: () => openModal(tips),
-        },
-        {
-          name: "insert_git",
-          icon: t("insert_git"),
-          click: () => openModal(git),
-        },
-        {
-          name: "insert_drive",
-          icon: t("insert_drive"),
-          click: () => openModal(drive),
-        },
-        {
-          name: "insert_gallery",
-          icon: t("insert_gallery"),
-          click: () => openModal(gallery),
-        },
-        {
-          name: "hyperlink_card",
-          icon: t("hyperlink_card"),
-          click: () => openModal(hyperlinkCard),
-        },
-        {
-          name: "hyperlink_inline",
-          icon: t("hyperlink_inline"),
-          click: () => openModal(hyperlinkInline),
-        },
-      ],
+      toolbar: getPresetCustomToolbar(openModal),
     },
     {
       name: "more",
       toolbar: ["both", "export", "outline", "info", "help"],
     },
   ];
+}
+
+/**
+ * 获取预设置的自定义 toolbar
+ * @returns toolbar
+ */
+function getPresetCustomToolbar(openModal: (schema: Schema) => void) {
+  const toolbar: (string | IMenuItem)[] = [];
+  toolbar.push(
+    {
+      name: "insert_tips",
+      icon: t("insert_tips"),
+      click: () => openModal(tips),
+    },
+    {
+      name: "insert_git",
+      icon: t("insert_git"),
+      click: () => openModal(git),
+    },
+    {
+      name: "insert_drive",
+      icon: t("insert_drive"),
+      click: () => openModal(drive),
+    },
+    {
+      name: "insert_gallery",
+      icon: t("insert_gallery"),
+      click: () => openModal(gallery),
+    }
+  );
+  // 加入插入超链接卡片的支持
+  const hyperlinkCardPlugin = window["editor-hyperlink-card"] as PluginModule;
+  if (hyperlinkCardPlugin) {
+    console.log(
+      "hyperlinkCard plugin is installed and enabled, load custom toolbar"
+    );
+    // Fix https://github.com/justice2001/halo-plugin-vditor/issues/65
+    try {
+      hyperlinkCardPlugin?.extensionPoints?.[
+        "default:editor:extension:create"
+      ]?.();
+    } catch (e: unknown) {
+      console.error("hyperlink extension execute failed! ", e);
+    }
+    toolbar.push(
+      {
+        name: "hyperlink_card",
+        icon: t("hyperlink_card"),
+        click: () => openModal(hyperlinkCard),
+      },
+      {
+        name: "hyperlink_inline",
+        icon: t("hyperlink_inline"),
+        click: () => openModal(hyperlinkInline),
+      }
+    );
+  }
+  return toolbar;
 }
 
 function buildQuickInsertToolbar(
