@@ -1,32 +1,26 @@
-import type { Options, QuickInsert, Schema } from "@/type/editor";
-import { mdiGrid, mdiImage } from "@/utils/icon";
-import { t } from "@/utils/i18n-utils";
-import tips from "@/schema/tips";
-import git from "@/schema/git";
 import drive from "@/schema/drive";
 import gallery from "@/schema/gallery";
+import git from "@/schema/git";
 import hyperlinkCard from "@/schema/hyperlink-card";
 import hyperlinkInline from "@/schema/hyperlink-inline";
-import { addScript, addStyleSheet } from "@/utils/dom-utils";
-import type Vditor from "vditor";
+import tips from "@/schema/tips";
+import type { Options, QuickInsert, Schema } from "@/type/editor";
 import type { EditorConfig } from "@/utils/config-utils";
- import type {PluginModule} from "@halo-dev/console-shared";
+import { addScript, addStyleSheet } from "@/utils/dom-utils";
+import { t } from "@/utils/i18n-utils";
+import { mdiGrid, mdiImage } from "@/utils/icon";
+import type { PluginModule } from "@halo-dev/console-shared";
+import type Vditor from "vditor";
 
 declare const HaloJs: {
   renderHalo: (content: string, cdn: string) => string;
 };
 
 export function getOptions(options: Options): IOptions {
-  const cdn =
-    `${window.location.protocol}//${window.location.host}` +
-    `/plugins/vditor-mde/assets/static`;
+  const cdn = `${window.location.protocol}//${window.location.host}` + `/plugins/vditor-mde/assets/static`;
   console.log(`Your CDN IS: ${cdn}`);
   // Get Toolbar
-  const toolbar = getToolbar(
-    options.showAttachment,
-    options.openModal,
-    getLanguage(options.language)
-  );
+  const toolbar = getToolbar(options.showAttachment, options.openModal, getLanguage(options.language));
   if (options.enableQuickInsert) {
     options.quickInsertList.forEach((insert: QuickInsert) => {
       toolbar.splice(-1, 0, buildQuickInsertToolbar(options.openModal, insert));
@@ -61,9 +55,7 @@ export function getOptions(options: Options): IOptions {
       },
       theme: {
         current: options.config.basic.previewTheme || "light",
-        path:
-          options.config.basic.previewThemeBase ||
-          `${cdn}/dist/css/content-theme`,
+        path: options.config.basic.previewThemeBase || `${cdn}/dist/css/content-theme`,
       },
       math: {
         inlineDigit: true,
@@ -104,7 +96,7 @@ export function getLanguage(lang = "zh-CN"): keyof II18n {
 function getToolbar(
   showAttachmentCb: () => void,
   openModal: (schema: Schema) => void,
-  lang: keyof II18n
+  lang: keyof II18n,
 ): (string | IMenuItem)[] {
   return [
     "emoji",
@@ -182,19 +174,15 @@ function getPresetCustomToolbar(openModal: (schema: Schema) => void) {
       name: "insert_gallery",
       icon: t("insert_gallery"),
       click: () => openModal(gallery),
-    }
+    },
   );
   // 加入插入超链接卡片的支持
   const hyperlinkCardPlugin = window["editor-hyperlink-card"] as PluginModule;
   if (hyperlinkCardPlugin) {
-    console.log(
-      "hyperlinkCard plugin is installed and enabled, load custom toolbar"
-    );
+    console.log("hyperlinkCard plugin is installed and enabled, load custom toolbar");
     // Fix https://github.com/justice2001/halo-plugin-vditor/issues/65
     try {
-      hyperlinkCardPlugin?.extensionPoints?.[
-        "default:editor:extension:create"
-      ]?.();
+      hyperlinkCardPlugin?.extensionPoints?.["default:editor:extension:create"]?.();
     } catch (e: unknown) {
       console.error("hyperlink extension execute failed! ", e);
     }
@@ -208,16 +196,13 @@ function getPresetCustomToolbar(openModal: (schema: Schema) => void) {
         name: "hyperlink_inline",
         icon: t("hyperlink_inline"),
         click: () => openModal(hyperlinkInline),
-      }
+      },
     );
   }
   return toolbar;
 }
 
-function buildQuickInsertToolbar(
-  openModal: (schema: Schema) => void,
-  quickInsertList: QuickInsert
-): IMenuItem {
+function buildQuickInsertToolbar(openModal: (schema: Schema) => void, quickInsertList: QuickInsert): IMenuItem {
   const children: IMenuItem[] = [];
   quickInsertList.schema.forEach((sch: Schema) => {
     children.push({
@@ -253,22 +238,13 @@ function getCustomRenders(options: Options):
     render: (element: HTMLElement, vditor: IVditor) => void;
   }[] = [];
   // 启用内置渲染器
-  addScript(
-    "/plugins/vditor-mde/assets/static/halo-renders/index.js",
-    "halo-render"
-  );
-  addStyleSheet(
-    "/plugins/vditor-mde/assets/static/halo-renders/index.css",
-    "halo-render-css"
-  );
+  addScript("/plugins/vditor-mde/assets/static/halo-renders/index.js", "halo-render");
+  addStyleSheet("/plugins/vditor-mde/assets/static/halo-renders/index.css", "halo-render-css");
   renders.push({
     language: "halo",
     render: (element: HTMLElement) => {
       element.querySelectorAll(".language-halo").forEach((el) => {
-        el.outerHTML = HaloJs.renderHalo(
-          el.textContent || "",
-          "/plugins/vditor-mde/assets/static/halo-renders"
-        );
+        el.outerHTML = HaloJs.renderHalo(el.textContent || "", "/plugins/vditor-mde/assets/static/halo-renders");
       });
     },
   });
@@ -281,11 +257,9 @@ function getCustomRenders(options: Options):
       renders.push({
         language: ext.language,
         render: (element: HTMLElement) => {
-          element
-            .querySelectorAll(".language-" + ext.language)
-            .forEach((el) => {
-              el.outerHTML = ext.render(el.textContent || "");
-            });
+          element.querySelectorAll(".language-" + ext.language).forEach((el) => {
+            el.outerHTML = ext.render(el.textContent || "");
+          });
         },
       });
     } catch (e) {
@@ -299,28 +273,19 @@ function getCustomRenders(options: Options):
 /**
  * 进行自定义渲染器的后处理
  * @param vditor vditor
- * @param config Editor Config
+ * @param config Editor Config, 可选
  * @returns html
  */
-export function renderHTML(
-  vditor: Vditor | undefined,
-  config: EditorConfig
-): string {
+export function renderHTML(vditor: Vditor | undefined, config?: EditorConfig): string {
   if (!vditor) return "";
   let value = vditor.getHTML();
   const customRenders = vditor.vditor.options.customRenders;
   customRenders?.forEach((render) => {
-    const reg = new RegExp(
-      `<pre><code class="language-${render.language}">(.*?)</code></pre>`,
-      "gs"
-    );
-    value = value.replace(
-      reg,
-      `<div class="language-${render.language}">$1</div>`
-    );
+    const reg = new RegExp(`<pre><code class="language-${render.language}">(.*?)</code></pre>`, "gs");
+    value = value.replace(reg, `<div class="language-${render.language}">$1</div>`);
   });
   // Remove H1 Title When start with "h1"
-  if (config.basic.firstH1AsTitle && value.startsWith("<h1")) {
+  if (config?.basic.firstH1AsTitle && value.startsWith("<h1")) {
     value = value.replace(/<h1(?:\s+[^>]*)?>(.*?)<\/h1>/, "");
     console.log(value);
   }

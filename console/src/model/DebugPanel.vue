@@ -2,19 +2,13 @@
   <div id="vditor-debug-panel">
     <div id="vditor-debug-op" :class="{ active: debugOpOpen }">
       <div id="vditor-debug-op-bar" @click="debugOpOpen = !debugOpOpen">
-        <img src="../assets/debug.svg" alt="DEBUG"/>
+        <img src="../assets/debug.svg" alt="DEBUG" />
       </div>
       <VButton type="primary" size="sm" @click="getRaw">Get Raw</VButton>
       <VButton type="primary" size="sm" @click="getHTML">Get HTML</VButton>
-      <VButton type="primary" size="sm" @click="getRenderList">
-        Get Vditor Options
-      </VButton>
-      <VButton type="primary" size="sm" @click="getPluginConfig">
-        Get Plugin Config
-      </VButton>
-      <VButton type="primary" size="sm" @click="getCursor">
-        Get Last Cursor
-      </VButton>
+      <VButton type="primary" size="sm" @click="getRenderList"> Get Vditor Options </VButton>
+      <VButton type="primary" size="sm" @click="getPluginConfig"> Get Plugin Config </VButton>
+      <VButton type="primary" size="sm" @click="getCursor"> Get Last Cursor </VButton>
     </div>
     <div v-if="false" id="vditor-debug-data">
       <div>Vditor DEBUG</div>

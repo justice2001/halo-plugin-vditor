@@ -1,31 +1,30 @@
 <script setup lang="ts">
 import Vditor from "vditor";
 import { onMounted, onUnmounted, ref, watch } from "vue";
+
 import "vditor/dist/index.css";
-import type { Schema } from "@/type/editor";
-import { getOptions, renderHTML } from "@/utils/vditor-utils";
-import type { AttachmentLike } from "@halo-dev/console-shared";
-import type { Attachment } from "@halo-dev/api-client";
-import { VLoading } from "@halo-dev/components";
+
+import DebugPanel from "@/model/DebugPanel.vue";
 import TemplateModal from "@/model/TemplateModal.vue";
 import joeProgress from "@/schema/joe-progress";
-import {
-  fetchAllCustomRenderScripts,
-  fetchAllQuickInsert,
-} from "@/utils/fetch-utils";
-import { quickInsertInject } from "@/utils/quick-insert-utils";
-import { addStyle } from "@/utils/dom-utils";
-import { getCursor, setCursor } from "@/utils/cursor-utils";
+import type { Schema } from "@/type/editor";
 import { defaultEditorConfig, type EditorConfig } from "@/utils/config-utils";
-import DebugPanel from "@/model/DebugPanel.vue";
+import { getCursor, setCursor } from "@/utils/cursor-utils";
+import { addStyle } from "@/utils/dom-utils";
+import { fetchAllCustomRenderScripts, fetchAllQuickInsert } from "@/utils/fetch-utils";
 import { copyAsHTML } from "@/utils/html-utils";
+import { quickInsertInject } from "@/utils/quick-insert-utils";
+import { getOptions, renderHTML } from "@/utils/vditor-utils";
+import type { Attachment } from "@halo-dev/api-client";
+import { VLoading } from "@halo-dev/components";
+import type { AttachmentLike } from "@halo-dev/console-shared";
 import juice from "juice";
 
 const props = withDefaults(
   defineProps<{
     title?: string;
     raw?: string;
-    content: string;
+    content?: string;
     uploadImage?: (file: File) => Promise<Attachment>;
   }>(),
   {
@@ -33,7 +32,7 @@ const props = withDefaults(
     raw: "",
     content: "",
     uploadImage: undefined,
-  }
+  },
 );
 
 const vditor = ref<Vditor>();
@@ -66,10 +65,7 @@ watch(
   () => props.title,
   (val) => {
     // When option disabled or nothing to update
-    if (
-      !editorConfig.value?.basic.firstH1AsTitle ||
-      internalTitle.value === val
-    ) {
+    if (!editorConfig.value?.basic.firstH1AsTitle || internalTitle.value === val) {
       return;
     }
     // Get title
@@ -78,7 +74,7 @@ watch(
       internalTitle.value = val;
       vditor.value?.setValue(vdiVal.replace(/# .*?\n/, `# ${val}\n`));
     }
-  }
+  },
 );
 
 // Update content
@@ -99,10 +95,7 @@ const debounceOnUpdate = () => {
   }
   // update content
   emit("update:raw", value);
-  emit(
-    "update:content",
-    renderHTML(vditor.value, editorConfig.value || defaultEditorConfig) || ""
-  );
+  emit("update:content", renderHTML(vditor.value, editorConfig.value || defaultEditorConfig) || "");
   emit("update", value);
 };
 
@@ -124,9 +117,7 @@ const attachmentSelect = (attachments: AttachmentLike[]) => {
 };
 
 onUnmounted(async () => {
-  document
-    .querySelectorAll("script[id^='vditor']")
-    .forEach((el) => el.remove());
+  document.querySelectorAll("script[id^='vditor']").forEach((el) => el.remove());
   document.querySelectorAll("link[id^='vditor']").forEach((el) => el.remove());
   vditorLoaded.value = false;
 });
@@ -135,18 +126,16 @@ onMounted(async () => {
   // 实验性功能: 获取当前语言
   const lang = localStorage.getItem("locale") || "zh-CN";
   try {
-    const response = await fetch(
-      "/apis/api.vditor.mczhengyi.top/editor-options"
-    );
+    const response = await fetch("/apis/api.vditor.mczhengyi.top/editor-options");
     editorConfig.value = await response.json();
-  } catch (e) {
+  } catch {
     // ignore this
     editorConfig.value = defaultEditorConfig;
   }
   if (!editorConfig.value) return;
   // Assign allowImage
   allowImageUpload = allowImageUpload.concat(
-    editorConfig.value.extension.allowImageType.split(",").map((i) => i.trim())
+    editorConfig.value.extension.allowImageType.split(",").map((i) => i.trim()),
   );
   console.log("ALLOW", allowImageUpload);
   // 禁用HTML代码块隐藏
@@ -154,21 +143,17 @@ onMounted(async () => {
     addStyle(
       "[data-type=html-block] pre {display: block!important;}\n" +
         ".vditor-ir__node[data-type=html-block] .vditor-ir__marker {height: auto; width: auto; display: inline;}",
-      "vditor-mde-hide-html"
+      "vditor-mde-hide-html",
     );
   // Debug Mode
   debugMode.value = editorConfig.value.developer.debugger;
   // Quick Insert Process
-  const qil = await fetchAllQuickInsert(
-    editorConfig.value.basic.quickInsertUrl
-  );
+  const qil = await fetchAllQuickInsert(editorConfig.value.basic.quickInsertUrl);
   qil.forEach((q) => {
     quickInsertInject(q.inject || [], q.provider);
   });
   // Get all custom render script
-  const renderScripts = await fetchAllCustomRenderScripts(
-    editorConfig.value?.basic.customRenders
-  );
+  const renderScripts = await fetchAllCustomRenderScripts(editorConfig.value?.basic.customRenders);
   // Create Vditor
   vditor.value = new Vditor(
     vditorRef.value,
@@ -201,10 +186,14 @@ onMounted(async () => {
           vditor.value?.tip("当前已经存在正在上传的文件，请等待上传完成", 2000);
           return;
         }
+
+        if (!files[0]) {
+          vditor.value?.tip("未选择文件或文件无效，请重试", 2000);
+          return null;
+        }
+
         // Check extension name
-        const extendName = files[0].name
-          .slice(files[0].name.lastIndexOf(".") + 1)
-          .toLowerCase();
+        const extendName = files[0].name.slice(files[0].name.lastIndexOf(".") + 1).toLowerCase();
         if (allowImageUpload.indexOf(extendName) === -1) {
           vditor.value?.tip("不允许上传该类型图片!", 2000);
           return null;
@@ -219,9 +208,7 @@ onMounted(async () => {
               return;
             }
             // Insert Image
-            vditor.value?.insertValue(
-              `\n\n![${res.spec.displayName}](${res.status.permalink})\n\n`
-            );
+            vditor.value?.insertValue(`\n\n![${res.spec.displayName}](${res.status.permalink})\n\n`);
             // Restore cursor
             vditor.value?.enable();
             vditor.value?.focus();
@@ -254,8 +241,7 @@ onMounted(async () => {
             if (!options) return;
             // Load vditor css file
             const cdn = options.cdn;
-            const themePath =
-              options.preview?.theme?.path || `${cdn}/dist/css/content-theme`;
+            const themePath = options.preview?.theme?.path || `${cdn}/dist/css/content-theme`;
             const theme = options.preview?.theme?.current || "light";
             const hljsTheme = options.preview?.hljs?.style || "github";
             const css = [
@@ -264,22 +250,15 @@ onMounted(async () => {
               `${cdn}/dist/js/highlight.js/styles/${hljsTheme}.min.css`,
               `${cdn}/dist/js/katex/katex.min.css`,
             ];
-            Promise.all(
-              css.map((url) => fetch(url).then((res) => res.text()))
-            ).then((contentList) => {
+            Promise.all(css.map((url) => fetch(url).then((res) => res.text()))).then((contentList) => {
               let css = "";
               contentList.forEach((content) => (css += content + "\n\n"));
-              doc
-                .querySelectorAll(".katex-html .base")
-                .forEach((item: Element) => {
-                  (item as HTMLElement).style.display = "initial";
-                });
-              const html = juice(
-                `<div class="vditor-reset">${doc.innerHTML}</div>`,
-                {
-                  extraCss: css,
-                }
-              );
+              doc.querySelectorAll(".katex-html .base").forEach((item: Element) => {
+                (item as HTMLElement).style.display = "initial";
+              });
+              const html = juice(`<div class="vditor-reset">${doc.innerHTML}</div>`, {
+                extraCss: css,
+              });
               copyAsHTML(html).then(() => {
                 vditor.value?.tip("已复制，部分样式可能会丢失！", 2000);
               });
@@ -287,7 +266,7 @@ onMounted(async () => {
           },
         },
       ],
-    })
+    }),
   );
 });
 
@@ -304,17 +283,9 @@ const update = (val: string | null) => {
 </script>
 
 <template>
-  <div
-    id="plugin-vditor-mde"
-    :class="{ h1AsTitle: editorConfig?.basic.firstH1AsTitle }"
-  >
+  <div id="plugin-vditor-mde" :class="{ h1AsTitle: editorConfig?.basic.firstH1AsTitle }">
     <VLoading v-if="!vditorLoaded" style="height: 100%" />
-    <DebugPanel
-      v-if="debugMode"
-      :config="editorConfig"
-      :vditor="vditor"
-      :cursor="lastSelectionRange"
-    />
+    <DebugPanel v-if="debugMode" :config="editorConfig" :vditor="vditor" :cursor="lastSelectionRange" />
     <div id="vditor" ref="vditorRef"></div>
     <TemplateModal
       :open="customInsertOpen"

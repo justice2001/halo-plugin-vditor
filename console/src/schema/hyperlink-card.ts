@@ -46,8 +46,7 @@ const schema: Schema = {
       ],
     },
   ],
-  template:
-    '<hyperlink-card href="$link$" target="$target$" theme="$theme$"></hyperlink-card>',
+  template: '<hyperlink-card href="$link$" target="$target$" theme="$theme$"></hyperlink-card>',
 };
 
 export default schema;

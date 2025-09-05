@@ -21,8 +21,7 @@ const schema: Schema = {
       value: "#ffffff",
     },
   ],
-  template:
-    '<joe-progress percentage="$percentage$" color="$color$"></joe-progress>',
+  template: '<joe-progress percentage="$percentage$" color="$color$"></joe-progress>',
 };
 
 export default schema;
