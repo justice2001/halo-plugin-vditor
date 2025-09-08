@@ -9,15 +9,16 @@ if (!window.vditorPjax) {
     } else {
         window.addEventListener('load', () => vditorRender.render())
     }
-    // 兼容 PJAX
-    $(document).on('pjax:complete', function() {
-        vditorRender.render()
-        console.log("[Vditor Render] PJAX END")
-    })
-    // 兼容 Jquery-Pjax
-    $(document).on('pjax:end', function() {
-        vditorRender.render()
-        console.log("[Vditor Render] PJAX END")
-    })
+    // 兼容 JQuery-PJAX
+    if (typeof $ !== 'undefined' && $ && typeof $.fn !== 'undefined') {
+        $(document).on('pjax:complete', function() {
+            vditorRender.render()
+            console.log("[Vditor Render] JQuery-PJAX END")
+        })
+        $(document).on('pjax:end', function() {
+            vditorRender.render()
+            console.log("[Vditor Render] JQuery-PJAX END")
+        })
+    }
     console.log("[Vditor Render] PJAX Injected")
 }
