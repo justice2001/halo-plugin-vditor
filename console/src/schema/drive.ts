@@ -41,8 +41,7 @@ const schema: Schema = {
       label: t("password"),
     },
   ],
-  template:
-    "```halo\ndrive:$platform$\nname:$title$\nlink:$link$\npassword:$password$\n```",
+  template: "```halo\ndrive:$platform$\nname:$title$\nlink:$link$\npassword:$password$\n```",
 };
 
 export default schema;

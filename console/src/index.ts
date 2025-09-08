@@ -1,7 +1,8 @@
-import { definePlugin, type EditorProvider } from "@halo-dev/console-shared";
-import logo from "./assets/vditor.png";
-import { defineAsyncComponent } from "vue";
 import { VLoading } from "@halo-dev/components";
+import { definePlugin, type EditorProvider } from "@halo-dev/console-shared";
+import { defineAsyncComponent } from "vue";
+
+import logo from "./assets/vditor.png";
 
 export default definePlugin({
   components: {},
