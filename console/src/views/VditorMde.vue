@@ -207,11 +207,31 @@ onMounted(async () => {
               vditor.value?.enable();
               return;
             }
-            // Insert Image
+            // Insert first image
             vditor.value?.insertValue(`\n\n![${res.spec.displayName}](${res.status.permalink})\n\n`);
-            // Restore cursor
-            vditor.value?.enable();
-            vditor.value?.focus();
+            // Upload remaining images (if any)
+            const rest = files.slice(1).filter((f) => {
+              const ext = f.name.slice(f.name.lastIndexOf(".") + 1).toLowerCase();
+              return allowImageUpload.indexOf(ext) !== -1;
+            });
+            const skipped = files.length - 1 - rest.length;
+            if (skipped > 0) {
+              vditor.value?.tip(`有 ${skipped} 个文件类型不被允许，已跳过`, 2000);
+            }
+            (async () => {
+              for (const f of rest) {
+                try {
+                  const r: Attachment = await props.uploadImage!(f);
+                  if (r && r.status) {
+                    vditor.value?.insertValue(`\n\n![${r.spec.displayName}](${r.status.permalink})\n\n`);
+                  }
+                } catch {
+                  // ignore single-file failure
+                }
+              }
+              vditor.value?.enable();
+              vditor.value?.focus();
+            })();
           });
         }
         return null;
@@ -297,7 +317,7 @@ const update = (val: string | null) => {
     <AttachmentSelectorModal
       v-model:visible="attachmentSelectorModalShow"
       :accepts="['image/*']"
-      :max="1"
+      :max="20"
       @select="attachmentSelect"
     />
   </div>
