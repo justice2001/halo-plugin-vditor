@@ -105,13 +105,13 @@ const attachmentSelect = (attachments: AttachmentLike[]) => {
   // Reference https://github.com/guqing/willow-mde/blob/4b8e697132f8a8f4b08dd0f92cf10d070cb26793/console/src/components/toolbar/Toolbar.vue#L104
   attachments.forEach((attachment) => {
     if (typeof attachment === "string") {
-      vditor.value?.insertValue(`![](${attachment})`);
+      vditor.value?.insertValue(`\n\n![](${attachment})\n\n`);
     } else if ("url" in attachment) {
-      vditor.value?.insertValue(`![${attachment.type}](${attachment.url})`);
+      vditor.value?.insertValue(`\n\n![${attachment.type}](${attachment.url})\n\n`);
     } else if ("spec" in attachment) {
       const { displayName } = attachment.spec;
       const { permalink } = attachment.status || {};
-      vditor.value?.insertValue(`![${displayName}](${permalink})`);
+      vditor.value?.insertValue(`\n\n![${displayName}](${permalink})\n\n`);
     }
   });
 };
@@ -187,52 +187,45 @@ onMounted(async () => {
           return;
         }
 
-        if (!files[0]) {
+        if (files.length < 1) {
           vditor.value?.tip("未选择文件或文件无效，请重试", 2000);
-          return null;
-        }
-
-        // Check extension name
-        const extendName = files[0].name.slice(files[0].name.lastIndexOf(".") + 1).toLowerCase();
-        if (allowImageUpload.indexOf(extendName) === -1) {
-          vditor.value?.tip("不允许上传该类型图片!", 2000);
           return null;
         }
         // Upload
         if (props.uploadImage) {
           vditor.value?.disabled();
           vditor.value?.tip("正在上传图片...", 2000);
-          props.uploadImage(files[0]).then((res: Attachment) => {
-            if (!res.status) {
-              vditor.value?.enable();
-              return;
-            }
-            // Insert first image
-            vditor.value?.insertValue(`\n\n![${res.spec.displayName}](${res.status.permalink})\n\n`);
-            // Upload remaining images (if any)
-            const rest = files.slice(1).filter((f) => {
-              const ext = f.name.slice(f.name.lastIndexOf(".") + 1).toLowerCase();
-              return allowImageUpload.indexOf(ext) !== -1;
-            });
-            const skipped = files.length - 1 - rest.length;
-            if (skipped > 0) {
-              vditor.value?.tip(`有 ${skipped} 个文件类型不被允许，已跳过`, 2000);
-            }
-            (async () => {
-              for (const f of rest) {
-                try {
-                  const r: Attachment = await props.uploadImage!(f);
-                  if (r && r.status) {
-                    vditor.value?.insertValue(`\n\n![${r.spec.displayName}](${r.status.permalink})\n\n`);
-                  }
-                } catch {
-                  // ignore single-file failure
+          // Check image extensions
+          const rest = files.filter((f) => {
+            const ext = f.name.slice(f.name.lastIndexOf(".") + 1).toLowerCase();
+            return allowImageUpload.indexOf(ext) !== -1;
+          });
+          const skipped = files.length - rest.length;
+          if (skipped > 0) {
+            vditor.value?.tip(`有 ${skipped} 个文件类型不被允许，已跳过`, 2000);
+          }
+          // Upload images
+          (async () => {
+            const result = await Promise.allSettled(rest.map((f) => props.uploadImage!(f)));
+            let hasError = false;
+            for (const r of result) {
+              if (r && r.status === "rejected") {
+                hasError = true;
+              } else {
+                const ret = r.value;
+                if (ret && ret.status) {
+                  vditor.value?.insertValue(`\n\n![${ret.spec.displayName}](${ret.status.permalink})\n\n`);
                 }
               }
-              vditor.value?.enable();
-              vditor.value?.focus();
-            })();
-          });
+            }
+            if (hasError) {
+              vditor.value?.tip("图片上传完成，有文件上传失败，请检查网络", 2000);
+            } else {
+              vditor.value?.tip("图片上传完成", 2000);
+            }
+            vditor.value?.enable();
+            vditor.value?.focus();
+          })();
         }
         return null;
       },

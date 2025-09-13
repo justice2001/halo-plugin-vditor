@@ -75,6 +75,7 @@ export function getOptions(options: Options): IOptions {
     },
     debugger: options.config.developer.debugger,
     customRenders: getCustomRenders(options),
+    customWysiwygToolbar() {},
   };
 }
 
