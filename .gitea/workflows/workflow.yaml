@@ -3,6 +3,8 @@ name: Build Plugin JAR File
 on:
   push:
     branches: [ main, dev ]
+  release:
+    types: [ published ]
 
 jobs:
   build:
@@ -44,7 +46,7 @@ jobs:
       - name: Build with Gradle
         run: |
           # Set the version with tag name when releasing
-          if [ $GITHUB_REF_NAME == "main" ]; then
+          if [ $GITHUB_EVENT_NAME == "release" ]; then
             version=${{ github.event.release.tag_name }}
             version=${version#v}
             sed -i "s/version=.*-SNAPSHOT$/version=$version/1" gradle.properties
