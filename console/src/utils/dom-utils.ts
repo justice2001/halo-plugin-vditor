@@ -3,7 +3,9 @@ export const addScript = (url: string, id: string): HTMLElement => {
   const scriptElement = document.createElement("script");
   scriptElement.id = id;
   scriptElement.src = url;
-  headElement.append(scriptElement);
+  if (headElement) {
+    headElement.append(scriptElement);
+  }
   return scriptElement;
 };
 
@@ -13,7 +15,9 @@ export const addStyleSheet = (url: string, id: string): HTMLElement => {
   linkElement.id = id;
   linkElement.rel = "stylesheet";
   linkElement.href = url;
-  headElement.append(linkElement);
+  if (headElement) {
+    headElement.append(linkElement);
+  }
   return linkElement;
 };
 
@@ -22,6 +26,8 @@ export const addStyle = (style: string, id: string): HTMLElement => {
   const styleElement = document.createElement("style");
   styleElement.id = id;
   styleElement.innerHTML = style;
-  headElement.append(styleElement);
+  if (headElement) {
+    headElement.append(styleElement);
+  }
   return styleElement;
 };

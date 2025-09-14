@@ -73,3 +73,13 @@ application-local.properties
 /admin-frontend/node_modules/
 /workplace/
 /src/main/resources/console/
+# Frontend caches and node modules
+console/node_modules/
+console/dist/
+console/.rsbuild*/
+
+# Downloaded Vditor assets and temp files
+/src/main/resources/static/dist/
+/src/main/resources/static/package/
+/src/main/resources/static/*.tgz
+/src/main/resources/static/*.tar

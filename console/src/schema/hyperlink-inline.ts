@@ -31,8 +31,7 @@ const schema: Schema = {
     },
   ],
   inline: true,
-  template:
-    '<hyperlink-inline-card href="$link$" target="$target$"></hyperlink-inline-card>',
+  template: '<hyperlink-inline-card href="$link$" target="$target$"></hyperlink-inline-card>',
 };
 
 export default schema;

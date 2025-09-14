@@ -1,46 +1,40 @@
 name: Build Plugin JAR File
 
 on:
+  workflow_dispatch:
   push:
     branches: [ main ]
   release:
     types:
       - created
+  pull_request:
+    types: [ opened, synchronize, reopened ]
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v5
         with:
           submodules: true
       - name: Set up JDK 17
-        uses: actions/setup-java@v2
+        uses: actions/setup-java@v5
         with:
           distribution: 'temurin'
           cache: 'gradle'
           java-version: 17
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18
-      - uses: pnpm/action-setup@v2.0.1
+      - uses: pnpm/action-setup@v4
         name: Install pnpm
         id: pnpm-install
         with:
           version: 10
           run_install: false
-      - name: Get pnpm store directory
-        id: pnpm-cache
-        run: |
-          echo "::set-output name=pnpm_cache_dir::$(pnpm store path)"
-      - uses: actions/cache@v3
-        name: Setup pnpm cache
+      - name: Set up Node.js
+        uses: actions/setup-node@v5
         with:
-          path: ${{ steps.pnpm-cache.outputs.pnpm_cache_dir }}
-          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/console/pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-pnpm-store-
+          node-version: 24
+          cache: 'pnpm'
+          cache-dependency-path: 'console/pnpm-lock.yaml'
       - name: Download Vditor assets
         run: |
           chmod a+x download_dist.sh
@@ -53,12 +47,14 @@ jobs:
           # Set the version with tag name when releasing
           version=${{ github.event.release.tag_name }}
           version=${version#v}
-          sed -i "s/version=.*-SNAPSHOT$/version=$version/1" gradle.properties
+          if [ -n "$version" ]; then
+            sed -i "s/version=.*-SNAPSHOT$/version=$version/1" gradle.properties
+          fi
           ./gradlew clean build -x test
-      - name: Archive plugin-starter jar
-        uses: actions/upload-artifact@v2
+      - name: Archive plugin-vditor jar
+        uses: actions/upload-artifact@v4
         with:
-          name: plugin-starter
+          name: plugin-vditor
           path: |
             build/libs/*.jar
           retention-days: 1
@@ -68,10 +64,10 @@ jobs:
     needs: build
     if: github.event_name == 'release'
     steps:
-      - name: Download plugin-starter jar
+      - name: Download plugin-vditor jar
         uses: actions/download-artifact@v2
         with:
-          name: plugin-starter
+          name: plugin-vditor
           path: build/libs
       - name: Get Name of Artifact
         id: get_artifact
