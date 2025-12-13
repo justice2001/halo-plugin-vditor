@@ -12,6 +12,10 @@ import { mdiGrid, mdiImage } from "@/utils/icon";
 import type { PluginModule } from "@halo-dev/console-shared";
 import type Vditor from "vditor";
 
+
+
+
+
 declare const HaloJs: {
   renderHalo: (content: string, cdn: string) => string;
 };
@@ -283,12 +287,22 @@ export function renderHTML(vditor: Vditor | undefined, config?: EditorConfig): s
   const customRenders = vditor.vditor.options.customRenders;
   customRenders?.forEach((render) => {
     const reg = new RegExp(`<pre><code class="language-${render.language}">(.*?)</code></pre>`, "gs");
-    value = value.replace(reg, `<div class="language-${render.language}">$1</div>`);
+    value = value.replace(
+      reg,
+      `<div class="vditor-render-wrapper"><code class="language-${render.language}">$1</code></div>`,
+    );
+  });
+  // 此处为需要特殊处理的渲染器，需要将code模式渲染为div
+  const specialRenders = ["markmap"];
+  specialRenders.forEach((render) => {
+    const reg = new RegExp(`<pre><code class="language-${render}">(.*?)</code></pre>`, "gs");
+    value = value.replace(reg, `<div class="vditor-render-wrapper"><code class="language-${render}">$1</code></div>`);
   });
   // Remove H1 Title When start with "h1"
   if (config?.basic.firstH1AsTitle && value.startsWith("<h1")) {
     value = value.replace(/<h1(?:\s+[^>]*)?>(.*?)<\/h1>/, "");
     console.log(value);
   }
+  console.log(value);
   return value;
 }
