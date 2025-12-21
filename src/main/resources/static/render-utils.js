@@ -92,6 +92,7 @@
         Vditor.graphvizRender(root, this.CDN)
         Vditor.flowchartRender(root, this.CDN)
         Vditor.plantumlRender(root, this.CDN)
+        Vditor.markmapRender(root, this.CDN)
         // Run External Plugin
         functionList.forEach(func => {
             func({
