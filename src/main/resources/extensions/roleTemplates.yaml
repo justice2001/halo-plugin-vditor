@@ -7,8 +7,8 @@ metadata:
     halo.run/hidden: "true"
     rbac.authorization.halo.run/aggregate-to-authenticated: "true"
 rules:
-  - nonResourceURLs: [ "/apis/api.vditor.mczhengyi.top/editor-options" ]
-    verbs: [ "get" ]
+  - nonResourceURLs: ["/apis/api.vditor.mczhengyi.top/editor-options"]
+    verbs: ["get"]
 ---
 apiVersion: v1alpha1
 kind: "Role"
@@ -19,5 +19,5 @@ metadata:
     halo.run/hidden: "true"
     rbac.authorization.halo.run/aggregate-to-anonymous: "true"
 rules:
-  - nonResourceURLs: [ "/apis/api.vditor.mczhengyi.top/macros" ]
-    verbs: [ "get" ]
+  - nonResourceURLs: ["/apis/api.vditor.mczhengyi.top/macros", "/apis/api.vditor.mczhengyi.top/renders"]
+    verbs: ["get"]

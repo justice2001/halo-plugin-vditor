@@ -1,155 +1,155 @@
 apiVersion: v1alpha1
 kind: Setting
 metadata:
-    name: vditor-mde-settings
+  name: vditor-mde-settings
 spec:
-    forms:
-        - group: basic
-          label: 编辑器
-          formSchema:
-              - $formkit: select
-                name: defaultRenderMode
-                label: 默认渲染模式
-                help: 进入文章编辑页面的默认编辑模式
-                value: wysiwyg
-                options:
-                  - label: 所见即所得
-                    value: wysiwyg
-                  - label: 即时渲染
-                    value: ir
-                  - label: 分屏渲染
-                    value: sv
-              - $formkit: checkbox
-                name: typeWriterMode
-                label: 打字机模式
-                help: 启用打字机模式将会始终将光标保持在视野中心位置
-                value: true
-              - $formkit: checkbox
-                name: codeBlockPreview
-                label: 编辑器代码块渲染
-                help: 关闭后代码块（包括图表）在所见即所得和即时渲染模式下将不会被渲染
-                value: true
-              - $formkit: checkbox
-                id: enableQuickInsert
-                name: enableQuickInsert
-                label: 启用快速插入功能
-                help: 开启此选项后，将会加入插件或主题提供的快速插入按钮
-                value: false
-              - $formkit: repeater
-                if: "$enableQuickInsert"
-                name: quickInsertUrl
-                label: 快速插入链接
-                help: 在下面的选项框中填入主题或插件给出的配置地址，即可使用
-                value: [ ]
-                children:
-                  - $formkit: text
-                    name: url
-                    label: URL
-                    value: ""
-              - $formkit: repeater
-                name: customRenders
-                label: 自定义渲染器
-                help: 在下面的选项框中填入符合规范的自定义渲染器js的url,请不要加载来源不明的渲染器！
-                value: [ ]
-                children:
-                  - $formkit: text
-                    name: url
-                    label: URL
-                    value: ""
-              - $formkit: checkbox
-                name: disableHTMLBlockPreview
-                label: 禁用HTML代码块隐藏
-                help: 开启此选项后，HTML代码块将会一直显示
-                value: false
-              - $formkit: checkbox
-                name: firstH1AsTitle
-                label: 🧪自动将第一行作为标题
-                help: 开启此选项后，第一行H1将会作为文章标题，同时标题会用 T 标识
-                value: false
-              - $formkit: code
-                name: macros
-                label: Katex宏定义
-                help: 宏定义仅支持内置渲染器渲染
-                value: "{}"
-                language: json
-              - $formkit: text
-                name: previewThemeBase
-                label: 自定义主题基础地址
-                help: 填写要修改的自定义主题基础地址，为空则使用默认主题库
-                placeholder: 如 https://www.example.com/theme/
-                value: ""
-              - $formkit: text
-                name: previewTheme
-                label: 自定义主题名称
-                help: 填写自定义的主题名称
-                placeholder: light
-                value: ""
-        - group: extension
-          label: 文件格式
-          formSchema:
-              - $formkit: text
-                name: allowImageType
-                label: 允许的图片格式
-                help: 自定义允许上传的图片格式
-                value: "png,jpg,jpeg,bmp,gif,webp,svg"
-        - group: render
-          label: 渲染
-          formSchema:
-            - $formkit: checkbox
-              name: enableRender
-              label: 内置渲染器
-              help: 内置渲染器会对前台文章页面的公式、图表进行渲染
-              value: true
-            - $formkit: select
-              name: darkMode
-              label: 暗色模式
-              help: Vditor渲染的组件进入暗色模式的方式
-              value: disabled
-              options:
-                - label: 禁用暗色模式
-                  value: disabled
-                - label: 跟随系统
-                  value: system
-                - label: 跟随Joe 3.0
-                  value: joe
-            - $formkit: checkbox
-              name: mediaRender
-              label: "*实验性 渲染媒体标签"
-              help: 启用该功能会搜索文章内可解析的链接进行解析, 这可能会导致您的渲染出现问题!
-              value: false
-            - $formkit: checkbox
-              name: onlyMarkdown
-              label: "仅在Markdown模式下渲染"
-              help: "启用该功能将仅在Markdown格式的文章下注入渲染脚本"
-              value: true
-            - $formkit: select
-              id: cdn
-              name: cdn
-              label: "Vditor CDN"
-              help: "前台渲染所使用的 CDN 配置"
-              value: "/plugins/vditor-mde/assets/static"
-              options:
-                - label: "内建"
-                  value: "/plugins/vditor-mde/assets/static"
-                - label: "jsDelivr(国外)"
-                  value: "https://cdn.jsdelivr.net/npm/vditor@${v}"
-                - label: "unpkg(国外)"
-                  value: "https://unpkg.com/vditor@${v}"
-                - label: "npmmirror(国内)"
-                  value: "https://registry.npmmirror.com/vditor/${v}/files"
-                - label: "自建"
-                  value: "self-hosted"
+  forms:
+    - group: basic
+      label: 编辑器
+      formSchema:
+        - $formkit: select
+          name: defaultRenderMode
+          label: 默认渲染模式
+          help: 进入文章编辑页面的默认编辑模式
+          value: wysiwyg
+          options:
+            - label: 所见即所得
+              value: wysiwyg
+            - label: 即时渲染
+              value: ir
+            - label: 分屏渲染
+              value: sv
+        - $formkit: checkbox
+          name: typeWriterMode
+          label: 打字机模式
+          help: 启用打字机模式将会始终将光标保持在视野中心位置
+          value: true
+        - $formkit: checkbox
+          name: codeBlockPreview
+          label: 编辑器代码块渲染
+          help: 关闭后代码块（包括图表）在所见即所得和即时渲染模式下将不会被渲染
+          value: true
+        - $formkit: checkbox
+          id: enableQuickInsert
+          name: enableQuickInsert
+          label: 启用快速插入功能
+          help: 开启此选项后，将会加入插件或主题提供的快速插入按钮
+          value: false
+        - $formkit: repeater
+          if: "$enableQuickInsert"
+          name: quickInsertUrl
+          label: 快速插入链接
+          help: 在下面的选项框中填入主题或插件给出的配置地址，即可使用
+          value: []
+          children:
             - $formkit: text
-              if: "$cdn == 'self-hosted'"
-              name: cdnUrl
-              label: CDN URL
-              placeholder: "在此处填入您的自建cdn(不支持 cdnjs 格式，使用${v}代替版本号)"
+              name: url
+              label: URL
               value: ""
-        - group: developer
-          label: 开发者设置
-          formSchema:
-            - $formkit: checkbox
-              name: debugger
-              label: "启用Debugger"
-              help: "启动Vditor编辑器的Debugger模式，一般用于开发者使用"
-              value: false
+        - $formkit: repeater
+          name: customRenders
+          label: 自定义渲染器
+          help: 在下面的选项框中填入符合规范的自定义渲染器js的url,请不要加载来源不明的渲染器！
+          value: []
+          children:
+            - $formkit: text
+              name: url
+              label: URL
+              value: ""
+        - $formkit: checkbox
+          name: disableHTMLBlockPreview
+          label: 禁用HTML代码块隐藏
+          help: 开启此选项后，HTML代码块将会一直显示
+          value: false
+        - $formkit: checkbox
+          name: firstH1AsTitle
+          label: 🧪自动将第一行作为标题
+          help: 开启此选项后，第一行H1将会作为文章标题，同时标题会用 T 标识
+          value: false
+        - $formkit: code
+          name: macros
+          label: Katex宏定义
+          help: 宏定义仅支持内置渲染器渲染
+          value: "{}"
+          language: json
+        - $formkit: text
+          name: previewThemeBase
+          label: 自定义主题基础地址
+          help: 填写要修改的自定义主题基础地址，为空则使用默认主题库
+          placeholder: 如 https://www.example.com/theme/
+          value: ""
+        - $formkit: text
+          name: previewTheme
+          label: 自定义主题名称
+          help: 填写自定义的主题名称
+          placeholder: light
+          value: ""
+    - group: extension
+      label: 文件格式
+      formSchema:
+        - $formkit: text
+          name: allowImageType
+          label: 允许的图片格式
+          help: 自定义允许上传的图片格式
+          value: "png,jpg,jpeg,bmp,gif,webp,svg"
+    - group: render
+      label: 渲染
+      formSchema:
+        - $formkit: checkbox
+          name: enableRender
+          label: 内置渲染器
+          help: 内置渲染器会对前台文章页面的公式、图表进行渲染
+          value: true
+        - $formkit: select
+          name: darkMode
+          label: 暗色模式
+          help: Vditor渲染的组件进入暗色模式的方式
+          value: disabled
+          options:
+            - label: 禁用暗色模式
+              value: disabled
+            - label: 跟随系统
+              value: system
+            - label: 跟随Joe 3.0
+              value: joe
+        - $formkit: checkbox
+          name: mediaRender
+          label: "*实验性 渲染媒体标签"
+          help: 启用该功能会搜索文章内可解析的链接进行解析, 这可能会导致您的渲染出现问题!
+          value: false
+        - $formkit: checkbox
+          name: onlyMarkdown
+          label: "仅在Markdown模式下渲染"
+          help: "启用该功能将仅在Markdown格式的文章下注入渲染脚本"
+          value: true
+        - $formkit: select
+          id: cdn
+          name: cdn
+          label: "Vditor CDN"
+          help: "前台渲染所使用的 CDN 配置"
+          value: "/plugins/vditor-mde/assets/static"
+          options:
+            - label: "内建"
+              value: "/plugins/vditor-mde/assets/static"
+            - label: "jsDelivr(国外)"
+              value: "https://cdn.jsdelivr.net/npm/vditor@${v}"
+            - label: "unpkg(国外)"
+              value: "https://unpkg.com/vditor@${v}"
+            - label: "npmmirror(国内)"
+              value: "https://registry.npmmirror.com/vditor/${v}/files"
+            - label: "自建"
+              value: "self-hosted"
+        - $formkit: text
+          if: "$cdn == 'self-hosted'"
+          name: cdnUrl
+          label: CDN URL
+          placeholder: "在此处填入您的自建cdn(不支持 cdnjs 格式，使用${v}代替版本号)"
+          value: ""
+    - group: developer
+      label: 开发者设置
+      formSchema:
+        - $formkit: checkbox
+          name: debugger
+          label: "启用Debugger"
+          help: "启动Vditor编辑器的Debugger模式，一般用于开发者使用"
+          value: false
