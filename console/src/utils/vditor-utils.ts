@@ -12,10 +12,6 @@ import { mdiGrid, mdiImage } from "@/utils/icon";
 import type { PluginModule } from "@halo-dev/console-shared";
 import type Vditor from "vditor";
 
-
-
-
-
 declare const HaloJs: {
   renderHalo: (content: string, cdn: string) => string;
 };
