@@ -1,4 +1,4 @@
-set VDITOR_VERSION=3.11.2
+set VDITOR_VERSION=3.11.3
 cd src/main/resources/static
 if exist dist rmdir /s /q dist
 echo %cd%

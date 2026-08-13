@@ -1,5 +1,5 @@
 #!/bin/bash
-VDITOR_VERSION="3.11.2"
+VDITOR_VERSION="3.11.3"
 
 cd src/main/resources/static
 rm -rf dist

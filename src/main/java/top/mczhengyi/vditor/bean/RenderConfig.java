@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class RenderConfig {
-    private final String VDITOR_VERSION = "3.11.2";
+    private final String VDITOR_VERSION = "3.11.3";
 
     Boolean enableRender;
     String darkMode;
