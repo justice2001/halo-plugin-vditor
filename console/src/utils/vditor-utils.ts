@@ -9,7 +9,7 @@ import type { EditorConfig } from "@/utils/config-utils";
 import { addScript, addStyleSheet } from "@/utils/dom-utils";
 import { t } from "@/utils/i18n-utils";
 import { mdiGrid, mdiImage } from "@/utils/icon";
-import type { PluginModule } from "@halo-dev/console-shared";
+import type { PluginModule } from "@halo-dev/ui-shared";
 import type Vditor from "vditor";
 
 declare const HaloJs: {

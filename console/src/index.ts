@@ -1,5 +1,5 @@
 import { VLoading } from "@halo-dev/components";
-import { definePlugin, type EditorProvider } from "@halo-dev/console-shared";
+import { definePlugin, type EditorProvider } from "@halo-dev/ui-shared";
 import { defineAsyncComponent } from "vue";
 
 import logo from "./assets/vditor.png";

@@ -17,7 +17,7 @@ import { quickInsertInject } from "@/utils/quick-insert-utils";
 import { getOptions, renderHTML } from "@/utils/vditor-utils";
 import type { Attachment } from "@halo-dev/api-client";
 import { VLoading } from "@halo-dev/components";
-import type { AttachmentLike } from "@halo-dev/console-shared";
+import type { AttachmentLike } from "@halo-dev/ui-shared";
 import juice from "juice";
 
 const props = withDefaults(
@@ -107,7 +107,7 @@ const attachmentSelect = (attachments: AttachmentLike[]) => {
     if (typeof attachment === "string") {
       vditor.value?.insertValue(`\n\n![](${attachment})\n\n`);
     } else if ("url" in attachment) {
-      vditor.value?.insertValue(`\n\n![${attachment.type}](${attachment.url})\n\n`);
+      vditor.value?.insertValue(`\n\n![${attachment.alt || ""}](${attachment.url})\n\n`);
     } else if ("spec" in attachment) {
       const { displayName } = attachment.spec;
       const { permalink } = attachment.status || {};

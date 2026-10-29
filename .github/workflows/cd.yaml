@@ -7,7 +7,7 @@ on:
 
 jobs:
   cd:
-    uses: halo-sigs/reusable-workflows/.github/workflows/plugin-cd.yaml@v4
+    uses: halo-sigs/reusable-workflows/.github/workflows/plugin-cd.yaml@v5
     secrets:
       halo-pat: ${{ secrets.HALO_PAT }}
     permissions:
@@ -15,3 +15,5 @@ jobs:
     with:
       app-id: app-uBcYw
       ui-path: "console"
+      pnpm-version: "12"
+      node-version: "24"

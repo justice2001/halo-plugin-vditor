@@ -1,8 +1,7 @@
 plugins {
     id 'java'
-    id "com.github.node-gradle.node" version "7.0.2"
-    id "io.freefair.lombok" version "8.13"
-    id "run.halo.plugin.devtools" version "0.6.1"
+    id "io.freefair.lombok" version "9.2.0"
+    id "run.halo.plugin.devtools" version "0.9.0"
 }
 
 group 'top.mczhengyi'
@@ -34,53 +33,39 @@ tasks.withType(JavaCompile).configureEach {
     options.release = 21
 }
 
-node {
-    nodeProjectDir = file("${project.projectDir}/console")
+sourceSets.main.resources {
+    exclude 'console/**', 'ui/**'
 }
 
-tasks.register('downloadDependencies') {
-    doFirst {
-        if (!System.properties['os.name'].toLowerCase().contains('windows')) {
-            // 在非 Windows 系统上添加执行权限
-            exec {
-                commandLine 'chmod', '+x', 'download_dist.sh'
-            }
-        }
-    }
-    doLast {
-        if (System.properties['os.name'].toLowerCase().contains('windows')) {
-            exec {
-                commandLine 'cmd', '/c', 'download_dist.bat'
-            }
-        } else {
-            exec {
-                commandLine 'bash', '-c', './download_dist.sh'
-            }
-        }
+tasks.register('processUiResources', Sync) {
+    from project(':console').layout.buildDirectory.dir('dist')
+    into layout.buildDirectory.dir('resources/main/ui')
+    dependsOn ':console:assemble', tasks.named('processResources')
+}
+
+tasks.register('downloadDependencies', Exec) {
+    workingDir layout.projectDirectory
+    if (System.properties['os.name'].toLowerCase().contains('windows')) {
+        commandLine 'cmd', '/c', 'download_dist.bat'
+    } else {
+        commandLine 'bash', 'download_dist.sh'
     }
 }
 
-tasks.register('installDepsForUI', PnpmTask) {
-    args = ['install']
-
-   dependsOn('downloadDependencies')
+tasks.named('processResources') {
+    dependsOn tasks.named('downloadDependencies')
 }
 
-tasks.register('buildFrontend', PnpmTask) {
-    args = ['build']
-
-    dependsOn('installDepsForUI')
+tasks.named('classes') {
+    dependsOn tasks.named('processUiResources')
 }
 
-build {
-    // build frontend before build
-    tasks.named('compileJava').configure {
-        dependsOn('buildFrontend')
-    }
+tasks.named('jar') {
+    exclude 'console/**'
 }
 
 halo {
-    version = '2.21'
+    version = '2.26'
     superAdminUsername = 'admin'
     superAdminPassword = 'admin'
     externalUrl = 'http://localhost:8090'
